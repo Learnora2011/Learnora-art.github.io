@@ -2178,7 +2178,6 @@
       var msg=syntaxMsg(email)||fakeMsg(email); if(msg){ return fail(msg); }
       var have=accounts(), hl=have.map(function(x){return x.toLowerCase();});
       if(hl.indexOf(email)>-1) return fail(m('used'));
-      if(have.length) return fail(m('device')+mask(have[0]));
       busy=true; var label=btn?btn.innerHTML:''; if(btn){ btn.disabled=true; btn.innerText=m('checking'); }
       domainState(email.split('@')[1]).then(function(st){
         busy=false; if(btn){ btn.disabled=false; btn.innerHTML=label; }
