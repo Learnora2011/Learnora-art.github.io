@@ -634,6 +634,11 @@
     background: #fff1e0 !important; color: #9a4a17 !important; border: 1px solid #f0c9a0 !important; font-size: .9rem !important; padding: 8px 14px !important; border-radius: 14px !important; }
   body.vm-full:not(.auth-mode) .vm-back:hover, body.vm-full:not(.auth-mode) #g-back:hover, body.vm-full:not(.auth-mode) button[onclick^="showHub"]:hover { background: #ffe3c4 !important; }
   body.vm-full:not(.auth-mode) #page-tabs button { border: 1px solid #f0c9a0; }
+  /* bug-report link at the bottom: readable on the white pages (sunset-orange pill instead of white text) */
+  body.vm-full:not(.auth-mode) footer { color: #8a3b12 !important; text-shadow: none !important; }
+  body.vm-full:not(.auth-mode) footer a { color: #b84a14 !important; text-shadow: none !important; text-decoration: underline !important; text-underline-offset: 3px;
+    display: inline-block; background: #fff1e0; border: 1px solid #f0c9a0; border-radius: 999px; padding: 8px 18px; transition: background .2s; }
+  body.vm-full:not(.auth-mode) footer a:hover { background: #ffe3c4; color: #9a3a0c !important; }
 </style>
 </head>
 <body class="auth-mode gradient-bg min-h-screen text-slate-800 font-sans antialiased flex flex-col justify-between selection:bg-pink-300 selection:text-purple-900 relative overflow-x-hidden">
