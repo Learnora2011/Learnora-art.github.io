@@ -578,6 +578,63 @@
   /* "continue learning" strip / progress text on the home page */
   body:not(.auth-mode):not(.in-category) #hub-view .text-purple-600, body:not(.auth-mode):not(.in-category) #hub-view .text-pink-600 { color: #ffc27a !important; }
 </style>
+<style id="learnora-games-compact">
+  /* ===== Games menu: small cards (2 per row on phones), same look as the home categories, ready for many games ===== */
+  .gm-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (min-width: 640px)  { .gm-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } }
+  @media (min-width: 1024px) { .gm-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .gm-card { position: relative; display: flex; flex-direction: column; border-radius: 18px; padding: 10px; border: 1.5px solid #d9a27c; background: #fff7ee; box-shadow: 0 10px 22px -14px rgba(0,0,0,.45); }
+  .gm-soon { border: 1px solid rgba(160,120,90,.25); background: rgba(255,255,255,.55); opacity: .8; box-shadow: none; }
+  .gm-ic { height: 38px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; margin-bottom: 8px; background: rgba(214,120,60,.15); }
+  .gm-badge { position: absolute; top: 6px; right: 6px; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: #c2410c; color: #fff; }
+  .gm-soon .gm-badge { background: rgba(100,90,80,.2); color: #5b4636; }
+  .gm-t { font-size: .82rem; font-weight: 800; line-height: 1.25; margin-bottom: 4px; color: #2b1a10; }
+  .gm-d { font-size: 11px; line-height: 1.35; color: #6b5646; margin-bottom: 6px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .gm-best { font-size: 11px; font-weight: 800; color: #b45309; margin-bottom: 6px; }
+  .gm-btn { margin-top: auto; width: 100%; padding: 7px 8px; border-radius: 12px; background: linear-gradient(90deg, #f0a04b, #d4572f); color: #fff; font-size: .78rem; font-weight: 800; text-align: center; box-shadow: 0 6px 14px -8px rgba(212,87,47,.8); transition: transform .15s, filter .2s; -webkit-tap-highlight-color: transparent; }
+  .gm-btn:hover { filter: brightness(1.08); } .gm-btn:active { transform: scale(.96); }
+</style>
+<style id="learnora-white-pages">
+  /* ===== Every sub page (lessons, grammar, games, policy): plain white, full screen, no home background, bigger text ===== */
+  body.vm-full:not(.auth-mode) #app-bg, body.vm-full:not(.auth-mode) .bg-art, body.vm-full:not(.auth-mode) .creature { display: none !important; }
+  body.vm-full:not(.auth-mode) { background: #ffffff !important; }
+  body.vm-full:not(.auth-mode) .container { max-width: 100% !important; padding: 0 !important; justify-content: flex-start !important; }
+  body.vm-full:not(.auth-mode) #main-view { margin: 0 !important; width: 100% !important; }
+  body.vm-full:not(.auth-mode) #lesson-view, body.vm-full:not(.auth-mode) #grammar-view, body.vm-full:not(.auth-mode) .vm-page { max-width: 100% !important; margin: 0 !important; }
+
+  /* bigger text (about +9%) - everything sized in rem grows with it */
+  html:has(body.vm-full:not(.auth-mode)) { font-size: 19px !important; }
+  body.vm-full:not(.auth-mode) .text-\[12px\] { font-size: 13.5px !important; }
+  body.vm-full:not(.auth-mode) .text-\[11px\] { font-size: 12.5px !important; }
+  body.vm-full:not(.auth-mode) .gm-d, body.vm-full:not(.auth-mode) .gm-best { font-size: 12.5px; }
+  body.vm-full:not(.auth-mode) .gm-badge { font-size: 11px; }
+  body.vm-full:not(.auth-mode) .gm-t { font-size: .95rem; }
+
+  /* cards: solid white with a soft sunset-tinted edge (no see-through, no blur) */
+  body.vm-full:not(.auth-mode) .bg-white\/90, body.vm-full:not(.auth-mode) .bg-white\/95, body.vm-full:not(.auth-mode) .bg-white\/80, body.vm-full:not(.auth-mode) .bg-white {
+    background-color: #ffffff !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    border-color: #f3dcc4 !important; box-shadow: 0 4px 14px -8px rgba(150,70,20,.28) !important; }
+
+  /* full-bleed header bars + page panels: no outer frame */
+  body.vm-full:not(.auth-mode) #lesson-view > div:first-child, body.vm-full:not(.auth-mode) #grammar-view > div:first-child {
+    border-radius: 0 !important; border-width: 0 0 1px 0 !important; box-shadow: 0 6px 16px -14px rgba(150,70,20,.4) !important;
+    margin-bottom: 14px !important; padding: 14px max(16px, calc((100vw - 1180px) / 2)) !important; }
+  body.vm-full:not(.auth-mode) .vm-page > div {
+    background: #ffffff !important; border-radius: 0 !important; border: 0 !important; box-shadow: none !important;
+    min-height: 100vh !important; padding: 14px max(16px, calc((100vw - 1180px) / 2)) 40px !important; }
+  body.vm-full:not(.auth-mode) #sentences-container, body.vm-full:not(.auth-mode) #no-results, body.vm-full:not(.auth-mode) #grammar-list {
+    margin-left: max(14px, calc((100vw - 1180px) / 2)) !important; margin-right: max(14px, calc((100vw - 1180px) / 2)) !important; }
+  body.vm-full:not(.auth-mode) #sentences-container { padding-bottom: 40px; }
+  body.vm-full:not(.auth-mode) #grammar-lesson {
+    border-radius: 0 !important; border-width: 0 !important; box-shadow: none !important; background: transparent !important;
+    padding: 6px max(16px, calc((100vw - 1180px) / 2)) 40px !important; }
+
+  /* buttons follow the home-page sunset palette */
+  body.vm-full:not(.auth-mode) .vm-back, body.vm-full:not(.auth-mode) #g-back, body.vm-full:not(.auth-mode) button[onclick^="showHub"] {
+    background: #fff1e0 !important; color: #9a4a17 !important; border: 1px solid #f0c9a0 !important; font-size: .9rem !important; padding: 8px 14px !important; border-radius: 14px !important; }
+  body.vm-full:not(.auth-mode) .vm-back:hover, body.vm-full:not(.auth-mode) #g-back:hover, body.vm-full:not(.auth-mode) button[onclick^="showHub"]:hover { background: #ffe3c4 !important; }
+  body.vm-full:not(.auth-mode) #page-tabs button { border: 1px solid #f0c9a0; }
+</style>
 </head>
 <body class="auth-mode gradient-bg min-h-screen text-slate-800 font-sans antialiased flex flex-col justify-between selection:bg-pink-300 selection:text-purple-900 relative overflow-x-hidden">
 
@@ -1051,44 +1108,8 @@
           </div>
           <div id="games-menu">
             <p class="text-xs sm:text-sm text-slate-500 mb-4" data-i18n="k38">เล่นสนุกพร้อมฝึกภาษาอังกฤษ สะสมคะแนนให้สูงที่สุด!</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              <div class="relative rounded-3xl p-4 sm:p-5 border-2 border-pink-400 bg-gradient-to-b from-white to-pink-50 shadow-lg shadow-pink-900/10">
-                <span class="absolute top-3 right-3 bg-pink-600 text-white text-[12px] font-bold px-2.5 py-1 rounded-full" data-i18n="k39">เล่นได้เลย</span>
-                <div class="h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-2xl mb-3">🧠</div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">Vocabulary Quiz</h3>
-                <p class="text-xs text-slate-500 leading-relaxed mt-1 mb-3" data-i18n="k40">ทายความหมายคำศัพท์ 10 ข้อ ตอบถูกติดกันได้คะแนนโบนัส ฟังเสียงคำได้</p>
-                <div id="quiz-best" class="text-xs font-bold text-amber-600 mb-3">🏆 คะแนนสูงสุด: 0</div>
-                <button type="button" onclick="vmStartQuiz()" class="w-full py-2.5 rounded-2xl gradient-btn text-white text-sm font-bold shadow-md active:scale-95 transition" data-i18n="k42">▶ เริ่มเกม</button>
-              </div>
-              <div class="relative rounded-3xl p-4 sm:p-5 border border-purple-100 bg-purple-50/60 opacity-60 select-none">
-                <span class="absolute top-3 right-3 bg-slate-300 text-slate-600 text-[12px] font-bold px-2.5 py-1 rounded-full">Coming Soon</span>
-                <div class="h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-2xl mb-3">✏️</div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-600">Grammar Challenge</h3>
-                <p class="text-xs text-slate-500 leading-relaxed mt-1 mb-3" data-i18n="k43">เลือกคำตอบที่ถูกต้องตามหลักไวยากรณ์ จับเวลาท้าทายตัวเอง</p>
-                <div class="w-full py-2.5 rounded-2xl bg-slate-200 text-slate-400 text-sm font-bold text-center cursor-not-allowed">Coming Soon</div>
-              </div>
-              <div class="relative rounded-3xl p-4 sm:p-5 border border-purple-100 bg-purple-50/60 opacity-60 select-none">
-                <span class="absolute top-3 right-3 bg-slate-300 text-slate-600 text-[12px] font-bold px-2.5 py-1 rounded-full">Coming Soon</span>
-                <div class="h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-2xl mb-3">🧩</div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-600">Word Matching</h3>
-                <p class="text-xs text-slate-500 leading-relaxed mt-1 mb-3" data-i18n="k44">จับคู่คำศัพท์ภาษาอังกฤษกับความหมายภาษาไทยให้ถูกต้อง</p>
-                <div class="w-full py-2.5 rounded-2xl bg-slate-200 text-slate-400 text-sm font-bold text-center cursor-not-allowed">Coming Soon</div>
-              </div>
-              <div class="relative rounded-3xl p-4 sm:p-5 border border-purple-100 bg-purple-50/60 opacity-60 select-none">
-                <span class="absolute top-3 right-3 bg-slate-300 text-slate-600 text-[12px] font-bold px-2.5 py-1 rounded-full">Coming Soon</span>
-                <div class="h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-2xl mb-3">🔤</div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-600">Sentence Puzzle</h3>
-                <p class="text-xs text-slate-500 leading-relaxed mt-1 mb-3" data-i18n="k45">เรียงคำให้เป็นประโยคภาษาอังกฤษที่ถูกต้อง</p>
-                <div class="w-full py-2.5 rounded-2xl bg-slate-200 text-slate-400 text-sm font-bold text-center cursor-not-allowed">Coming Soon</div>
-              </div>
-              <div class="relative rounded-3xl p-4 sm:p-5 border border-purple-100 bg-purple-50/60 opacity-60 select-none">
-                <span class="absolute top-3 right-3 bg-slate-300 text-slate-600 text-[12px] font-bold px-2.5 py-1 rounded-full">Coming Soon</span>
-                <div class="h-12 rounded-2xl bg-slate-200 flex items-center justify-center text-2xl mb-3">🎧</div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-600">Listening Challenge</h3>
-                <p class="text-xs text-slate-500 leading-relaxed mt-1 mb-3" data-i18n="k46">ฟังเสียงแล้วเลือกคำหรือประโยคที่ได้ยินให้ถูกต้อง</p>
-                <div class="w-full py-2.5 rounded-2xl bg-slate-200 text-slate-400 text-sm font-bold text-center cursor-not-allowed">Coming Soon</div>
-              </div>
-            </div>
+            <div id="games-grid" class="gm-grid"></div>
+      
           </div>
           <div id="game-play" class="hidden"></div>
         </div>
@@ -1994,7 +2015,7 @@
   }
   window.vmLangRefresh = function () {
     lastLabel = ''; renderPresence();
-    var b = $('quiz-best'); if (b) b.textContent = ((window.vmIsEn && window.vmIsEn()) ? '🏆 High score: ' : '🏆 คะแนนสูงสุด: ') + bestScore();
+    renderGamesGrid();
   };
   function presenceTick() {
     var inNow = !!activeUser();
@@ -2045,10 +2066,38 @@
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
   function bestScore() { return Number(lsGet(BEST_KEY)) || 0; }
   function stopGame() { if (gameTimer) { clearTimeout(gameTimer); gameTimer = null; } quiz = null; }
+  /* =====================================================================
+     GAMES LIST  -  to add a game: add one line here (and write its start function).
+       playable : add  play: 'vmStartMyGame()'
+       soon     : leave out  play  (shows a small "Coming Soon" badge)
+     ===================================================================== */
+  var GAMES = [
+    { id: 'vocab',     icon: '🧠', title: 'Vocabulary Quiz',     th: 'ทายความหมายคำศัพท์ 10 ข้อ ตอบถูกติดกันได้คะแนนโบนัส ฟังเสียงคำได้', en: 'Guess the meaning of 10 words. Correct streaks earn bonus points. Listen to each word.', play: 'vmStartQuiz()', best: true },
+    { id: 'grammar',   icon: '✏️', title: 'Grammar Challenge',   th: 'เลือกคำตอบที่ถูกต้องตามหลักไวยากรณ์ จับเวลาท้าทายตัวเอง', en: 'Choose the correct answer by grammar rules and challenge yourself against the clock' },
+    { id: 'matching',  icon: '🧩', title: 'Word Matching',       th: 'จับคู่คำศัพท์ภาษาอังกฤษกับความหมายภาษาไทยให้ถูกต้อง', en: 'Match English words with their Thai meanings' },
+    { id: 'puzzle',    icon: '🔤', title: 'Sentence Puzzle',     th: 'เรียงคำให้เป็นประโยคภาษาอังกฤษที่ถูกต้อง', en: 'Arrange the words into a correct English sentence' },
+    { id: 'listening', icon: '🎧', title: 'Listening Challenge', th: 'ฟังเสียงแล้วเลือกคำหรือประโยคที่ได้ยินให้ถูกต้อง', en: 'Listen and choose the word or sentence you hear' }
+  ];
+  function renderGamesGrid() {
+    var el = $('games-grid'); if (!el) return;
+    var en = !!(window.vmIsEn && window.vmIsEn());
+    el.innerHTML = GAMES.map(function (g) {
+      var on = !!g.play;
+      return '<div class="gm-card ' + (on ? 'gm-play' : 'gm-soon') + '">' +
+        '<span class="gm-badge">' + (on ? (en ? 'Play now' : 'เล่นได้เลย') : 'Coming Soon') + '</span>' +
+        '<div class="gm-ic">' + g.icon + '</div>' +
+        '<h3 class="gm-t">' + g.title + '</h3>' +
+        '<p class="gm-d">' + (en ? g.en : g.th) + '</p>' +
+        (g.best ? '<div class="gm-best" id="quiz-best">' + (en ? '🏆 High score: ' : '🏆 คะแนนสูงสุด: ') + bestScore() + '</div>' : '') +
+        (on ? '<button type="button" class="gm-btn" onclick="' + g.play + '">' + (en ? '▶ Start game' : '▶ เริ่มเกม') + '</button>' : '') +
+        '</div>';
+    }).join('');
+  }
   function renderGamesHome() {
     stopGame();
     $('game-play').classList.add('hidden'); $('game-play').textContent = '';
     $('games-menu').classList.remove('hidden');
+    renderGamesGrid();
     var b = $('quiz-best'); if (b) b.textContent = ((window.vmIsEn && window.vmIsEn()) ? '🏆 High score: ' : '🏆 คะแนนสูงสุด: ') + bestScore();
   }
   window.vmStartQuiz = function () {
