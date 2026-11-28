@@ -978,6 +978,20 @@
   /* page titles: plain text instead of the orange gradient */
   .vm-page .vm-title.gradient-text, #page-policy .vm-title.gradient-text { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--sd-txt) !important; font-weight: 700 !important; }
 </style>
+<style id="learnora-cat-match">
+  /* full-screen pages: same background tone as the home page at every brightness level (dark range was jumping to near-black) */
+  body.vm-full.bg-dk:not(.auth-mode) { background: var(--vm-pagebg, #f1e1f5) !important; }
+  body.vm-full.bg-dk:not(.auth-mode) .vm-page > div,
+  body.vm-full.bg-dk:not(.auth-mode) #lesson-view > div:first-child,
+  body.vm-full.bg-dk:not(.auth-mode) #grammar-view > div:first-child { background-color: var(--vm-pagebg, #e8d6ec) !important; }
+  body.vm-full.bg-dk:not(.auth-mode) .bg-white\/90, body.vm-full.bg-dk:not(.auth-mode) .bg-white\/95,
+  body.vm-full.bg-dk:not(.auth-mode) .bg-white\/80, body.vm-full.bg-dk:not(.auth-mode) .bg-white { background-color: var(--vm-cardbg, #e8d6ec) !important; }
+  body.vm-full.bg-dk:not(.auth-mode) .gm-card, body.vm-full.bg-dk:not(.auth-mode) .tile, body.vm-full.bg-dk:not(.auth-mode) details.vm-pol { background: var(--vm-cardbg, #fff8ee) !important; }
+</style>
+<style id="learnora-auth-brand">
+  /* new Learnora logo on the login, sign-up and forgot-password pages */
+  .auth-brand { width: min(150px, 48%); aspect-ratio: 380 / 357; margin: 0 auto; border-radius: 18px; background: #fff url(data:image/webp;base64,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) center / contain no-repeat; box-shadow: 0 12px 30px -16px rgba(0,0,0,.6); }
+</style>
 </head>
 
 <body class="auth-mode gradient-bg min-h-screen text-slate-800 font-sans antialiased flex flex-col justify-between selection:bg-pink-300 selection:text-purple-900 relative overflow-x-hidden">
@@ -1161,22 +1175,23 @@
       <div id="login-card" class="relative bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-9 md:p-11 shadow-2xl border border-purple-100">
         <div class="lang-slot absolute top-3 right-3 sm:top-4 sm:right-4 z-20"></div>
         <div class="text-center mb-6 pt-8 sm:pt-0">
-          <svg class="auth-logo mx-auto" viewBox="0 0 64 64" aria-hidden="true"><use href="#learnora-logo"/></svg>
+          <div class="auth-brand" role="img" aria-label="Learnora English Learning App"></div>
           <h2 class="auth-title text-2xl sm:text-3xl font-bold mt-2"><span data-i18n="login_a">เข้าสู่ระบบ</span> <span class="brand">Learnora</span></h2>
           <p class="text-slate-500 text-sm sm:text-base mt-1" data-i18n="subtitle">เรียนรู้ภาษาอังกฤษได้ทุกที่ ทุกเวลา</p>
         </div>
         
+        <div id="login-info" class="text-sm text-emerald-700 font-bold hidden text-center bg-emerald-50 py-2.5 px-3 rounded-xl border border-emerald-200 mb-4"></div>
         <div id="login-error-msg" class="text-sm text-red-500 font-bold hidden text-center bg-red-50 py-2.5 px-3 rounded-xl border border-red-200 mb-4"></div>
 
         <form id="login-form" onsubmit="handleLogin(event)" class="space-y-4">
           <div>
             <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-i18n="email">อีเมล (Email)</label>
-            <input type="email" id="login-email" required placeholder="user@example.com" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+            <input type="email" id="login-email" required autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="user@example.com" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
           </div>
           <div>
             <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-i18n="password">รหัสผ่าน (Password)</label>
             <div class="relative">
-              <input type="password" id="login-pass" required placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 pr-12 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+              <input type="password" id="login-pass" required autocomplete="off" placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 pr-12 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
               <button type="button" onclick="togglePassVisibility(['login-pass'], this)" class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-xl text-slate-400 hover:text-purple-600 focus:outline-none">👁️</button>
             </div>
           </div>
@@ -1190,7 +1205,7 @@
       <div id="signup-card" class="relative hidden bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-9 md:p-11 shadow-2xl border border-purple-100">
         <div class="lang-slot absolute top-3 right-3 sm:top-4 sm:right-4 z-20"></div>
         <div class="text-center mb-6 pt-8 sm:pt-0">
-          <svg class="auth-logo mx-auto" viewBox="0 0 64 64" aria-hidden="true"><use href="#learnora-logo"/></svg>
+          <div class="auth-brand" role="img" aria-label="Learnora English Learning App"></div>
           <h2 class="auth-title text-2xl sm:text-3xl font-bold mt-2"><span data-i18n="signup_a">สมัครสมาชิก</span> <span class="brand">Learnora</span></h2>
           <p class="text-slate-500 text-sm sm:text-base mt-1" data-i18n="subtitle">เรียนรู้ภาษาอังกฤษได้ทุกที่ ทุกเวลา</p>
         </div>
@@ -1240,7 +1255,7 @@
       <div id="forgot-card" class="relative hidden bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-9 md:p-11 shadow-2xl border border-purple-100">
         <div class="lang-slot absolute top-3 right-3 sm:top-4 sm:right-4 z-20"></div>
         <div class="text-center mb-6 pt-8 sm:pt-0">
-          <svg class="auth-logo mx-auto" viewBox="0 0 64 64" aria-hidden="true"><use href="#learnora-logo"/></svg>
+          <div class="auth-brand" role="img" aria-label="Learnora English Learning App"></div>
           <h2 class="auth-title text-2xl sm:text-3xl font-bold mt-2"><span data-fg="ตั้งรหัสผ่านใหม่|Reset password">ตั้งรหัสผ่านใหม่</span></h2>
           <p class="text-slate-500 text-sm sm:text-base mt-1" id="fg-sub" data-fg="กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยันไปให้|Enter the email you signed up with and we will send you a code">กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยันไปให้</p>
         </div>
@@ -1248,30 +1263,33 @@
         <form id="fg-form1" class="fg-step space-y-4" onsubmit="vmForgotCheck(event)">
           <div>
             <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="อีเมล (Email)|Email">อีเมล (Email)</label>
-            <input type="email" id="fg-email" required placeholder="user@example.com" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+            <input type="email" id="fg-email" required autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="user@example.com" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
           </div>
           <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="ตรวจสอบอีเมล|Continue">ตรวจสอบอีเมล</button>
         </form>
         <form id="fg-form2" class="fg-step hidden space-y-4" onsubmit="vmForgotSave(event)">
           <div class="text-center text-sm font-bold text-slate-500" id="fg-who"></div>
           <div id="fg-note" class="text-sm text-center rounded-xl py-2.5 px-3 bg-amber-50 border border-amber-200 text-amber-800 hidden"></div>
-          <div id="fg-codebox">
-            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสยืนยันจากอีเมล|Verification code from the email">รหัสยืนยันจากอีเมล</label>
+          <div id="fg-codebox" class="space-y-3">
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสยืนยัน 6 หลักจากอีเมล|6-digit code from the email">รหัสยืนยัน 6 หลักจากอีเมล</label>
             <input type="text" id="fg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition tracking-widest text-center">
-            <div class="text-right mt-1"><button type="button" id="fg-resend" onclick="vmForgotResend()" class="text-purple-600 font-bold text-sm underline" data-fg="ส่งรหัสอีกครั้ง|Resend code">ส่งรหัสอีกครั้ง</button></div>
+            <div class="text-right"><button type="button" id="fg-resend" onclick="vmForgotResend()" class="text-purple-600 font-bold text-sm underline disabled:opacity-60 disabled:no-underline">ส่งรหัสอีกครั้ง</button></div>
+            <button type="button" id="fg-vbtn" onclick="vmForgotVerify()" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="ยืนยันรหัส|Verify code">ยืนยันรหัส</button>
           </div>
-          <div>
-            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)|New password (at least 8 characters, letters and numbers)">รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)</label>
-            <div class="relative">
-              <input type="password" id="fg-pass" required placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition pr-12">
-              <button type="button" onclick="togglePassVisibility(['fg-pass','fg-pass2'], this)" class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-xl text-slate-400 hover:text-purple-600 focus:outline-none">👁️</button>
+          <div id="fg-pwbox" class="hidden space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)|New password (at least 8 characters, letters and numbers)">รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)</label>
+              <div class="relative">
+                <input type="password" id="fg-pass" placeholder="••••••••" autocomplete="new-password" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition pr-12">
+                <button type="button" onclick="togglePassVisibility(['fg-pass','fg-pass2'], this)" class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-xl text-slate-400 hover:text-purple-600 focus:outline-none">👁️</button>
+              </div>
             </div>
+            <div>
+              <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="ยืนยันรหัสผ่านใหม่|Confirm new password">ยืนยันรหัสผ่านใหม่</label>
+              <input type="password" id="fg-pass2" placeholder="••••••••" autocomplete="new-password" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+            </div>
+            <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="บันทึกรหัสผ่านใหม่|Save new password">บันทึกรหัสผ่านใหม่</button>
           </div>
-          <div>
-            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="ยืนยันรหัสผ่านใหม่|Confirm new password">ยืนยันรหัสผ่านใหม่</label>
-            <input type="password" id="fg-pass2" required placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
-          </div>
-          <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="บันทึกรหัสผ่านใหม่|Save new password">บันทึกรหัสผ่านใหม่</button>
         </form>
         <p class="text-center text-sm text-slate-500 mt-6"><button type="button" onclick="toggleAuth('login')" class="text-purple-600 font-bold underline" data-fg="← กลับไปเข้าสู่ระบบ|← Back to log in">← กลับไปเข้าสู่ระบบ</button></p>
       </div>
@@ -1996,7 +2014,7 @@
       let entered = false; try { entered = sessionStorage.getItem('vm_entered') === '1'; } catch (e) { entered = true; }
       if (active && !entered) {
         /* opened the site again: always start at the login page (pre-fill the saved e-mail) */
-        try { const u0 = JSON.parse(active); const le = document.getElementById('login-email'); if (le && !le.value && u0 && u0.email) le.value = u0.email; } catch (e) {}
+        
         active = null;
       }
       if (active) {
@@ -2919,8 +2937,14 @@
     var v=st.auto?autoVal():st.v, t=v/100, r=document.documentElement.style;
     r.setProperty('--dark',Math.max(0,Math.min(1,(0.6-t)/0.3)).toFixed(3));
     document.body.classList.toggle('bg-light',t>=0.5); document.body.classList.toggle('bg-dk',t<0.5); r.setProperty('--vm-b',(0.74+0.26*Math.min(1,v/50)).toFixed(3));
+    /* full-screen pages (inverted when dark): pick the pre-filter colour so that, after the filter, the page has EXACTLY the tone of the home background */
+    (function(){ var d=Math.max(0,Math.min(1,(0.6-t)/0.3)), B=0.74+0.26*Math.min(1,v/50);
+      function pre(add){ var T=[35+108*(1-d)+add,19+102*(1-d)+add,35+78*(1-d)+add], q=[T[0]/B,T[1]/B,T[2]/B];
+        var X=[255-(-0.574*q[0]+1.430*q[1]+0.144*q[2]),255-(0.426*q[0]+0.430*q[1]+0.144*q[2]),255-(0.426*q[0]+1.430*q[1]-0.856*q[2])];
+        return 'rgb('+X.map(function(x){return Math.round(Math.max(0,Math.min(255,x)));}).join(',')+')'; }
+      r.setProperty('--vm-pagebg',pre(0)); r.setProperty('--vm-cardbg',pre(14)); })();
     var dm=document.getElementById('vm-dim'); if(!dm){ dm=document.createElement('div'); dm.id='vm-dim'; dm.setAttribute('aria-hidden','true'); document.body.appendChild(dm); }
-    var w=v>=70?0:(70-v)/70, k=v>=70?1:0.62+0.38*(v/70);
+    var w=v>=60?0:(60-v)/60, k=v>=60?1:(v>=50?0.909+0.0091*(v-50):0.909);   /* same curve as the home page: full brightness from 60%, -9% at 50% */
     dm.style.backgroundColor='rgb('+Math.round(255*k)+','+Math.round(255*k*(1-0.05*w))+','+Math.round(255*k*(1-0.2*w))+')';
     if(slider){ slider.value=v; chk.checked=st.auto; val.textContent=v+'%'; btn.textContent=t>=0.5?'☀️':'🌙'; }
   }
@@ -2972,6 +2996,7 @@
   var SK = 'vm_settings_v1', PFX = 'vm_stats_v1_';
   var set = Object.assign({ sound: true, rate: 0.75, fs: 'm', goal: 10, read: true, tr: true, calm: false, prof: {} }, jget(SK, {}));
   function saveSet() { jset(SK, set); }
+  window.vmReloadSet = function () { var o = jget(SK, {}) || {}; Object.keys(o).forEach(function (k) { set[k] = o[k]; }); applySet(); };
   function user() { var u = jget('active_user', null); return u && typeof u === 'object' ? u : null; }
   function ukey() { var u = user(); return u && u.email ? String(u.email).toLowerCase() : null; }
   function prof() { var k = ukey(); if (!k) return { name: '', av: '🧑‍🎓' }; var p = set.prof[k] || {}; var u = user(); return { name: p.name || (u && u.name) || '', av: p.av || '🧑‍🎓' }; }
@@ -3362,13 +3387,12 @@ window.LEARNORA_EMAIL = {
 })();
 </script>
 <script>
-/* After logging out: the password boxes are emptied, the e-mail stays in the login form. */
+/* After logging out: the password AND e-mail boxes of the login form are emptied (no default e-mail). */
 (function () {
   var $ = function (id) { return document.getElementById(id); };
   var ocl = window.confirmLogout;
   if (typeof ocl === 'function') window.confirmLogout = function () {
-    try { var a = JSON.parse(localStorage.getItem('active_user') || 'null'); if (a && a.email) localStorage.setItem('vm_last_email', a.email); } catch (x) {}
-    return ocl.apply(this, arguments);
+        return ocl.apply(this, arguments);
   };
   var ocs = window.checkSession;
   if (typeof ocs === 'function') window.checkSession = function () {
@@ -3377,7 +3401,7 @@ window.LEARNORA_EMAIL = {
       var av = $('auth-view');
       if (av && !av.classList.contains('hidden')) {
         ['login-pass', 'signup-pass', 'signup-pass-confirm', 'fg-pass', 'fg-pass2'].forEach(function (id) { var el = $(id); if (el) { el.value = ''; el.type = 'password'; } });
-        var le = $('login-email'), last = localStorage.getItem('vm_last_email'); if (le && !le.value && last) le.value = last;
+        var le = $('login-email'); if (le) le.value = ''; var fe = $('fg-email'); if (fe) fe.value = ''; try { localStorage.removeItem('vm_last_email'); } catch (x2) {}
       }
     } catch (x) {}
     return r;
@@ -3498,7 +3522,7 @@ window.LEARNORA_EMAIL = {
 
   var SKEY = 'vm_sb_sess', META = 'vm_sync_meta', DIRTY = 'vm_sync_dirty', QB = 'vm_game_quiz_best_v1';
   var _set = Storage.prototype.setItem, _del = Storage.prototype.removeItem;
-  var SESS = g(SKEY), applying = false, dirty = false, force = false, chg = 0, timer = null, busy = null, again = false, lastSent = '', status = { s: 'idle' };
+  var SESS = g(SKEY), applying = false, dirty = false, force = false, chg = 0, timer = null, syncBusy = null, again = false, lastSent = '', status = { s: 'idle' };
   try { dirty = localStorage.getItem(DIRTY) === '1'; } catch (x) {}
 
   function email() { var u = g('active_user'); return u && u.email ? String(u.email).toLowerCase() : null; }
@@ -3633,14 +3657,14 @@ window.LEARNORA_EMAIL = {
   function syncNow(o) {
     o = o || {};
     if (!cfgOk() || !SESS || !email() || SESS.e !== email()) { paint(); return Promise.resolve(false); }
-    if (busy) { again = true; return busy; }
+    if (syncBusy) { again = true; return syncBusy; }
     setStatus('sync');
-    busy = run(o).then(function (ch) { busy = null; setStatus('ok'); if (again) { again = false; schedule(800); } return !!ch; }, function (x) {
-      busy = null; again = false;
+    syncBusy = run(o).then(function (ch) { syncBusy = null; setStatus('ok'); if (again) { again = false; schedule(800); } return !!ch; }, function (x) {
+      syncBusy = null; again = false;
       if (!SESS) setStatus('idle'); else setStatus('err', x && x.message === 'refresh' ? T('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 'Session expired, please log in again') : (navigator.onLine === false ? T('ออฟไลน์ — จะส่งให้เมื่อออนไลน์', 'Offline — will upload when back online') : (x && x.message) || ''));
       return false;
     });
-    return busy;
+    return syncBusy;
   }
   /* last-chance upload when the tab is hidden / closed (no merge, tiny payload, keepalive) */
   function flush() {
@@ -3666,19 +3690,23 @@ window.LEARNORA_EMAIL = {
   setInterval(function () { if (!document.hidden) syncNow(); }, 60000);
 
   /* ---------- entering the app after a successful Supabase login ---------- */
-  function enter(u, welcome) {
+  function prep(u) {
     try { var old = g('user_' + u.email) || {}; delete old.pass; old.name = u.name; old.email = u.email; _set.call(localStorage, 'user_' + u.email, JSON.stringify(old)); } catch (x) {}
     var m = readMeta();
     if (m && m.owner && m.owner !== u.email) { _del.call(localStorage, 'vm_grammar'); _del.call(localStorage, QB); }   /* device-wide keys belong to the previous account */
     _set.call(localStorage, 'active_user', JSON.stringify(u));
     try { sessionStorage.setItem('vm_entered', '1'); } catch (x) {}
     lastSent = '';
+    return syncNow({ initial: true });
+  }
+  function enter(u, welcome, ready, done) {
     var fin = false, go = function (reload) {
       if (fin) return; fin = true;
+      if (done) done();
       if (reload) { location.reload(); return; }
       checkSession(); if (welcome) speakText("Welcome to Learnora! Let's start learning English together.", 0.9);
     };
-    syncNow({ initial: true }).then(go);
+    (ready || prep(u)).then(go, function () { go(false); });
     setTimeout(function () { go(false); }, 7000);
   }
   function verifyCode(mail, code) {
@@ -3789,6 +3817,253 @@ window.LEARNORA_EMAIL = {
     }).catch(function () { if (btn) btn.disabled = false; fgErr(T('เชื่อมต่อไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Connection failed. Check your internet and try again.')); });
   };
 
+  /* =====================================================================================
+     Auth flow v2 – sign-up (name / e-mail / password) -> animated status -> 6-digit code (30 s resend timer)
+     -> back to a clean login page -> first login opens "Profile setup" -> Home.  Forgot password: e-mail -> status -> code -> new password.
+     Each place has its own status animation: sign-up (orbit), forgot (mail flight), login (walk in), logout (walk out).
+     ===================================================================================== */
+  var DISP2 = 'mailinator.com guerrillamail.com guerrillamail.net sharklasers.com 10minutemail.com 10minutemail.net tempmail.com temp-mail.org temp-mail.io tempmailo.com yopmail.com yopmail.fr trashmail.com trashmail.net throwawaymail.com getnada.com maildrop.cc dispostable.com fakeinbox.com mailnesia.com mohmal.com emailondeck.com tempinbox.com moakt.com 1secmail.com 1secmail.net 1secmail.org burnermail.io'.split(' ');
+  function delay(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function lower(id) { return ($(id).value || '').trim().toLowerCase(); }
+
+  /* --- status overlays --- */
+  var busyEl = null;
+  function busyBuild() {
+    if (busyEl) return busyEl;
+    var st = document.createElement('style');
+    st.textContent =
+      '#vm-busy{position:fixed;inset:0;z-index:95;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(24,8,8,.6);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}' +
+      '#vm-busy.on{display:flex}#vm-busy .bb{--ac:#ffb36b;--bg:#22111a;position:relative;overflow:hidden;isolation:isolate;width:100%;max-width:300px;border-radius:24px;padding:26px 20px 22px;text-align:center;color:#fff3e6;background:var(--bg);box-shadow:0 0 46px -12px var(--ac),0 30px 60px -24px rgba(0,0,0,.8);animation:bbIn .25s ease-out}' +
+      '#vm-busy .bb::before{content:"";position:absolute;inset:-80%;z-index:-2;background:conic-gradient(from 0deg,transparent 0 62%,var(--ac) 100%);animation:bbRot 2.6s linear infinite}' +
+      '#vm-busy .bb::after{content:"";position:absolute;inset:1.5px;z-index:-1;border-radius:22.5px;background:radial-gradient(120% 90% at 50% 0%,color-mix(in srgb,var(--ac) 16%,var(--bg)),var(--bg) 70%)}' +
+      '#vm-busy .sw{position:absolute;top:0;bottom:0;width:36px;left:0;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--ac) 45%,transparent),transparent);animation:bbSweep 2.4s ease-in-out infinite;mix-blend-mode:screen}' +
+      '#vm-busy .rg{fill:none;stroke:var(--ac);stroke-width:1.6;transform-box:fill-box;transform-origin:center;opacity:0;animation:bbRing 2.4s ease-out infinite}#vm-busy .rg:nth-of-type(2){animation-delay:.8s}#vm-busy .rg:nth-of-type(3){animation-delay:1.6s}' +
+      '#vm-busy[data-k=forgot] .bb{--ac:#5eead4;--bg:#0c1e24}#vm-busy .st{filter:drop-shadow(0 0 8px color-mix(in srgb,var(--ac) 70%,transparent))}' +
+      '#vm-busy h3{font-weight:800;font-size:1.05rem;letter-spacing:.02em;margin:10px 0 3px;text-shadow:0 0 14px color-mix(in srgb,var(--ac) 60%,transparent)}#vm-busy p{font-size:.78rem;opacity:.75;line-height:1.4;min-height:2.2em}' +
+      '#vm-busy svg{width:150px;height:104px;display:block;margin:0 auto;overflow:visible}#vm-busy .ac{stroke:var(--ac);fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:3}#vm-busy .fl{fill:var(--ac)}' +
+      '#vm-busy .bar{height:4px;border-radius:4px;background:rgba(255,255,255,.12);overflow:hidden;margin-top:14px}#vm-busy .bar i{display:block;height:100%;width:40%;border-radius:4px;background:linear-gradient(90deg,transparent,var(--ac),#fff);box-shadow:0 0 10px var(--ac);animation:bbBar 1.2s ease-in-out infinite}' +
+      /* sign-up: an ID card gets filled in, then stamped */
+      '#vm-busy .l1,#vm-busy .l2,#vm-busy .l3{stroke-dasharray:60;stroke-dashoffset:60;animation:bbDraw 2.4s ease-in-out infinite}#vm-busy .l2{animation-delay:.35s}#vm-busy .l3{animation-delay:.7s}' +
+      '#vm-busy .av{transform-origin:36px 44px;animation:bbAv 2.4s ease-in-out infinite}#vm-busy .tick{transform-origin:112px 72px;animation:bbTick 2.4s ease-in-out infinite}' +
+      /* forgot: envelope opens, the code digits pop out one by one */
+      '#vm-busy .flap{transform-origin:75px 52px;animation:bbFlap 2.4s ease-in-out infinite}#vm-busy .dg{transform-box:fill-box;transform-origin:center;opacity:0;animation:bbDig 2.4s ease-in-out infinite}' +
+      '#vm-busy .dg:nth-of-type(2){animation-delay:.12s}#vm-busy .dg:nth-of-type(3){animation-delay:.24s}#vm-busy .dg:nth-of-type(4){animation-delay:.36s}#vm-busy .dg:nth-of-type(5){animation-delay:.48s}#vm-busy .dg:nth-of-type(6){animation-delay:.6s}' +
+      '@keyframes bbDraw{0%,8%{stroke-dashoffset:60}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:60}}@keyframes bbAv{0%,100%{transform:scale(.92)}50%{transform:scale(1.04)}}' +
+      '@keyframes bbTick{0%,50%{transform:scale(0);opacity:0}62%{transform:scale(1.25);opacity:1}72%,88%{transform:scale(1);opacity:1}100%{transform:scale(0);opacity:0}}' +
+      '@keyframes bbFlap{0%,10%{transform:scaleY(1)}35%,80%{transform:scaleY(-1)}100%{transform:scaleY(1)}}@keyframes bbDig{0%,25%{opacity:0;transform:translateY(8px) scale(.4)}45%,80%{opacity:1;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(8px) scale(.4)}}' +
+      '@keyframes bbRot{to{transform:rotate(360deg)}}@keyframes bbSweep{0%{transform:translateX(-40px);opacity:0}20%,80%{opacity:1}100%{transform:translateX(310px);opacity:0}}@keyframes bbRing{0%{transform:scale(.3);opacity:.9}100%{transform:scale(1.6);opacity:0}}@keyframes bbBar{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}@keyframes bbIn{from{transform:translateY(10px) scale(.96);opacity:0}to{transform:none;opacity:1}}' +
+      '@media (prefers-reduced-motion:reduce){#vm-busy *{animation-duration:6s!important}}' +
+      '#login-info,#signup-ok{animation:bbIn .3s ease-out}';
+    document.head.appendChild(st);
+    busyEl = document.createElement('div'); busyEl.id = 'vm-busy'; busyEl.setAttribute('role', 'status'); busyEl.setAttribute('aria-live', 'polite');
+    busyEl.innerHTML = '<div class="bb"><div class="sw"></div><div class="st"></div><h3></h3><p></p><div class="bar"><i></i></div></div>';
+    document.body.appendChild(busyEl); return busyEl;
+  }
+  var busy = {
+    open: function (kind, sub) {
+      var b = busyBuild(), st = b.querySelector('.st');
+      st.innerHTML = kind === 'forgot' ? '<svg viewBox="0 0 150 104" aria-hidden="true"><circle class="rg" cx="75" cy="74" r="40"/><circle class="rg" cx="75" cy="74" r="40"/><circle class="rg" cx="75" cy="74" r="40"/><g class="dgs"><text class="dg fl" x="30" y="30" font-size="20" font-weight="800" text-anchor="middle">•</text><text class="dg fl" x="48" y="24" font-size="20" font-weight="800" text-anchor="middle">•</text><text class="dg fl" x="66" y="20" font-size="20" font-weight="800" text-anchor="middle">•</text><text class="dg fl" x="84" y="20" font-size="20" font-weight="800" text-anchor="middle">•</text><text class="dg fl" x="102" y="24" font-size="20" font-weight="800" text-anchor="middle">•</text><text class="dg fl" x="120" y="30" font-size="20" font-weight="800" text-anchor="middle">•</text></g><rect class="ac" x="30" y="52" width="90" height="44" rx="8"/><path class="ac" d="M30 92l32-24M120 92L88 68" style="opacity:.6"/><path class="ac flap" d="M30 52l45 30 45-30"/></svg>' : '<svg viewBox="0 0 150 104" aria-hidden="true"><rect class="ac" x="8" y="10" width="134" height="84" rx="14" style="opacity:.55"/><g class="av"><circle class="ac" cx="40" cy="42" r="10"/><path class="ac" d="M22 78c2-12 10-18 18-18s16 6 18 18"/></g><path class="ac l1" d="M76 36h46"/><path class="ac l2" d="M76 52h34"/><path class="ac l3" d="M76 68h42"/><g class="tick"><circle class="fl" cx="112" cy="76" r="13"/><path d="M106 76l5 5 9-10" fill="none" stroke="#2a1410" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></g></svg>';
+      b.setAttribute('data-k', kind); b.querySelector('h3').textContent = T('กำลังดำเนินการ...', 'Working on it...'); b.querySelector('p').textContent = sub || ''; b.classList.add('on');
+    },
+    close: function () { if (busyEl) busyEl.classList.remove('on'); }
+  };
+  var PM = $('processing-modal');
+  var proc = {   /* login / logout style (walking figure) – opened at once, closed when we are ready */
+    open: function (mode, title, status, icon) { PM.setAttribute('data-mode', mode); $('modal-title').innerText = title; $('modal-status').innerText = status; var ic = $('modal-icon'); if (ic) ic.innerText = icon; PM.classList.remove('hidden'); },
+    close: function () { PM.classList.add('hidden'); }
+  };
+
+  /* --- generic 30 s "resend" timer shown on the button --- */
+  var cools = {};
+  function cooldown(id, secs) {
+    var b = $(id); if (!b) return; clearInterval(cools[id]); var left = secs;
+    function paint() { b.disabled = left > 0; b.textContent = left > 0 ? T('ส่งรหัสอีกครั้งได้ใน ' + left + ' วิ', 'Resend in ' + left + ' s') : T('ส่งรหัสอีกครั้ง', 'Resend code'); }
+    paint(); cools[id] = setInterval(function () { left--; paint(); if (left <= 0) clearInterval(cools[id]); }, 1000);
+  }
+  function stopCool(id) { clearInterval(cools[id]); var b = $(id); if (b) { b.disabled = false; b.textContent = T('ส่งรหัสอีกครั้ง', 'Resend code'); } }
+
+  function domainOk2(d) {
+    function dq(n, ty) { return fetch('https://dns.google/resolve?name=' + encodeURIComponent(n) + '&type=' + ty).then(function (r) { return r.json(); }); }
+    return Promise.race([dq(d, 'MX').then(function (j) {
+      if (j.Status === 3) return false;
+      if (j.Answer && j.Answer.length) return true;
+      return dq(d, 'A').then(function (k) { return !!(k.Answer && k.Answer.length); });
+    }), delay(3500).then(function () { return true; })]).catch(function () { return true; });
+  }
+  function sendOtp(mail) {
+    return api('POST', '/auth/v1/otp', { email: mail, create_user: true }).then(function (r) { if (!r.ok) { var e = new Error('send'); e.r = r; throw e; } return true; });
+  }
+  function dropSession(j) { try { if (j && j.access_token) api('POST', '/auth/v1/logout?scope=local', null, j.access_token); } catch (x) {} }
+  function info(m) { var e = $('login-info'); if (!e) return; if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); }
+
+  /* ---------------- sign up ---------------- */
+  var su = { mail: '', tries: 0 };
+  function suShow(on) { $('signup-form').classList.toggle('hidden', on); $('su-verify').classList.toggle('hidden', !on); }
+  window.handleSignup = function (ev) {
+    ev.preventDefault();
+    var name = $('signup-name').value.trim(), em = lower('signup-email'), pass = $('signup-pass').value, conf = $('signup-pass-confirm').value, btn = ev.target.querySelector('button[type=submit]');
+    function wipe() { $('signup-pass').value = ''; $('signup-pass-confirm').value = ''; $('signup-pass').focus(); }
+    if (!name) { suBox(T('กรุณากรอกชื่อ', 'Please enter your name.')); return; }
+    if (!pwOk(pass)) { suBox(t('err_pw_rule')); wipe(); return; }
+    if (pass !== conf) { suBox(t('err_pw_match')); wipe(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { suBox(T('รูปแบบอีเมลไม่ถูกต้อง', 'That email address is not valid.')); return; }
+    var dom = em.split('@')[1];
+    if (DISP2.indexOf(dom) >= 0) { suBox(T('ไม่รองรับอีเมลชั่วคราว กรุณาใช้อีเมลจริงของคุณ', 'Disposable email addresses are not accepted. Please use your real email.')); return; }
+    if (!cfgOk()) { suBox(T('ยังไม่ได้ตั้งค่า Supabase', 'Supabase is not configured')); return; }
+    suBox(''); if (btn) btn.disabled = true; su.mail = em; su.tries = 0;
+    busy.open('signup', T('กำลังตรวจสอบอีเมลและส่งรหัสยืนยัน 6 หลัก', 'Checking your email and sending a 6-digit code'));
+    Promise.all([domainOk2(dom), sendOtp(em).then(function () { return null; }, function (x) { return x; }), delay(650)]).then(function (v) {
+      busy.close(); if (btn) btn.disabled = false;
+      if (!v[0]) { suBox(T('ไม่พบอีเมลนี้ ตรวจสอบตัวสะกดหลัง @ อีกครั้ง (โดเมนนี้รับอีเมลไม่ได้)', 'This email domain cannot receive mail. Check the spelling after the @.')); return; }
+      if (v[1]) { suBox(fgSendErr(v[1])); return; }
+      $('su-code').value = ''; $('su-note').className = 'text-sm text-center rounded-xl py-2.5 px-3 bg-amber-50 border border-amber-200 text-amber-800';
+      $('su-note').textContent = T('ส่งรหัสยืนยัน 6 หลักไปที่ ' + em + ' แล้ว (ตรวจดูสแปมด้วย)', 'A 6-digit code was sent to ' + em + ' (check spam too)');
+      $('su-ok').textContent = T('ยืนยันรหัส', 'Verify code'); suShow(true); cooldown('su-resend', 30); $('su-code').focus();
+    });
+  };
+  window.vmSignupResend = function () {
+    if ($('su-resend').disabled) return; suBox(''); cooldown('su-resend', 30);
+    sendOtp(su.mail).then(function () { su.tries = 0; $('su-note').textContent = T('ส่งรหัสใหม่ไปที่ ' + su.mail + ' แล้ว', 'A new code was sent to ' + su.mail); },
+      function (x) { stopCool('su-resend'); suBox(fgSendErr(x)); });
+  };
+  window.vmSignupBack = function () { suBox(''); stopCool('su-resend'); suShow(false); };
+  window.vmSignupVerify = function () {
+    var name = $('signup-name').value.trim(), pass = $('signup-pass').value, code = $('su-code').value.replace(/\s/g, ''), btn = $('su-ok');
+    if (!/^\d{6,10}$/.test(code)) { suBox(T('กรอกรหัสยืนยัน 6 หลักจากอีเมล', 'Enter the 6-digit code from the email.')); return; }
+    if (su.tries >= 5) { suBox(T('กรอกรหัสผิดหลายครั้งเกินไป กด "ส่งรหัสอีกครั้ง"', 'Too many wrong attempts. Press "Resend code".')); return; }
+    if (!pwOk(pass)) { window.vmSignupBack(); suBox(T('กรุณากรอกรหัสผ่านอีกครั้ง', 'Please enter your password again.')); return; }
+    btn.disabled = true; suBox('');
+    verifyCode(su.mail, code).then(function (r) {
+      if (!r.ok || !r.j || !r.j.access_token) { btn.disabled = false; su.tries++; suBox(T('รหัสไม่ถูกต้องหรือหมดอายุ กรุณาลองอีกครั้ง หรือกด "ส่งรหัสอีกครั้ง"', 'The code is wrong or expired. Try again or press "Resend code".')); $('su-code').select(); return; }
+      return api('PUT', '/auth/v1/user', { password: pass, data: { name: name } }, r.j.access_token).then(function (u) {
+        btn.disabled = false;
+        if (!u.ok) { suBox(T('ตั้งรหัสผ่านไม่สำเร็จ: ', 'Could not set the password: ') + why(u)); return; }
+        dropSession(r.j); stopCool('su-resend');
+        if (mig && mig.mail === su.mail) { finishMig(); return; }
+        var n = $('su-note'); n.className = 'text-sm text-center rounded-xl py-2.5 px-3 bg-emerald-50 border border-emerald-200 text-emerald-700 font-bold'; n.id = 'su-note';
+        n.textContent = T('✅ ยืนยันอีเมลสำเร็จ! กำลังพาไปหน้าเข้าสู่ระบบ…', '✅ Email verified! Taking you to log in…');
+        btn.disabled = true;
+        setTimeout(function () {
+          ['signup-name', 'signup-email', 'signup-pass', 'signup-pass-confirm', 'su-code', 'login-email', 'login-pass'].forEach(function (id) { var el = $(id); if (el) el.value = ''; });
+          btn.disabled = false; window.toggleAuth('login');
+          info(T('สมัครสมาชิกสำเร็จ! กรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบ', 'Account created! Enter your email and password to log in.'));
+          $('login-email').focus();
+        }, 900);
+      });
+    }).catch(function () { btn.disabled = false; suBox(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+
+  /* ---------------- accounts created the old way (only in this browser) are moved to Supabase automatically ---------------- */
+  var mig = null;
+  function legacyFind(em) {
+    try { for (var i = 0; i < localStorage.length; i++) { var k = localStorage.key(i); if (k && k.indexOf('user_') === 0 && k.slice(5).toLowerCase() === em) { var o = g(k); if (o && o.pass) return { key: k, rec: o }; } } } catch (x) {}
+    return null;
+  }
+  function migrate(em, found, pw) {
+    mig = { mail: em, key: found.key, pass: pw, name: found.rec.name || em.split('@')[0] };
+    window.toggleAuth('signup');
+    $('signup-name').value = mig.name; $('signup-email').value = em; $('signup-pass').value = pw; $('signup-pass-confirm').value = pw;
+    su.mail = em; su.tries = 0; suBox('');
+    busy.open('signup', T('กำลังย้ายบัญชีเดิมของคุณขึ้น Supabase และส่งรหัสยืนยัน 6 หลัก', 'Moving your existing account to Supabase and sending a 6-digit code'));
+    Promise.all([sendOtp(em).then(function () { return null; }, function (x) { return x; }), delay(650)]).then(function (v) {
+      busy.close();
+      if (v[0]) { mig = null; suBox(fgSendErr(v[0])); return; }
+      $('su-code').value = ''; $('su-note').className = 'text-sm text-center rounded-xl py-2.5 px-3 bg-amber-50 border border-amber-200 text-amber-800';
+      $('su-note').textContent = T('บัญชีเดิมของคุณถูกย้ายขึ้น Supabase: ส่งรหัสยืนยัน 6 หลักไปที่ ' + em + ' แล้ว (ตรวจดูสแปมด้วย) ความคืบหน้าเดิมจะไม่หาย', 'Moving your existing account to Supabase: a 6-digit code was sent to ' + em + ' (check spam too). Your progress is kept.');
+      $('su-ok').textContent = T('ยืนยันรหัส', 'Verify code'); suShow(true); cooldown('su-resend', 30); $('su-code').focus();
+    });
+  }
+  function finishMig() {
+    var m = mig; mig = null;
+    try { var o = g(m.key); if (o) { delete o.pass; _set.call(localStorage, m.key, JSON.stringify(o)); } } catch (x) {}
+    ['signup-name', 'signup-email', 'signup-pass', 'signup-pass-confirm', 'su-code'].forEach(function (id) { var el = $(id); if (el) el.value = ''; });
+    window.vmSignupBack(); window.toggleAuth('login');
+    $('login-email').value = m.mail; $('login-pass').value = m.pass;
+    window.handleLogin({ preventDefault: function () {}, target: $('login-form') });
+  }
+
+  /* ---------------- login (status shown at once, sync runs while it plays) ---------------- */
+  window.handleLogin = function (ev) {
+    ev.preventDefault(); info('');
+    var em = lower('login-email'), pw = $('login-pass').value, box = $('login-error-msg'), btn = ev.target && ev.target.querySelector ? ev.target.querySelector('button[type=submit]') : null, t0 = Date.now();
+    function bad(m) { proc.close(); box.innerText = m; box.classList.remove('hidden'); var p = $('login-pass'); p.value = ''; p.focus(); if (btn) btn.disabled = false; }
+    if (!cfgOk()) { bad(T('ยังไม่ได้ตั้งค่า Supabase', 'Supabase is not configured')); return; }
+    if (btn) btn.disabled = true; box.classList.add('hidden');
+    proc.open('in', t('in_title'), T('กำลังดำเนินการ...', 'Working on it...'), '🚀');
+    api('POST', '/auth/v1/token?grant_type=password', { email: em, password: pw }).then(function (r) {
+      if (!r.ok || !r.j || !r.j.access_token) {
+        var j = r.j || {}, m = String(j.error_code || j.msg || j.message || j.error_description || '');
+        if (r.status === 429 || /rate.?limit/i.test(m)) { bad(T('ลองเข้าสู่ระบบบ่อยเกินไป กรุณารอสักครู่', 'Too many attempts. Please wait a moment.')); return; }
+        if (/email_not_confirmed/i.test(m)) { bad(T('อีเมลนี้ยังไม่ได้ยืนยัน กด "ลืมรหัสผ่าน?" เพื่อยืนยันและตั้งรหัสผ่าน', 'This email is not verified yet. Press "Forgot password?" to verify it and set a password.')); return; }
+        if (r.status >= 500 || r.status === 0) { bad(T('เซิร์ฟเวอร์ไม่ตอบสนอง ลองใหม่อีกครั้ง', 'Server is not responding. Try again.')); return; }
+        var leg = legacyFind(em);
+        if (leg && leg.rec.pass === pw && cfgOk()) { proc.close(); if (btn) btn.disabled = false; migrate(em, leg, pw); return; }
+        bad(T('อีเมลหรือรหัสผ่านไม่ถูกต้อง', 'Incorrect email or password.')); return;
+      }
+      saveSess(r.j, em);
+      var u = { name: nameOf(r.j, em), email: em }; unlockSpeech();
+      var ready = Promise.all([prep(u), delay(Math.max(0, 900 - (Date.now() - t0)))]).then(function (v) { return v[0]; });
+      enter(u, true, ready, function () { proc.close(); if (btn) btn.disabled = false; });
+    }).catch(function () { bad(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+
+  /* ---------------- forgot password: e-mail -> status -> code -> new password ---------------- */
+  var fg2 = { mail: '', tok: null, tries: 0 };
+  function fgStep(n) {   /* 1 = e-mail, 2 = code, 3 = new password */
+    $('fg-form1').classList.toggle('hidden', n !== 1); $('fg-form2').classList.toggle('hidden', n === 1);
+    $('fg-codebox').classList.toggle('hidden', n !== 2); $('fg-pwbox').classList.toggle('hidden', n !== 3);
+    $('fg-who').textContent = n === 1 ? '' : T('ตั้งรหัสผ่านใหม่ให้ ', 'New password for ') + fg2.mail;
+    $('fg-sub').textContent = n === 1 ? T('กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยัน 6 หลักไปให้', 'Enter the email you signed up with and we will send you a 6-digit code') : n === 2 ? T('กรอกรหัสยืนยัน 6 หลักที่ส่งไปทางอีเมล', 'Enter the 6-digit code we emailed you') : T('ตั้งรหัสผ่านใหม่ที่คุณจำได้', 'Choose a new password you will remember');
+  }
+  window.vmForgotOpen = function () {
+    fg2 = { mail: '', tok: null, tries: 0 }; fgErr(''); fgNote(''); stopCool('fg-resend');
+    ['fg-email', 'fg-code', 'fg-pass', 'fg-pass2'].forEach(function (id) { var el = $(id); if (el) el.value = ''; });
+    $('fg-form2').noValidate = true; fgStep(1);
+  };
+  window.vmForgotCheck = function (ev) {
+    ev.preventDefault(); var m = lower('fg-email'), btn = ev.target.querySelector('button[type=submit]');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)) { fgErr(T('รูปแบบอีเมลไม่ถูกต้อง', 'That email address is not valid.')); return; }
+    if (!cfgOk()) { fgErr(T('ยังไม่ได้ตั้งค่า Supabase', 'Supabase is not configured')); return; }
+    fgErr(''); fg2.mail = m; fg2.tries = 0; if (btn) btn.disabled = true;
+    busy.open('forgot', T('กำลังตรวจสอบอีเมลและส่งรหัสยืนยัน 6 หลัก', 'Checking the email and sending a 6-digit code'));
+    Promise.all([sendOtp(m).then(function () { return null; }, function (x) { return x; }), delay(650)]).then(function (v) {
+      busy.close(); if (btn) btn.disabled = false;
+      if (v[0]) { fgErr(fgSendErr(v[0])); return; }
+      fgStep(2); fgNote(T('ส่งรหัสยืนยันไปที่ ' + m + ' แล้ว ตรวจดูในกล่องจดหมายและสแปมด้วย', 'A code was sent to ' + m + '. Check your inbox and spam folder.'));
+      cooldown('fg-resend', 30); $('fg-code').focus();
+    });
+  };
+  window.vmForgotResend = function () {
+    if ($('fg-resend').disabled || !fg2.mail) return; fgErr(''); cooldown('fg-resend', 30);
+    sendOtp(fg2.mail).then(function () { fg2.tries = 0; fgNote(T('ส่งรหัสใหม่ไปที่ ' + fg2.mail + ' แล้ว', 'A new code was sent to ' + fg2.mail)); }, function (x) { stopCool('fg-resend'); fgErr(fgSendErr(x)); });
+  };
+  window.vmForgotVerify = function () {
+    var code = $('fg-code').value.replace(/\s/g, ''), btn = $('fg-vbtn');
+    if (!/^\d{6,10}$/.test(code)) { fgErr(T('กรอกรหัสยืนยัน 6 หลักจากอีเมล', 'Enter the 6-digit code from the email.')); return; }
+    if (fg2.tries >= 5) { fgErr(T('กรอกรหัสผิดหลายครั้งเกินไป กด "ส่งรหัสอีกครั้ง"', 'Too many wrong attempts. Press "Resend code".')); return; }
+    btn.disabled = true; fgErr('');
+    verifyCode(fg2.mail, code).then(function (r) {
+      btn.disabled = false;
+      if (!r.ok || !r.j || !r.j.access_token) { fg2.tries++; fgErr(T('รหัสไม่ถูกต้องหรือหมดอายุ กรุณาลองอีกครั้ง หรือกด "ส่งรหัสอีกครั้ง"', 'The code is wrong or expired. Try again or press "Resend code".')); $('fg-code').select(); return; }
+      fg2.tok = r.j; stopCool('fg-resend'); fgStep(3); fgNote(T('✅ ยืนยันรหัสแล้ว ตั้งรหัสผ่านใหม่ได้เลย', '✅ Code verified. Choose your new password.')); $('fg-pass').focus();
+    }).catch(function () { btn.disabled = false; fgErr(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+  window.vmForgotSave = function (ev) {
+    ev.preventDefault(); if (!fg2.tok) { window.vmForgotVerify(); return; }
+    var p = $('fg-pass').value, c = $('fg-pass2').value, btn = ev.target.querySelector('#fg-pwbox button[type=submit]');
+    if (!pwOk(p)) { fgErr(T('รหัสผ่านต้องมีอย่างน้อย 8 ตัว และมีทั้งตัวอักษรและตัวเลข', 'Password must be at least 8 characters with letters and numbers.')); return; }
+    if (p !== c) { fgErr(T('รหัสผ่านทั้งสองช่องไม่ตรงกัน', 'The two passwords do not match.')); $('fg-pass2').value = ''; return; }
+    if (btn) btn.disabled = true; fgErr('');
+    api('PUT', '/auth/v1/user', { password: p }, fg2.tok.access_token).then(function (u) {
+      if (btn) btn.disabled = false;
+      if (!u.ok) { fgErr(T('ตั้งรหัสผ่านไม่สำเร็จ: ', 'Could not set the password: ') + why(u)); return; }
+      dropSession(fg2.tok); window.vmForgotOpen();
+      ['login-email', 'login-pass'].forEach(function (id) { var el = $(id); if (el) el.value = ''; });
+      window.toggleAuth('login'); info(T('ตั้งรหัสผ่านใหม่เรียบร้อย! กรอกอีเมลและรหัสผ่านใหม่เพื่อเข้าสู่ระบบ', 'Password updated! Log in with your email and new password.'));
+    }).catch(function () { if (btn) btn.disabled = false; fgErr(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+  var tgA = window.toggleAuth; window.toggleAuth = function (x) { if (x !== 'login') info(''); return tgA.apply(this, arguments); };
+
   /* ---------- logout: push the last changes, then close the Supabase session ---------- */
   var ocl = window.confirmLogout;
   if (typeof ocl === 'function') window.confirmLogout = function () {
@@ -3823,6 +4098,83 @@ window.LEARNORA_EMAIL = {
   else if (SESS && email() && SESS.e !== email()) clearSess();
 })();
 </script>
+<script>
+/* Profile setup: shown once after the FIRST login (until it has been saved); afterwards login goes straight to Home.
+   Saved inside the normal settings (vm_settings_v1 -> prof), so it also syncs to Supabase and follows the account to other devices. */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function en() { return !!(window.vmIsEn && window.vmIsEn()); }
+  function T(a, b) { return en() ? b : a; }
+  function jget(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  var AV = ['🧑‍🎓', '👩‍🎓', '👨‍🎓', '🦊', '🐼', '🐱', '🐶', '🦉', '🐧', '🌟', '🚀', '🎧'];
+  var LV = [['beginner', '🌱', 'เริ่มต้น', 'Beginner'], ['intermediate', '🌿', 'ปานกลาง', 'Intermediate'], ['advanced', '🌳', 'ก้าวหน้า', 'Advanced']];
+  var PU = [['school', '🎒', 'เรียน/สอบ', 'School & exams'], ['work', '💼', 'ทำงาน', 'Work'], ['travel', '✈️', 'ท่องเที่ยว', 'Travel'], ['fun', '🎬', 'ความสนใจ', 'Just for fun']];
+  var GO = [5, 10, 15, 20, 30];
+  var st = null;
+  function me() { var u = jget('active_user', null); return u && u.email ? { email: String(u.email).toLowerCase(), name: u.name || '' } : null; }
+  function done(u) {
+    var s = jget('vm_settings_v1', {}) || {}, p = (s.prof || {})[u.email] || {};
+    if (p.setup) return true;
+    var o = jget('vm_stats_v1_' + u.email, null);          /* accounts that already studied before this screen existed */
+    return !!(o && ((o.xp || 0) > 0 || (o.days && o.days.length)));
+  }
+  var css = document.createElement('style');
+  css.textContent =
+    '#vm-setup{position:fixed;inset:0;z-index:90;display:none;overflow:auto;background:linear-gradient(160deg,#fff6ea,#ffe8d2 55%,#ffd9bb);color:#3a2113;padding:18px 14px}' +
+    '#vm-setup.on{display:block}#vm-setup .box{max-width:560px;margin:0 auto;background:#fffaf3;border:1px solid rgba(214,150,96,.45);border-radius:26px;padding:22px 18px;box-shadow:0 24px 50px -28px rgba(120,60,20,.5)}' +
+    '#vm-setup h2{font-size:1.5rem;font-weight:800;margin:0 0 2px}#vm-setup .sub{color:#7a553c;font-size:.9rem;margin-bottom:14px}#vm-setup .lb{display:block;font-weight:800;font-size:.85rem;margin:16px 0 6px;color:#6a4630}' +
+    '#vm-setup input.in{width:100%;padding:13px 14px;border-radius:14px;border:1.5px solid rgba(214,150,96,.55);background:#fff;font-size:1rem;outline:none;color:#3a2113}#vm-setup input.in:focus{border-color:#e08a2e;box-shadow:0 0 0 3px rgba(240,160,75,.25)}' +
+    '#vm-setup .ch{display:flex;flex-wrap:wrap;gap:8px}#vm-setup .c{padding:9px 14px;border-radius:999px;border:1.5px solid rgba(214,150,96,.55);background:#fff;font-weight:700;font-size:.92rem;cursor:pointer;color:#6a4630}' +
+    '#vm-setup .c.on{background:linear-gradient(135deg,#f0a04b,#d4572f);border-color:transparent;color:#fff}#vm-setup .c.av{font-size:1.5rem;padding:6px 10px}' +
+    '#vm-setup .go{width:100%;margin-top:22px;padding:15px;border:0;border-radius:16px;font-size:1.05rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#f0a04b,#d4572f);cursor:pointer;box-shadow:0 14px 26px -16px rgba(180,70,20,.7)}' +
+    '#vm-setup .go:active{transform:scale(.98)}#vm-setup .er{color:#c0392b;font-weight:700;font-size:.85rem;margin-top:10px;min-height:1em}';
+  document.head.appendChild(css);
+  function chips(key, arr, cur, lab) {
+    return '<div class="ch" data-k="' + key + '">' + arr.map(function (a) { var v = lab ? a[0] : a; return '<button type="button" class="c' + (key === 'av' ? ' av' : '') + (String(cur) === String(v) ? ' on' : '') + '" data-v="' + esc(v) + '">' + (lab ? a[1] + ' ' + T(a[2], a[3]) : (key === 'goal' ? a + ' ' + T('คำ/วัน', 'words/day') : a)) + '</button>'; }).join('') + '</div>';
+  }
+  function render() {
+    var el = $('vm-setup'); if (!el) { el = document.createElement('div'); el.id = 'vm-setup'; document.body.appendChild(el); el.addEventListener('click', onClick); el.addEventListener('keydown', function (e) { if (e.key === 'Enter' && e.target.id === 'su2-name') save(); }); }
+    el.innerHTML = '<div class="box"><div style="font-size:2.2rem">👋</div><h2>' + T('ยินดีต้อนรับสู่ Learnora!', 'Welcome to Learnora!') + '</h2><div class="sub">' + T('กรอกข้อมูลเพิ่มเติมอีกนิด เพื่อให้เราปรับการเรียนให้เหมาะกับคุณ', 'A few more details so we can tailor your learning.') + '</div>' +
+      '<label class="lb" for="su2-name">' + T('ชื่อที่ใช้แสดง', 'Display name') + '</label><input id="su2-name" class="in" maxlength="24" autocomplete="off" value="' + esc(st.name) + '">' +
+      '<span class="lb">' + T('รูปประจำตัว', 'Avatar') + '</span>' + chips('av', AV, st.av) +
+      '<span class="lb">' + T('ระดับภาษาอังกฤษของคุณ', 'Your English level') + '</span>' + chips('level', LV, st.level, 1) +
+      '<span class="lb">' + T('เรียนเพื่ออะไร', 'Why are you learning?') + '</span>' + chips('purpose', PU, st.purpose, 1) +
+      '<span class="lb">' + T('เป้าหมายต่อวัน', 'Daily goal') + '</span>' + chips('goal', GO, st.goal) +
+      '<div class="er" id="su2-er"></div><button type="button" class="go" data-save="1">' + T('บันทึกและเข้าสู่หน้าหลัก', 'Save and go to Home') + '</button></div>';
+  }
+  function onClick(e) {
+    var c = e.target.closest && e.target.closest('.c'); if (c) { var k = c.parentNode.getAttribute('data-k'), v = c.getAttribute('data-v'); st[k] = k === 'goal' ? parseInt(v, 10) : v; Array.prototype.forEach.call(c.parentNode.children, function (x) { x.classList.toggle('on', x === c); }); return; }
+    if (e.target.closest && e.target.closest('[data-save]')) save();
+  }
+  function save() {
+    var u = me(); if (!u) return; var name = ($('su2-name').value || '').trim();
+    if (!name) { $('su2-er').textContent = T('กรุณากรอกชื่อ', 'Please enter a name.'); $('su2-name').focus(); return; }
+    var s = jget('vm_settings_v1', {}) || {}; s.prof = s.prof || {};
+    s.prof[u.email] = Object.assign({}, s.prof[u.email], { name: name, av: st.av, level: st.level, purpose: st.purpose, setup: true });
+    s.goal = st.goal;
+    try { localStorage.setItem('vm_settings_v1', JSON.stringify(s)); var a = jget('active_user', {}); a.name = name; localStorage.setItem('active_user', JSON.stringify(a)); } catch (x) {}
+    try { if (window.vmReloadSet) window.vmReloadSet(); } catch (x) {}
+    $('vm-setup').classList.remove('on'); document.body.style.overflow = '';
+    try { window.checkSession(); if (window.vmLangRefresh) window.vmLangRefresh(); } catch (x) {}
+  }
+  function check() {
+    var el = $('vm-setup'), u = me(), main = $('main-view'), ent = false; try { ent = sessionStorage.getItem('vm_entered') === '1'; } catch (x) { ent = true; }
+    if (!u || !ent || (main && main.classList.contains('hidden'))) { if (el) el.classList.remove('on'); document.body.style.overflow = ''; return; }
+    if (done(u)) { if (el) el.classList.remove('on'); return; }
+    if (el && el.classList.contains('on')) return;
+    var s = jget('vm_settings_v1', {}) || {}, p = (s.prof || {})[u.email] || {};
+    st = { name: p.name || u.name || u.email.split('@')[0], av: p.av || AV[0], level: p.level || 'beginner', purpose: p.purpose || 'school', goal: s.goal || 10 };
+    render(); $('vm-setup').classList.add('on'); document.body.style.overflow = 'hidden'; $('vm-setup').scrollTop = 0;
+  }
+  var ocs = window.checkSession;
+  if (typeof ocs === 'function') window.checkSession = function () { var r = ocs.apply(this, arguments); try { check(); } catch (x) {} return r; };
+  var old = window.vmLangRefresh; window.vmLangRefresh = function () { if (old) old.apply(this, arguments); try { var el = $('vm-setup'); if (el && el.classList.contains('on')) { var n = $('su2-name'); if (n) st.name = n.value; render(); } } catch (x) {} };
+  setTimeout(function () { try { check(); } catch (x) {} }, 400);
+})();
+</script>
+
 </body>
 
 </html>
