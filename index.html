@@ -179,7 +179,7 @@
       #hub-view .grid > * > span:last-child { font-size: 11.5px !important; }
 
       #auth-view { max-width: 21rem !important; }
-      #login-card, #signup-card { padding: 18px !important; border-radius: 22px !important; }
+      #login-card, #signup-card, #forgot-card { padding: 18px !important; border-radius: 22px !important; }
       #auth-view .text-5xl { font-size: 2rem !important; }
       #auth-view h2 { font-size: 1.2rem !important; }
       #auth-view .text-center p { font-size: .75rem !important; }
@@ -246,12 +246,12 @@
   body.auth-mode .bg-art, body.auth-mode .creature { display: none !important; }
   body.auth-mode { background: #eee6d6 !important; }
 
-  #login-card, #signup-card {
+  #login-card, #signup-card, #forgot-card {
     background: rgba(255,255,255,.72) !important; -webkit-backdrop-filter: blur(14px) saturate(1.2) !important; backdrop-filter: blur(14px) saturate(1.2) !important;
     border: 1px solid rgba(255,255,255,.8) !important; border-radius: 26px !important;
     box-shadow: 0 34px 60px -24px rgba(15,42,74,.45), 0 1px 0 rgba(255,255,255,.7) inset !important;
   }
-  #login-card:hover, #signup-card:hover {
+  #login-card:hover, #signup-card:hover, #forgot-card:hover {
     background: rgba(255,255,255,.72) !important; border-color: rgba(255,255,255,.8) !important;
     box-shadow: 0 34px 60px -24px rgba(15,42,74,.45), 0 1px 0 rgba(255,255,255,.7) inset !important;
   }
@@ -478,13 +478,13 @@
   body.auth-mode #app-bg, body.auth-mode #auth-bg { display: none !important; }
   body.auth-mode { background: #1a0f14 !important; }
 
-  body.auth-mode #login-card, body.auth-mode #signup-card,
-  body.auth-mode #login-card:hover, body.auth-mode #signup-card:hover {
+  body.auth-mode #login-card, body.auth-mode #signup-card, body.auth-mode #forgot-card,
+  body.auth-mode #login-card:hover, body.auth-mode #signup-card:hover, body.auth-mode #forgot-card:hover {
     background: rgba(34,17,22,.58) !important; border: 1px solid rgba(255,196,140,.30) !important;
     box-shadow: 0 30px 70px -20px rgba(0,0,0,.7), 0 0 80px -14px rgba(255,140,50,.28), 0 1px 0 rgba(255,225,190,.18) inset !important;
   }
   @media (hover: hover) and (pointer: fine) {
-    body.auth-mode #login-card, body.auth-mode #signup-card { -webkit-backdrop-filter: blur(8px) saturate(1.1) !important; backdrop-filter: blur(8px) saturate(1.1) !important; }
+    body.auth-mode #login-card, body.auth-mode #signup-card, body.auth-mode #forgot-card { -webkit-backdrop-filter: blur(8px) saturate(1.1) !important; backdrop-filter: blur(8px) saturate(1.1) !important; }
   }
   body.auth-mode .auth-title { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,.45); }
   body.auth-mode .auth-title .brand { color: #ffc27a; }
@@ -664,7 +664,6 @@
   #page-policy #policy-docs { display: none; }
   #page-policy.reading #policy-docs { display: block; }
   #page-policy.reading #policy-grid, #page-policy.reading #policy-intro { display: none; }
-  #page-policy details.vm-pol:not(.sel) { display: none; }
   body:not(.auth-mode) details.vm-pol.sel { background: transparent; border: 0; }
   details.vm-pol.sel > summary { pointer-events: none; font-size: 1.15rem; padding-left: 2px; }
   details.vm-pol.sel > summary::after { display: none; }
@@ -732,7 +731,7 @@
 
   /* brightness button + panel */
   #vm-theme { position: fixed; right: 14px; bottom: 14px; z-index: 60; display: flex; flex-direction: column; align-items: flex-end; gap: 8px; font-family: inherit; }
-  body.auth-mode #vm-theme, body.vm-full #vm-theme { display: none; }
+  body.auth-mode #vm-theme { display: none; }
   #vm-theme-btn { width: 46px; height: 46px; border-radius: 999px; font-size: 1.3rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center;
     background: rgba(34,17,30,.78); color: #ffe2b0; border: 1px solid rgba(255,196,140,.5); box-shadow: 0 10px 24px -10px rgba(0,0,0,.7); -webkit-tap-highlight-color: transparent; }
   #vm-theme-panel { width: 230px; padding: 12px 14px; border-radius: 16px; background: rgba(34,17,30,.9); color: #fbeedd; border: 1px solid rgba(255,196,140,.35); box-shadow: 0 18px 36px -16px rgba(0,0,0,.8); font-size: 13px; }
@@ -780,7 +779,207 @@
   .gm-badge { top: .75rem; right: .75rem; font-size: 12px; padding: .25rem .625rem; }
   .gm-btn { padding: .6rem .75rem; font-size: .875rem; }
 </style>
+<style id="learnora-sidebar">
+  /* ===== left sidebar (profile, streak, menu, daily goal) + new pages ===== */
+  body { --sd-bg: rgba(34,17,30,.72); --sd-card: rgba(255,236,215,.10); --sd-bd: rgba(255,200,150,.28); --sd-txt: #fbeedd; --sd-soft: #ecd5bd; --sd-acc: #ffc27a; --sd-in: rgba(255,255,255,.10); }
+  body.bg-light { --sd-bg: rgba(255,248,240,.86); --sd-card: rgba(255,255,255,.72); --sd-bd: rgba(214,150,96,.40); --sd-txt: #3a2113; --sd-soft: #6a4630; --sd-acc: #b45309; --sd-in: #fffaf3; }
+  #vm-side, #vm-side-toggle, #vm-side-ov { display: none; }
+  body.vm-side-on:not(.auth-mode):not(.vm-full) #vm-side { display: flex; }
+  #vm-side { position: fixed; z-index: 55; left: 12px; top: 12px; bottom: 12px; width: 250px; flex-direction: column; gap: 10px; padding: 12px; overflow-y: auto; border-radius: 26px;
+    background: var(--sd-bg); border: 1px solid var(--sd-bd); color: var(--sd-txt); box-shadow: 0 22px 44px -24px rgba(60,25,10,.55); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); font-size: 14px; scrollbar-width: thin; }
+  #vm-side > *, #vm-side .sd-nav > * { flex: none; }
+  #vm-side .sd-card { background: var(--sd-card); border: 1px solid var(--sd-bd); border-radius: 18px; padding: 10px 12px; }
+  #vm-side .sd-prof { display: flex; align-items: center; gap: 10px; }
+  #vm-side .sd-av { width: 48px; height: 48px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; background: linear-gradient(135deg, #ffe2b0, #ffb067); border: 2px solid #fff8; flex: none; }
+  #vm-side .sd-name { font-weight: 800; font-size: 1rem; line-height: 1.2; word-break: break-word; }
+  #vm-side .sd-lv { font-size: 12px; color: var(--sd-soft); }
+  #vm-side .sd-bar { height: 8px; border-radius: 99px; background: rgba(120,80,50,.22); overflow: hidden; margin-top: 4px; }
+  #vm-side .sd-bar > i { display: block; height: 100%; border-radius: 99px; background: linear-gradient(90deg, #f0a04b, #d4572f); transition: width .4s; }
+  #vm-side .sd-streak { display: flex; align-items: center; gap: 10px; }
+  #vm-side .sd-streak .fire { font-size: 1.9rem; }
+  #vm-side .sd-streak b { font-size: 1.05rem; display: block; }
+  #vm-side .sd-streak span.s { font-size: 12px; color: var(--sd-soft); }
+  #vm-side .sd-nav { display: flex; flex-direction: column; gap: 4px; }
+  #vm-side .sd-it, .btn-o:not(.soft) { border: 0; font-family: inherit; }
+  .btn-o.soft { font-family: inherit; }
+  #vm-side .sd-it { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; border-radius: 14px; font-weight: 700; text-align: left; color: var(--sd-txt); background: transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; transition: background .15s; }
+  #vm-side .sd-it:hover { background: rgba(240,160,75,.18); }
+  #vm-side .sd-it .ic { font-size: 1.25rem; width: 1.6rem; text-align: center; }
+  #vm-side .sd-it.active { background: linear-gradient(135deg, #f0a04b, #d4572f); color: #fff; box-shadow: 0 8px 18px -8px rgba(180,70,20,.7); }
+  #vm-side .sd-goal b { font-size: .95rem; }
+  #vm-side .sd-help { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px; border-radius: 14px; font-weight: 700; font-size: 13px; color: var(--sd-txt); background: var(--sd-card); border: 1px solid var(--sd-bd); cursor: pointer; }
+  #vm-side .sd-help.active { background: linear-gradient(135deg, #f0a04b, #d4572f); color: #fff; }
+  #vm-side #vm-presence { font-size: 11px; color: var(--sd-soft) !important; padding-top: 0; }
+  #vm-side-toggle { position: fixed; z-index: 58; left: 12px; top: 12px; width: 44px; height: 44px; border-radius: 14px; font-size: 1.3rem; background: var(--sd-bg); color: var(--sd-txt); border: 1px solid var(--sd-bd); box-shadow: 0 10px 22px -12px rgba(0,0,0,.6); cursor: pointer; }
+  #vm-side-ov { position: fixed; inset: 0; z-index: 54; background: rgba(30,12,5,.45); }
+  @media (min-width: 1024px) {
+    body.vm-side-on:not(.auth-mode):not(.vm-full) .container { max-width: none !important; padding-left: calc(274px + 1.5rem) !important; }
+    body.vm-side-on:not(.auth-mode):not(.vm-full) footer { padding-left: 274px; }
+    body.vm-side-on:not(.auth-mode):not(.vm-full) #main-view { max-width: 1280px; margin-left: auto; margin-right: auto; }
+  }
+  @media (max-width: 1023px) {
+    body.vm-side-on:not(.auth-mode):not(.vm-full) #vm-side-toggle { display: block; }
+    body.vm-side-on:not(.auth-mode):not(.vm-full) #vm-side { transform: translateX(-120%); transition: transform .25s; max-width: 86vw; }
+    body.vm-side-on.side-open:not(.auth-mode):not(.vm-full) #vm-side { transform: none; }
+    body.vm-side-on.side-open:not(.auth-mode):not(.vm-full) #vm-side-ov { display: block; }
+    body.vm-side-on:not(.auth-mode):not(.vm-full) .container { padding-top: 4rem; }
+  }
+  body.vm-side-on #site-nav { display: none !important; }
+
+  /* page building blocks (adapt to light / dark) */
+  .pg-body { color: var(--sd-txt); }
+  .pg-sub { font-size: .85rem; color: var(--sd-soft); margin-bottom: 14px; }
+  .pg-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+  @media (min-width: 900px) { .pg-grid.c4 { grid-template-columns: repeat(4, minmax(0,1fr)); } .pg-grid.c3 { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .tile { background: var(--sd-card); border: 1px solid var(--sd-bd); border-radius: 18px; padding: 14px; }
+  .tile .k { font-size: 12px; color: var(--sd-soft); font-weight: 700; }
+  .tile .v { font-size: 1.6rem; font-weight: 800; line-height: 1.2; color: var(--sd-acc); }
+  .tile .n { font-size: 12px; color: var(--sd-soft); }
+  .sec-t { font-weight: 800; font-size: 1.05rem; margin: 18px 0 8px; }
+  .row-set { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--sd-bd); flex-wrap: wrap; }
+  .row-set:last-child { border-bottom: 0; }
+  .row-set .l b { display: block; font-size: .95rem; } .row-set .l span { font-size: 12px; color: var(--sd-soft); }
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chip { padding: 6px 12px; border-radius: 12px; border: 1px solid var(--sd-bd); background: var(--sd-in); color: var(--sd-txt); font-weight: 700; font-size: 13px; cursor: pointer; }
+  .chip.on { background: linear-gradient(135deg, #f0a04b, #d4572f); color: #fff; border-color: transparent; }
+  .chip.av { font-size: 1.4rem; padding: 4px 8px; }
+  .inp { padding: 8px 12px; border-radius: 12px; border: 1px solid var(--sd-bd); background: var(--sd-in); color: var(--sd-txt); font: inherit; min-width: 0; }
+  .btn-o { padding: 8px 14px; border-radius: 12px; font-weight: 800; font-size: 13px; color: #fff; background: linear-gradient(135deg, #f0a04b, #d4572f); cursor: pointer; }
+  .btn-o.soft { background: var(--sd-in); color: var(--sd-txt); border: 1px solid var(--sd-bd); }
+  .btn-o.red { background: linear-gradient(135deg, #e5584a, #b3261e); }
+  .sw { appearance: none; -webkit-appearance: none; width: 46px; height: 26px; border-radius: 99px; background: rgba(120,100,90,.45); position: relative; cursor: pointer; transition: background .2s; flex: none; }
+  .sw::after { content: ""; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .2s; }
+  .sw:checked { background: #e0762f; } .sw:checked::after { transform: translateX(20px); }
+  .bars { display: flex; align-items: flex-end; gap: 8px; height: 120px; padding-top: 6px; }
+  .bars .b { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; font-size: 11px; color: var(--sd-soft); gap: 3px; }
+  .bars .b i { display: block; width: 100%; max-width: 38px; border-radius: 8px 8px 3px 3px; background: linear-gradient(180deg, #f0a04b, #d4572f); min-height: 3px; }
+  .vrow { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: var(--sd-card); border: 1px solid var(--sd-bd); margin-bottom: 8px; }
+  .vrow .w { font-weight: 800; font-size: 1rem; } .vrow .t { font-size: 11px; padding: 1px 8px; border-radius: 99px; background: rgba(240,160,75,.25); margin-left: 6px; color: var(--sd-acc); font-weight: 700; }
+  .vrow .e { font-size: 13px; color: var(--sd-soft); } .vrow .m { flex: 1; min-width: 0; }
+  .ibtn { width: 38px; height: 38px; border-radius: 12px; font-size: 1.05rem; cursor: pointer; background: var(--sd-in); border: 1px solid var(--sd-bd); color: var(--sd-txt); flex: none; }
+  .rk { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 16px; background: var(--sd-card); border: 1px solid var(--sd-bd); margin-bottom: 8px; }
+  .rk.me { border: 2px solid #e0762f; } .rk .pos { width: 2rem; font-weight: 800; font-size: 1.15rem; text-align: center; } .rk .nm { flex: 1; font-weight: 800; } .rk .xp { font-weight: 800; color: var(--sd-acc); }
+  #vm-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(30px); opacity: 0; z-index: 90; padding: 10px 18px; border-radius: 99px; font-weight: 800; font-size: 14px; background: #3a2113; color: #ffe2b0; box-shadow: 0 14px 30px -12px rgba(0,0,0,.6); transition: all .3s; pointer-events: none; }
+  #vm-toast.show { opacity: 1; transform: translateX(-50%); }
+  body.vm-menu details.vm-pol summary { cursor: pointer; }
+  /* user settings effects */
+  body.hide-read #sentences-container div.text-purple-600 { display: none; }
+  body.hide-th #sentences-container div.text-pink-600 { display: none; }
+  body.vm-calm *, body.vm-calm *::before, body.vm-calm *::after { animation: none !important; transition: none !important; }
+  body.vm-calm .cute-deco, body.vm-calm .creature { display: none !important; }
+  html[data-fs="s"], html[data-fs="s"]:has(body.vm-full:not(.auth-mode)) { font-size: 15.5px !important; }
+  html[data-fs="l"], html[data-fs="l"]:has(body.vm-full:not(.auth-mode)) { font-size: 19.5px !important; }
+  html[data-fs="xl"], html[data-fs="xl"]:has(body.vm-full:not(.auth-mode)) { font-size: 21.5px !important; }
+</style>
+<style id="learnora-fullpages">
+  body.vm-full:not(.auth-mode) { --sd-bg: rgba(255,248,240,.86); --sd-card: #fff8ee; --sd-bd: rgba(214,150,96,.45); --sd-txt: #3a2113; --sd-soft: #6a4630; --sd-acc: #b45309; --sd-in: #fffaf3; }
+  body.vm-full:not(.auth-mode) .gm-card { background: #fff8ee; border-color: #e08a2e; box-shadow: none; }
+  body.vm-full:not(.auth-mode) .gm-soon { background: #faf3ea; border: 1px solid #ecd9c4; }
+  body.vm-full:not(.auth-mode) .gm-ic { background: #fbe6cf; }
+  body.vm-full:not(.auth-mode) .gm-t { color: #3a2113; } body.vm-full:not(.auth-mode) .gm-d { color: #6a4630; } body.vm-full:not(.auth-mode) .gm-best { color: #b45309; }
+  body.vm-full:not(.auth-mode) .gm-soon .gm-badge { background: #eadfd2; color: #6a4630; }
+  body.vm-full:not(.auth-mode) .pg-body { color: #3a2113; }
+  body.vm-full:not(.auth-mode) .vm-back-main { display: inline-flex; }
+  #vm-side #sd-help { margin-top: 10px; }
+  #vm-side .sd-nav .sd-it[data-go="settings"] { margin-top: 8px; }
+  /* forgot-password card (login screens) */
+  #forgot-card .fg-step.hidden { display: none; }
+</style>
+<style id="learnora-collapse">
+  #vm-side .sd-top { display: flex; align-items: center; justify-content: space-between; padding: 0 4px 0 6px; font-size: 1rem; }
+  #vm-side .sd-collapse { width: 32px; height: 32px; border-radius: 10px; border: 1px solid var(--sd-bd); background: var(--sd-card); color: var(--sd-txt); font-weight: 800; cursor: pointer; }
+  @media (min-width: 1024px) {
+    body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) #vm-side { display: none; }
+    body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) #vm-side-toggle { display: block; }
+    body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) .container { padding-left: 4.75rem !important; }
+    body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) footer { padding-left: 0; }
+    body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) #main-view { max-width: none; }
+  }
+  /* light controls also on full-screen pages: a dimming layer over the white pages */
+  #vm-dim { position: fixed; inset: 0; z-index: 40; pointer-events: none; display: none; mix-blend-mode: multiply; transition: background-color .4s; }
+  body.vm-full:not(.auth-mode) #vm-dim { display: block; }
+  body.vm-full:not(.auth-mode) #vm-theme { display: flex !important; z-index: 60; }
+</style>
+<style id="learnora-cat-dark">
+  /* category pages (lessons, grammar, games...) follow the same brightness as the home page */
+  body.vm-full.bg-dk #vm-dim { display: none !important; }
+  html:has(body.vm-full.bg-dk:not(.auth-mode)) { filter: invert(1) hue-rotate(180deg) brightness(var(--vm-b, 1)); }
+  body.vm-full.bg-dk:not(.auth-mode) { background: #f1e1f5 !important; }
+  body.vm-full.bg-dk:not(.auth-mode) .vm-page > div,
+  body.vm-full.bg-dk:not(.auth-mode) .bg-white\/90, body.vm-full.bg-dk:not(.auth-mode) .bg-white\/95,
+  body.vm-full.bg-dk:not(.auth-mode) .bg-white\/80, body.vm-full.bg-dk:not(.auth-mode) .bg-white { background-color: #e8d6ec !important; }
+  html:has(body.vm-full.bg-dk:not(.auth-mode)) :is(img, video, canvas, picture, #vm-theme, #vm-goal, #vm-toast) { filter: invert(1) hue-rotate(180deg); }
+</style>
+<style id="learnora-fix1">
+  /* "Forgot password?" in soft red */
+  #forgot-link, body.auth-mode #forgot-link { color: #ff9b9b !important; }
+  #forgot-link:hover { color: #ffbcbc !important; }
+  /* policy accordions always visible */
+  #page-policy details.vm-pol { display: block !important; }
+  #page-policy details.vm-pol > summary { display: flex; }
+</style>
+<style id="learnora-goal">
+  #vm-goal { display: none; position: fixed; inset: 0; z-index: 95; align-items: center; justify-content: center; padding: 16px; background: rgba(30,12,5,.55); }
+  #vm-goal .gl-card { width: 100%; max-width: 380px; text-align: center; padding: 26px 22px; border-radius: 26px; background: linear-gradient(180deg, #fff8ee, #ffe8cf); color: #3a2113; border: 1px solid rgba(214,150,96,.6); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6); animation: glpop .35s ease-out; }
+  #vm-goal .gl-em { font-size: 3.2rem; line-height: 1; } #vm-goal h3 { font-size: 1.4rem; font-weight: 800; margin: 8px 0 6px; color: #b4380c; }
+  #vm-goal p { font-size: .95rem; } #vm-goal p.s { font-size: .8rem; color: #6a4630; margin-top: 8px; }
+  #vm-goal .gl-b { display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  @keyframes glpop { from { transform: scale(.85); opacity: 0; } to { transform: none; opacity: 1; } }
+</style>
+<style id="learnora-ui-v2">
+  /* ===== calmer interface: docked sidebar, line icons, flat surfaces ===== */
+  body { --sv-bg: #241b18; --sv-bd: rgba(255,255,255,.10); --sv-tx: #f1e6da; --sv-so: #b4a08e; --sv-ac: #e3a45e; --sv-hv: rgba(255,255,255,.055); --sv-on: rgba(227,164,94,.15); }
+  body.bg-light { --sv-bg: #fbf6ee; --sv-bd: #e6d8c4; --sv-tx: #2f2119; --sv-so: #7b6555; --sv-ac: #a4521c; --sv-hv: rgba(70,40,15,.055); --sv-on: #f1dfc6; }
+  #vm-side { left: 0; top: 0; bottom: 0; width: 244px; border-radius: 0; padding: 20px 14px 14px; gap: 0; background: var(--sv-bg); color: var(--sv-tx);
+    border: 0; border-right: 1px solid var(--sv-bd); box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; font-size: 14px; }
+  #vm-side .sd-top { padding: 0 2px 18px; display: flex; align-items: center; justify-content: space-between; }
+  #vm-side .sd-brand { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 1.05rem; letter-spacing: .01em; }
+  #vm-side .sd-logo { width: 24px; height: 24px; }
+  #vm-side .sd-collapse { width: 28px; height: 28px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--sv-so); display: flex; align-items: center; justify-content: center; }
+  #vm-side .sd-collapse:hover { background: var(--sv-hv); color: var(--sv-tx); }
+  #vm-side .sd-collapse svg { width: 18px; height: 18px; }
+  #vm-side .sd-card { background: none; border: 0; border-radius: 0; padding: 0; }
+  #vm-side #sd-prof { padding: 2px 4px 10px; }
+  #vm-side .sd-av { width: 40px; height: 40px; font-size: 1.35rem; background: var(--sv-on); border: 1px solid var(--sv-bd); }
+  #vm-side .sd-name { font-weight: 600; font-size: .95rem; }
+  #vm-side .sd-lv { font-size: 12px; color: var(--sv-so); }
+  #vm-side .sd-bar { height: 3px; border-radius: 2px; background: var(--sv-bd); margin-top: 7px; }
+  #vm-side .sd-bar > i { background: var(--sv-ac); border-radius: 2px; }
+  #vm-side #sd-streak { padding: 0 4px 16px; margin-bottom: 12px; border-bottom: 1px solid var(--sv-bd); }
+  #vm-side .sd-streak { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--sv-so); }
+  #vm-side .sd-streak svg { width: 15px; height: 15px; color: var(--sv-ac); flex: none; }
+  #vm-side .sd-nav { gap: 2px; }
+  #vm-side .sd-it, #vm-side .sd-help { position: relative; gap: 11px; padding: 9px 10px; border-radius: 6px; font-weight: 500; font-size: 14px; color: var(--sv-tx); background: transparent; border: 0; box-shadow: none; }
+  #vm-side .sd-it:hover, #vm-side .sd-help:hover { background: var(--sv-hv); }
+  #vm-side .sd-it .ic, #vm-side .sd-help .ic { width: 18px; height: 18px; display: flex; color: var(--sv-so); flex: none; }
+  #vm-side .sd-it svg, #vm-side .sd-help svg { width: 18px; height: 18px; }
+  #vm-side .sd-it.active, #vm-side .sd-help.active { background: var(--sv-on); color: var(--sv-tx); font-weight: 600; box-shadow: none; }
+  #vm-side .sd-it.active::before, #vm-side .sd-help.active::before { content: ""; position: absolute; left: -14px; top: 8px; bottom: 8px; width: 3px; border-radius: 0 3px 3px 0; background: var(--sv-ac); }
+  #vm-side .sd-it.active .ic, #vm-side .sd-help.active svg { color: var(--sv-ac); }
+  #vm-side .sd-nav .sd-it[data-go="settings"] { margin-top: 0; }
+  #vm-side #sd-goal { margin-top: 14px; padding: 14px 4px 10px; border-top: 1px solid var(--sv-bd); }
+  #vm-side .sd-goalrow { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; color: var(--sv-so); }
+  #vm-side .sd-goalrow b { font-size: 13px; font-weight: 600; color: var(--sv-tx); }
+  #vm-side .sd-help { display: flex; justify-content: flex-start; width: 100%; text-align: left; cursor: pointer; }
+  #vm-side #sd-help { margin-top: 2px; }
+  #vm-side #vm-presence { font-size: 11.5px; padding: 12px 4px 0; }
+  #vm-side-toggle { width: 40px; height: 40px; border-radius: 8px; padding: 0; display: none; align-items: center; justify-content: center; box-shadow: none; background: var(--sv-bg); color: var(--sv-tx); border: 1px solid var(--sv-bd); }
+  body.vm-side-on:not(.auth-mode):not(.vm-full) #vm-side-toggle { display: none; }
+  #vm-side-toggle svg { width: 20px; height: 20px; }
+  @media (max-width: 1023px) { body.vm-side-on:not(.auth-mode):not(.vm-full) #vm-side-toggle { display: flex; } }
+  body.vm-side-on.side-collapsed:not(.auth-mode):not(.vm-full) #vm-side-toggle { display: flex; }
+  @media (min-width: 1024px) { body.vm-side-on:not(.auth-mode):not(.vm-full) .container { padding-left: calc(244px + 2rem) !important; } }
+
+  /* policy + help accordions: line icons, no emoji */
+  details.vm-pol > summary .pi, details.vm-pol > summary > span:first-child { display: inline-flex; }
+  details.vm-pol > summary > span:empty { display: none; }
+  details.vm-pol > summary .pi svg { width: 18px; height: 18px; }
+  .gm-ic .ic, .gm-ic svg { width: 30px; height: 30px; }
+  /* page titles: plain text instead of the orange gradient */
+  .vm-page .vm-title.gradient-text, #page-policy .vm-title.gradient-text { background: none !important; -webkit-text-fill-color: currentColor !important; color: var(--sd-txt) !important; font-weight: 700 !important; }
+</style>
 </head>
+
 <body class="auth-mode gradient-bg min-h-screen text-slate-800 font-sans antialiased flex flex-col justify-between selection:bg-pink-300 selection:text-purple-900 relative overflow-x-hidden">
 
 
@@ -981,6 +1180,7 @@
               <button type="button" onclick="togglePassVisibility(['login-pass'], this)" class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-xl text-slate-400 hover:text-purple-600 focus:outline-none">👁️</button>
             </div>
           </div>
+          <div class="text-right -mt-1"><button type="button" id="forgot-link" onclick="toggleAuth('forgot')" class="text-purple-600 font-bold text-sm underline">ลืมรหัสผ่าน?</button></div>
           <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-i18n="login_btn">เข้าสู่ระบบ</button>
         </form>
         <p class="text-center text-sm text-slate-500 mt-6"><span data-i18n="no_account">ยังไม่มีบัญชี?</span> <button onclick="toggleAuth('signup')" class="text-purple-600 font-bold underline" data-i18n="signup_link">สมัครสมาชิก</button></p>
@@ -1022,9 +1222,59 @@
 
           <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-i18n="register_btn">ลงทะเบียน</button>
         </form>
+        <div id="su-verify" class="hidden space-y-4">
+          <div id="su-note" class="text-sm text-center rounded-xl py-2.5 px-3 bg-amber-50 border border-amber-200 text-amber-800"></div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" id="su-lab">รหัสยืนยันจากอีเมล</label>
+            <input type="text" id="su-code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition tracking-widest text-center">
+            <div class="text-right mt-1"><button type="button" id="su-resend" onclick="vmSignupResend()" class="text-purple-600 font-bold text-sm underline">ส่งรหัสอีกครั้ง</button></div>
+          </div>
+          <button type="button" id="su-ok" onclick="vmSignupVerify()" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition">ยืนยันอีเมลและสมัคร</button>
+          <div class="text-center"><button type="button" id="su-back" onclick="vmSignupBack()" class="text-slate-500 text-sm underline">← แก้ไขข้อมูล</button></div>
+        </div>
         <p class="text-center text-sm text-slate-500 mt-6"><span data-i18n="have_account">มีบัญชีอยู่แล้ว?</span> <button onclick="toggleAuth('login')" class="text-purple-600 font-bold underline" data-i18n="login_link">เข้าสู่ระบบ</button></p>
       </div>
 
+
+      <!-- Forgot password Card -->
+      <div id="forgot-card" class="relative hidden bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-9 md:p-11 shadow-2xl border border-purple-100">
+        <div class="lang-slot absolute top-3 right-3 sm:top-4 sm:right-4 z-20"></div>
+        <div class="text-center mb-6 pt-8 sm:pt-0">
+          <svg class="auth-logo mx-auto" viewBox="0 0 64 64" aria-hidden="true"><use href="#learnora-logo"/></svg>
+          <h2 class="auth-title text-2xl sm:text-3xl font-bold mt-2"><span data-fg="ตั้งรหัสผ่านใหม่|Reset password">ตั้งรหัสผ่านใหม่</span></h2>
+          <p class="text-slate-500 text-sm sm:text-base mt-1" id="fg-sub" data-fg="กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยันไปให้|Enter the email you signed up with and we will send you a code">กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยันไปให้</p>
+        </div>
+        <div id="fg-error" class="text-sm text-red-500 font-bold hidden text-center bg-red-50 py-2.5 px-3 rounded-xl border border-red-200 mb-4"></div>
+        <form id="fg-form1" class="fg-step space-y-4" onsubmit="vmForgotCheck(event)">
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="อีเมล (Email)|Email">อีเมล (Email)</label>
+            <input type="email" id="fg-email" required placeholder="user@example.com" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+          </div>
+          <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="ตรวจสอบอีเมล|Continue">ตรวจสอบอีเมล</button>
+        </form>
+        <form id="fg-form2" class="fg-step hidden space-y-4" onsubmit="vmForgotSave(event)">
+          <div class="text-center text-sm font-bold text-slate-500" id="fg-who"></div>
+          <div id="fg-note" class="text-sm text-center rounded-xl py-2.5 px-3 bg-amber-50 border border-amber-200 text-amber-800 hidden"></div>
+          <div id="fg-codebox">
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสยืนยันจากอีเมล|Verification code from the email">รหัสยืนยันจากอีเมล</label>
+            <input type="text" id="fg-code" inputmode="numeric" autocomplete="one-time-code" maxlength="10" placeholder="••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition tracking-widest text-center">
+            <div class="text-right mt-1"><button type="button" id="fg-resend" onclick="vmForgotResend()" class="text-purple-600 font-bold text-sm underline" data-fg="ส่งรหัสอีกครั้ง|Resend code">ส่งรหัสอีกครั้ง</button></div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)|New password (at least 8 characters, letters and numbers)">รหัสผ่านใหม่ (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)</label>
+            <div class="relative">
+              <input type="password" id="fg-pass" required placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition pr-12">
+              <button type="button" onclick="togglePassVisibility(['fg-pass','fg-pass2'], this)" class="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-xl text-slate-400 hover:text-purple-600 focus:outline-none">👁️</button>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-slate-500 mb-1.5" data-fg="ยืนยันรหัสผ่านใหม่|Confirm new password">ยืนยันรหัสผ่านใหม่</label>
+            <input type="password" id="fg-pass2" required placeholder="••••••••" class="w-full px-4 py-3.5 sm:py-4 rounded-2xl border border-purple-200 outline-none focus:border-pink-500 focus:ring-2 focus:ring-pink-200 text-base transition">
+          </div>
+          <button type="submit" class="w-full py-4 text-base sm:text-lg rounded-2xl gradient-btn text-white font-bold shadow-lg shadow-purple-500/20 active:scale-95 transition" data-fg="บันทึกรหัสผ่านใหม่|Save new password">บันทึกรหัสผ่านใหม่</button>
+        </form>
+        <p class="text-center text-sm text-slate-500 mt-6"><button type="button" onclick="toggleAuth('login')" class="text-purple-600 font-bold underline" data-fg="← กลับไปเข้าสู่ระบบ|← Back to log in">← กลับไปเข้าสู่ระบบ</button></p>
+      </div>
     </div>
 
     <!-- Main View (After Login) -->
@@ -1038,8 +1288,6 @@
           </div>
 
           <div class="flex items-center gap-2">
-
-            <button onclick="openLogoutConfirmModal()" class="px-5 py-2.5 rounded-xl bg-red-50 text-red-600 text-sm font-bold hover:bg-red-100 transition" data-i18n="k2">ออกจากระบบ</button>
           </div>
         </div>
 
@@ -1248,7 +1496,7 @@
       <section id="page-games" class="vm-page hidden w-full max-w-5xl mx-auto">
         <div class="bg-white/90 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-xl shadow-purple-950/5 border border-purple-100">
           <div class="flex items-center justify-between gap-2 mb-4">
-            <span></span>
+            <button type="button" class="vm-back vm-back-main" onclick="vmGo('home')" data-i18n="k36">← กลับหน้าหลัก</button>
             <h2 class="vm-title text-xl sm:text-2xl font-extrabold gradient-text" data-i18n="k37">🎮 เล่นเกม</h2>
           </div>
           <div id="games-menu">
@@ -1266,19 +1514,19 @@
       <section id="page-policy" class="vm-page hidden w-full max-w-5xl mx-auto">
         <div class="bg-white/90 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-xl shadow-purple-950/5 border border-purple-100">
           <div class="flex items-center justify-between gap-2 mb-3">
-            <span></span>
+            <button type="button" class="vm-back vm-back-main" onclick="vmGo('home')" data-i18n="k47">← กลับหน้าหลัก</button>
             <button type="button" id="pol-back" class="vm-back" onclick="vmPolBack()" style="display:none"></button>
-            <h2 class="vm-title text-xl sm:text-2xl font-extrabold gradient-text" data-i18n="k48">📜 นโยบาย</h2>
+            <h2 class="vm-title text-xl sm:text-2xl font-extrabold gradient-text" data-i18n="k48">นโยบาย</h2>
           </div>
-          <p id="policy-intro" class="text-[12px] sm:text-xs text-slate-500 mb-4" data-i18n="k49">อัปเดตล่าสุด: 12 พฤศจิกายน 2569 · แตะหัวข้อเพื่อเปิดอ่าน</p>
+          <p id="policy-intro" class="text-[12px] sm:text-xs text-slate-500 mb-4" data-i18n="k49">อัปเดตล่าสุด: 28 พฤศจิกายน 2569 · แตะหัวข้อเพื่อเปิดอ่าน</p>
           <div id="policy-grid" class="gm-grid" style="display:none"></div>
           <div id="policy-docs">
-      <details class="vm-pol" open><summary><span>🌐</span><span data-i18n="k50">1. นโยบายการใช้งานเว็บไซต์</span></summary><div class="body"><ul><li data-i18n="k51">Learnora เป็นเว็บไซต์ช่วยเรียนภาษาอังกฤษ ใช้งานได้ฟรีเพื่อการเรียนรู้ส่วนบุคคล</li><li data-i18n="k52">ห้ามใช้เว็บไซต์ในทางที่ผิดกฎหมาย หรือในลักษณะที่รบกวนการทำงานของเว็บไซต์และผู้อื่น</li><li data-i18n="k53">เนื้อหาบทเรียนมีไว้เพื่อการศึกษา ไม่อนุญาตให้นำไปขายต่อโดยไม่ได้รับอนุญาต</li><li data-i18n="k54">ผู้ดูแลอาจปรับปรุงหรือเปลี่ยนแปลงเว็บไซต์ได้โดยไม่ต้องแจ้งล่วงหน้า</li></ul></div></details>
-      <details class="vm-pol"><summary><span>🔒</span><span data-i18n="k55">2. นโยบายความเป็นส่วนตัว</span></summary><div class="body"><ul><li data-i18n="k56">ข้อมูลบัญชี (ชื่อ อีเมล รหัสผ่าน) ผลการเรียน และคะแนนเกม ถูกเก็บไว้ในเบราว์เซอร์ของคุณเอง ไม่ได้ส่งไปเก็บที่เซิร์ฟเวอร์ของเว็บไซต์</li><li data-i18n="k57">รหัสผ่านถูกเก็บในเบราว์เซอร์แบบไม่เข้ารหัส จึงไม่ควรใช้รหัสผ่านเดียวกับบริการสำคัญ เช่น อีเมลหรือบัญชีธนาคาร</li><li data-i18n="k58">ไม่ควรใช้เครื่องสาธารณะหรือเครื่องที่ใช้ร่วมกันโดยไม่ออกจากระบบ</li><li data-i18n="k59">เว็บไซต์โหลดฟอนต์และไลบรารีตกแต่งจากผู้ให้บริการภายนอก (เช่น Google Fonts) ซึ่งตามปกติอาจเห็นที่อยู่ IP ของผู้เข้าชม</li></ul></div></details>
-      <details class="vm-pol"><summary><span>👤</span><span data-i18n="k60">3. ข้อกำหนดสมาชิก</span></summary><div class="body"><ul><li data-i18n="k61">สมาชิกรับผิดชอบการเก็บรักษารหัสผ่านและการใช้งานบัญชีบนอุปกรณ์ของตนเอง</li><li data-i18n="k62">1 อีเมลสมัครได้ 1 บัญชี</li><li data-i18n="k63">ผู้ดูแลสามารถปรับปรุงข้อกำหนดได้ตามความเหมาะสม</li></ul></div></details>
-      <details class="vm-pol"><summary><span>💾</span><span data-i18n="k64">4. การจัดเก็บข้อมูล LocalStorage</span></summary><div class="body"><ul><li data-i18n="k65">เว็บไซต์ใช้ LocalStorage ของเบราว์เซอร์เก็บบัญชี ความคืบหน้าการเรียน และคะแนนเกม</li><li data-i18n="k66">ข้อมูลจึงยังอยู่เมื่อรีเฟรชหน้าหรือปิดแล้วเปิดเว็บใหม่ในเบราว์เซอร์เดิม</li><li data-i18n="k67">ไม่มีการเชื่อมต่อฐานข้อมูลกลางหรือ API ภายนอกสำหรับเก็บข้อมูลเหล่านี้</li></ul></div></details>
-      <details class="vm-pol"><summary><span>⚠️</span><span data-i18n="k68">5. ข้อจำกัดของการจัดเก็บข้อมูล</span></summary><div class="body"><ul><li data-i18n="k69">ข้อมูลแยกเก็บตามเบราว์เซอร์และอุปกรณ์ ไม่แชร์ข้ามเครื่อง ผู้ใช้เครื่องอื่นจะไม่เห็นข้อมูลของคุณ</li><li data-i18n="k70">ข้อมูลอาจสูญหายหากล้างข้อมูลเว็บไซต์ ใช้โหมดส่วนตัว หรือเปลี่ยนอุปกรณ์ และไม่มีระบบสำรองข้อมูล</li><li data-i18n="k71">ตัวเลข “ออนไลน์” นับเฉพาะแท็บของเว็บนี้ที่เปิดอยู่ในเบราว์เซอร์เครื่องเดียวกัน ไม่ใช่จำนวนผู้ใช้ทั้งเว็บไซต์</li></ul></div></details>
-      <details class="vm-pol"><summary><span>📮</span><span data-i18n="k72">6. ช่องทางติดต่อผู้ดูแลเว็บไซต์</span></summary><div class="body"><ul><li><span data-i18n="k73">พบข้อผิดพลาด มีข้อเสนอแนะ หรือต้องการแจ้งปัญหา ติดต่อได้ที่</span> <a href="https://chachaphon15y.github.io/3092011" target="_blank" rel="noopener noreferrer" class="text-purple-700 font-bold underline">chachaphon15y.github.io/3092011</a></li></ul></div></details></div>
+      <details class="vm-pol" open><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5z"/></svg></span><span data-i18n="k50">1. นโยบายการใช้งานเว็บไซต์</span></summary><div class="body"><ul><li data-i18n="k51">Learnora เป็นเว็บไซต์ช่วยเรียนภาษาอังกฤษ ใช้งานได้ฟรีเพื่อการเรียนรู้ส่วนบุคคล</li><li data-i18n="k52">ห้ามใช้เว็บไซต์ในทางที่ผิดกฎหมาย หรือในลักษณะที่รบกวนการทำงานของเว็บไซต์และผู้อื่น</li><li data-i18n="k53">เนื้อหาบทเรียนมีไว้เพื่อการศึกษา ไม่อนุญาตให้นำไปขายต่อโดยไม่ได้รับอนุญาต</li><li data-i18n="k54">ผู้ดูแลอาจปรับปรุงหรือเปลี่ยนแปลงเว็บไซต์ได้โดยไม่ต้องแจ้งล่วงหน้า</li></ul></div></details>
+      <details class="vm-pol"><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg></span><span data-i18n="k55">2. นโยบายความเป็นส่วนตัว</span></summary><div class="body"><ul><li data-i18n="k56">ข้อมูลบัญชี (ชื่อ อีเมล) ผลการเรียน และคะแนนเกม ถูกเก็บไว้ที่ Supabase ซึ่งเป็นผู้ให้บริการฐานข้อมูลของเว็บไซต์ และมีเพียงบัญชีของคุณเท่านั้นที่อ่านหรือแก้ไขข้อมูลของคุณได้</li><li data-i18n="k57">รหัสผ่านถูกจัดเก็บแบบเข้ารหัสโดย Supabase และไม่ถูกเก็บไว้ในเบราว์เซอร์ อย่างไรก็ตามไม่ควรใช้รหัสผ่านเดียวกับบริการสำคัญ เช่น อีเมลหรือบัญชีธนาคาร</li><li data-i18n="k58">ไม่ควรใช้เครื่องสาธารณะหรือเครื่องที่ใช้ร่วมกันโดยไม่ออกจากระบบ</li><li data-i18n="k59">เว็บไซต์โหลดฟอนต์และไลบรารีตกแต่งจากผู้ให้บริการภายนอก (เช่น Google Fonts) ซึ่งตามปกติอาจเห็นที่อยู่ IP ของผู้เข้าชม</li></ul></div></details>
+      <details class="vm-pol"><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.6-3.6 3.5-5.5 7-5.5s6.4 1.9 7 5.5"/></svg></span><span data-i18n="k60">3. ข้อกำหนดสมาชิก</span></summary><div class="body"><ul><li data-i18n="k61">สมาชิกรับผิดชอบการเก็บรักษารหัสผ่านและการใช้งานบัญชีบนอุปกรณ์ของตนเอง</li><li data-i18n="k62">1 อีเมลสมัครได้ 1 บัญชี</li><li data-i18n="k63">ผู้ดูแลสามารถปรับปรุงข้อกำหนดได้ตามความเหมาะสม</li></ul></div></details>
+      <details class="vm-pol"><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6"/><path d="M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg></span><span data-i18n="k64">4. การจัดเก็บและซิงก์ข้อมูล</span></summary><div class="body"><ul><li data-i18n="k65">บัญชี ความคืบหน้าการเรียน คะแนนเกม และการตั้งค่า ถูกเก็บไว้ในฐานข้อมูล Supabase</li><li data-i18n="k66">ข้อมูลซิงก์อัตโนมัติทุกครั้งที่มีการเปลี่ยนแปลง เข้าสู่ระบบจากเครื่องไหนก็ได้ข้อมูลเดิมตามมา</li><li data-i18n="k67">เบราว์เซอร์เก็บสำเนาไว้ชั่วคราวเพื่อให้ใช้งานได้ขณะออฟไลน์ และจะส่งขึ้น Supabase ให้เองเมื่อกลับมาออนไลน์</li></ul></div></details>
+      <details class="vm-pol"><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 21 19.5H3z"/><path d="M12 10v4.2"/><path d="M12 17v.1"/></svg></span><span data-i18n="k68">5. ข้อจำกัดของการจัดเก็บข้อมูล</span></summary><div class="body"><ul><li data-i18n="k69">ข้อมูลของแต่ละบัญชีแยกจากกัน ผู้ใช้คนอื่นไม่สามารถเห็นข้อมูลของคุณได้</li><li data-i18n="k70">การเปลี่ยนแปลงที่ทำขณะออฟไลน์จะยังไม่ถูกส่งขึ้น Supabase จนกว่าจะออนไลน์ หากล้างข้อมูลเบราว์เซอร์ก่อนซิงก์ ส่วนที่ยังไม่ได้ส่งอาจสูญหาย</li><li data-i18n="k71">ตัวเลข “ออนไลน์” นับเฉพาะแท็บของเว็บนี้ที่เปิดอยู่ในเบราว์เซอร์เครื่องเดียวกัน ไม่ใช่จำนวนผู้ใช้ทั้งเว็บไซต์</li></ul></div></details>
+      <details class="vm-pol"><summary><span class="pi"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span data-i18n="k72">6. ช่องทางติดต่อผู้ดูแลเว็บไซต์</span></summary><div class="body"><ul><li><span data-i18n="k73">พบข้อผิดพลาด มีข้อเสนอแนะ หรือต้องการแจ้งปัญหา ติดต่อได้ที่</span> <a href="https://chachaphon15y.github.io/3092011" target="_blank" rel="noopener noreferrer" class="text-purple-700 font-bold underline">chachaphon15y.github.io/3092011</a></li></ul></div></details></div>
         </div>
       </section>
 
@@ -1493,8 +1741,8 @@
 
     // ---- Language (Thai / English) for the login & sign-up screens ----
     const I18N = {"th": {"login_title": "เข้าสู่ระบบ Learnora", "subtitle": "เรียนรู้ภาษาอังกฤษได้ทุกที่ ทุกเวลา", "email": "อีเมล (Email)", "password": "รหัสผ่าน (Password)", "login_btn": "เข้าสู่ระบบ", "no_account": "ยังไม่มีบัญชี?", "signup_link": "สมัครสมาชิก", "signup_title": "สมัครสมาชิก", "username": "ชื่อผู้ใช้ (Username)", "name_ph": "ชื่อของคุณ", "password_rule": "รหัสผ่าน (อย่างน้อย 8 ตัว มีทั้งตัวอักษรและตัวเลข)", "confirm": "ยืนยันรหัสผ่าน (Confirm Password)", "register_btn": "ลงทะเบียน", "have_account": "มีบัญชีอยู่แล้ว?", "login_link": "เข้าสู่ระบบ", "toggle_pw": "เปิด/ปิดดูรหัสผ่าน", "err_pw_rule": "❌ รหัสผ่านต้องมีความยาวอย่างน้อย 8 ตัวอักษร และต้องประกอบด้วยทั้งตัวอักษรและตัวเลข", "err_pw_match": "❌ รหัสผ่านและรหัสผ่านยืนยันไม่ตรงกัน กรุณากรอกใหม่อีกครั้ง", "err_no_user": "❌ ไม่พบบัญชีผู้ใช้งานนี้ในระบบ กรุณาตรวจสอบอีเมลอีกครั้ง", "err_bad_pw": "❌ รหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง", "reg_title": "กำลังลงทะเบียน...", "reg_status": "กำลังบันทึกข้อมูลความปลอดภัยบัญชีของคุณ", "reg_ok": "🎉 สมัครสมาชิกสำเร็จ! กรุณาเข้าสู่ระบบ", "in_title": "กำลังเข้าสู่ระบบ...", "in_status": "กำลังยืนยันตัวตนกับระบบความปลอดภัย"}, "en": {"login_title": "Log in to Learnora", "subtitle": "Learn English anywhere, anytime", "email": "Email", "password": "Password", "login_btn": "Log in", "no_account": "Don't have an account?", "signup_link": "Sign up", "signup_title": "Sign up", "username": "Username", "name_ph": "Your name", "password_rule": "Password (at least 8 characters, letters and numbers)", "confirm": "Confirm password", "register_btn": "Register", "have_account": "Already have an account?", "login_link": "Log in", "toggle_pw": "Show / hide password", "err_pw_rule": "❌ Password must be at least 8 characters and include both letters and numbers", "err_pw_match": "❌ Passwords do not match. Please try again", "err_no_user": "❌ Account not found. Please check your email", "err_bad_pw": "❌ Incorrect password. Please try again", "reg_title": "Registering...", "reg_status": "Saving your account security details", "reg_ok": "🎉 Sign-up successful! Please log in", "in_title": "Logging in...", "in_status": "Verifying your identity"}};
-    Object.assign(I18N.th, {"k1": "สวัสดีผู้ใช้งาน", "k2": "ออกจากระบบ", "k3": "คลังเรียนรู้ภาษาอังกฤษ", "k4": "เลือกหมวดหมู่ที่ต้องการเรียนรู้ได้เลย", "k5": "💡 เรียนทีละนิด ฝึกบ่อยๆ แล้วคุณจะเก่งขึ้นได้อย่างแน่นอน", "k6": "💡 ฟังเสียงแล้วพูดตามทุกประโยค", "k7": "📅 ท่องคำศัพท์วันละ 10 คำ", "k8": "✅ ทำแบบฝึกหัดท้ายบทให้ได้เกิน 70%", "k9": "หน้าหลัก", "k10": "เล่นเกม", "k11": "นโยบาย", "k12": "ออนไลน์ในเบราว์เซอร์นี้ 1 แท็บ", "k13": "หมวดหมู่การเรียนรู้", "k14": "บทเรียนประโยค", "k15": "ประโยคภาษาอังกฤษ", "k16": "ประโยคตัวอย่างภาษาอังกฤษพร้อมคำอ่านไทย คำแปล ปุ่มฟังเสียง และช่องค้นหา", "k17": "เข้าสู่บทเรียน →", "k18": "12 บทเรียน", "k19": "ไวยากรณ์ (Grammar)", "k20": "เรียนไวยากรณ์ตั้งแต่พื้นฐานถึง Tenses พร้อมสูตร ตัวอย่าง คำแปล และปุ่มฟังเสียง", "k21": "เข้าสู่บทเรียนไวยากรณ์ →", "k22": "คำศัพท์ตามหมวดหมู่", "k23": "คลังคำศัพท์ A1-C2 แยกตามสถานการณ์ในชีวิตประจำวัน (กำลังพัฒนา...)", "k24": "ฝึกฟัง (Listening)", "k25": "ฝึกฟังบทสนทนาและเรื่องสั้นภาษาอังกฤษ (กำลังพัฒนา...)", "k26": "สำนวน (Idioms)", "k27": "สำนวนภาษาอังกฤษที่ใช้บ่อยพร้อมความหมาย (กำลังพัฒนา...)", "k28": "บทสนทนา (Conversation)", "k29": "บทสนทนาในชีวิตประจำวัน ร้านอาหาร เดินทาง ช้อปปิ้ง (กำลังพัฒนา...)", "k30": "ฝึกอ่าน (Reading)", "k31": "บทอ่านสั้นๆ พร้อมคำถามเช็กความเข้าใจ (กำลังพัฒนา...)", "k32": "การออกเสียง (Pronunciation)", "k33": "ฝึกออกเสียงและสำเนียงให้ชัดเจน (กำลังพัฒนา...)", "k34": "วลีกริยา (Phrasal Verbs)", "k35": "รวม Phrasal Verbs ที่ใช้บ่อยพร้อมตัวอย่าง (กำลังพัฒนา...)", "k36": "← กลับหน้าหลัก", "k37": "🎮 เล่นเกม", "k38": "เล่นสนุกพร้อมฝึกภาษาอังกฤษ สะสมคะแนนให้สูงที่สุด!", "k39": "เล่นได้เลย", "k40": "ทายความหมายคำศัพท์ 10 ข้อ ตอบถูกติดกันได้คะแนนโบนัส ฟังเสียงคำได้", "k41": "🏆 คะแนนสูงสุด: 0", "k42": "▶ เริ่มเกม", "k43": "เลือกคำตอบที่ถูกต้องตามหลักไวยากรณ์ จับเวลาท้าทายตัวเอง", "k44": "จับคู่คำศัพท์ภาษาอังกฤษกับความหมายภาษาไทยให้ถูกต้อง", "k45": "เรียงคำให้เป็นประโยคภาษาอังกฤษที่ถูกต้อง", "k46": "ฟังเสียงแล้วเลือกคำหรือประโยคที่ได้ยินให้ถูกต้อง", "k47": "← กลับหน้าหลัก", "k48": "📜 นโยบาย", "k49": "อัปเดตล่าสุด: 12 พฤศจิกายน 2569 · แตะหัวข้อเพื่อเปิดอ่าน", "k50": "1. นโยบายการใช้งานเว็บไซต์", "k51": "Learnora เป็นเว็บไซต์ช่วยเรียนภาษาอังกฤษ ใช้งานได้ฟรีเพื่อการเรียนรู้ส่วนบุคคล", "k52": "ห้ามใช้เว็บไซต์ในทางที่ผิดกฎหมาย หรือในลักษณะที่รบกวนการทำงานของเว็บไซต์และผู้อื่น", "k53": "เนื้อหาบทเรียนมีไว้เพื่อการศึกษา ไม่อนุญาตให้นำไปขายต่อโดยไม่ได้รับอนุญาต", "k54": "ผู้ดูแลอาจปรับปรุงหรือเปลี่ยนแปลงเว็บไซต์ได้โดยไม่ต้องแจ้งล่วงหน้า", "k55": "2. นโยบายความเป็นส่วนตัว", "k56": "ข้อมูลบัญชี (ชื่อ อีเมล รหัสผ่าน) ผลการเรียน และคะแนนเกม ถูกเก็บไว้ในเบราว์เซอร์ของคุณเอง ไม่ได้ส่งไปเก็บที่เซิร์ฟเวอร์ของเว็บไซต์", "k57": "รหัสผ่านถูกเก็บในเบราว์เซอร์แบบไม่เข้ารหัส จึงไม่ควรใช้รหัสผ่านเดียวกับบริการสำคัญ เช่น อีเมลหรือบัญชีธนาคาร", "k58": "ไม่ควรใช้เครื่องสาธารณะหรือเครื่องที่ใช้ร่วมกันโดยไม่ออกจากระบบ", "k59": "เว็บไซต์โหลดฟอนต์และไลบรารีตกแต่งจากผู้ให้บริการภายนอก (เช่น Google Fonts) ซึ่งตามปกติอาจเห็นที่อยู่ IP ของผู้เข้าชม", "k60": "3. ข้อกำหนดสมาชิก", "k61": "สมาชิกรับผิดชอบการเก็บรักษารหัสผ่านและการใช้งานบัญชีบนอุปกรณ์ของตนเอง", "k62": "1 อีเมลสมัครได้ 1 บัญชี", "k63": "ผู้ดูแลสามารถปรับปรุงข้อกำหนดได้ตามความเหมาะสม", "k64": "4. การจัดเก็บข้อมูล LocalStorage", "k65": "เว็บไซต์ใช้ LocalStorage ของเบราว์เซอร์เก็บบัญชี ความคืบหน้าการเรียน และคะแนนเกม", "k66": "ข้อมูลจึงยังอยู่เมื่อรีเฟรชหน้าหรือปิดแล้วเปิดเว็บใหม่ในเบราว์เซอร์เดิม", "k67": "ไม่มีการเชื่อมต่อฐานข้อมูลกลางหรือ API ภายนอกสำหรับเก็บข้อมูลเหล่านี้", "k68": "5. ข้อจำกัดของการจัดเก็บข้อมูล", "k69": "ข้อมูลแยกเก็บตามเบราว์เซอร์และอุปกรณ์ ไม่แชร์ข้ามเครื่อง ผู้ใช้เครื่องอื่นจะไม่เห็นข้อมูลของคุณ", "k70": "ข้อมูลอาจสูญหายหากล้างข้อมูลเว็บไซต์ ใช้โหมดส่วนตัว หรือเปลี่ยนอุปกรณ์ และไม่มีระบบสำรองข้อมูล", "k71": "ตัวเลข “ออนไลน์” นับเฉพาะแท็บของเว็บนี้ที่เปิดอยู่ในเบราว์เซอร์เครื่องเดียวกัน ไม่ใช่จำนวนผู้ใช้ทั้งเว็บไซต์", "k72": "6. ช่องทางติดต่อผู้ดูแลเว็บไซต์", "k73": "พบข้อผิดพลาด มีข้อเสนอแนะ หรือต้องการแจ้งปัญหา ติดต่อได้ที่"});
-    Object.assign(I18N.en, {"k1": "Hello, user", "k2": "Log out", "k3": "English Learning Hub", "k4": "Choose a category you want to learn", "k5": "💡 Learn a little at a time, practise often, and you will definitely improve", "k6": "💡 Listen and repeat every sentence", "k7": "📅 Learn 10 new words a day", "k8": "✅ Score over 70% on each lesson quiz", "k9": "Home", "k10": "Games", "k11": "Policy", "k12": "Online in this browser: 1 tab", "k13": "Learning categories", "k14": "Sentence lessons", "k15": "English Sentences", "k16": "English example sentences with Thai pronunciation, translations, audio buttons and search", "k17": "Start learning →", "k18": "12 lessons", "k19": "Grammar", "k20": "Learn grammar from the basics to Tenses, with formulas, examples, translations and audio buttons", "k21": "Start grammar lessons →", "k22": "Vocabulary by Topic", "k23": "A1–C2 vocabulary grouped by everyday situations (in development...)", "k24": "Listening", "k25": "Practise listening to English conversations and short stories (in development...)", "k26": "Idioms", "k27": "Common English idioms with their meanings (in development...)", "k28": "Conversation", "k29": "Everyday conversations: restaurants, travel, shopping (in development...)", "k30": "Reading", "k31": "Short reading passages with comprehension questions (in development...)", "k32": "Pronunciation", "k33": "Practise clear pronunciation and accent (in development...)", "k34": "Phrasal Verbs", "k35": "Common phrasal verbs with examples (in development...)", "k36": "← Back to home", "k37": "🎮 Games", "k38": "Have fun practising English and collect the highest score!", "k39": "Play now", "k40": "Guess the meaning of 10 words. Correct streaks earn bonus points. You can listen to each word.", "k41": "🏆 High score: 0", "k42": "▶ Start game", "k43": "Choose the correct answer by grammar rules and challenge yourself against the clock", "k44": "Match English words with their Thai meanings", "k45": "Arrange the words into a correct English sentence", "k46": "Listen and choose the word or sentence you hear", "k47": "← Back to home", "k48": "📜 Policy", "k49": "Last updated: 12 November 2026 · Tap a heading to read", "k50": "1. Website usage policy", "k51": "Learnora is an English learning website, free to use for personal study.", "k52": "Do not use the website illegally or in ways that disturb the site or other people.", "k53": "Lesson content is for education only and may not be resold without permission.", "k54": "The administrator may update or change the website without prior notice.", "k55": "2. Privacy policy", "k56": "Account data (name, email, password), learning progress and game scores are stored in your own browser and are not sent to the website's server.", "k57": "Passwords are stored in the browser without encryption, so do not reuse a password from important services such as email or banking.", "k58": "Do not use a public or shared device without logging out.", "k59": "The site loads fonts and decorative libraries from external providers (such as Google Fonts), which may normally see visitors' IP addresses.", "k60": "3. Member terms", "k61": "Members are responsible for keeping their password safe and for the use of their account on their own devices.", "k62": "One email can register one account.", "k63": "The administrator may update these terms as appropriate.", "k64": "4. LocalStorage data", "k65": "The website uses the browser's LocalStorage to keep accounts, learning progress and game scores.", "k66": "The data therefore stays after refreshing or reopening the site in the same browser.", "k67": "No central database or external API is used to store this data.", "k68": "5. Data storage limits", "k69": "Data is stored per browser and device and is not shared between devices. Other users cannot see your data.", "k70": "Data may be lost if you clear site data, use private mode or change device, and there is no backup system.", "k71": "The \"online\" number counts only tabs of this site open in the same browser, not all users of the website.", "k72": "6. Contact the administrator", "k73": "To report a bug, make a suggestion or report a problem, contact:"});
+    Object.assign(I18N.th, {"k1": "สวัสดีผู้ใช้งาน", "k2": "ออกจากระบบ", "k3": "คลังเรียนรู้ภาษาอังกฤษ", "k4": "เลือกหมวดหมู่ที่ต้องการเรียนรู้ได้เลย", "k5": "💡 เรียนทีละนิด ฝึกบ่อยๆ แล้วคุณจะเก่งขึ้นได้อย่างแน่นอน", "k6": "💡 ฟังเสียงแล้วพูดตามทุกประโยค", "k7": "📅 ท่องคำศัพท์วันละ 10 คำ", "k8": "✅ ทำแบบฝึกหัดท้ายบทให้ได้เกิน 70%", "k9": "หน้าหลัก", "k10": "เล่นเกม", "k11": "นโยบาย", "k12": "ออนไลน์ในเบราว์เซอร์นี้ 1 แท็บ", "k13": "หมวดหมู่การเรียนรู้", "k14": "บทเรียนประโยค", "k15": "ประโยคภาษาอังกฤษ", "k16": "ประโยคตัวอย่างภาษาอังกฤษพร้อมคำอ่านไทย คำแปล ปุ่มฟังเสียง และช่องค้นหา", "k17": "เข้าสู่บทเรียน →", "k18": "12 บทเรียน", "k19": "ไวยากรณ์ (Grammar)", "k20": "เรียนไวยากรณ์ตั้งแต่พื้นฐานถึง Tenses พร้อมสูตร ตัวอย่าง คำแปล และปุ่มฟังเสียง", "k21": "เข้าสู่บทเรียนไวยากรณ์ →", "k22": "คำศัพท์ตามหมวดหมู่", "k23": "คลังคำศัพท์ A1-C2 แยกตามสถานการณ์ในชีวิตประจำวัน (กำลังพัฒนา...)", "k24": "ฝึกฟัง (Listening)", "k25": "ฝึกฟังบทสนทนาและเรื่องสั้นภาษาอังกฤษ (กำลังพัฒนา...)", "k26": "สำนวน (Idioms)", "k27": "สำนวนภาษาอังกฤษที่ใช้บ่อยพร้อมความหมาย (กำลังพัฒนา...)", "k28": "บทสนทนา (Conversation)", "k29": "บทสนทนาในชีวิตประจำวัน ร้านอาหาร เดินทาง ช้อปปิ้ง (กำลังพัฒนา...)", "k30": "ฝึกอ่าน (Reading)", "k31": "บทอ่านสั้นๆ พร้อมคำถามเช็กความเข้าใจ (กำลังพัฒนา...)", "k32": "การออกเสียง (Pronunciation)", "k33": "ฝึกออกเสียงและสำเนียงให้ชัดเจน (กำลังพัฒนา...)", "k34": "วลีกริยา (Phrasal Verbs)", "k35": "รวม Phrasal Verbs ที่ใช้บ่อยพร้อมตัวอย่าง (กำลังพัฒนา...)", "k36": "← กลับหน้าหลัก", "k37": "🎮 เล่นเกม", "k38": "เล่นสนุกพร้อมฝึกภาษาอังกฤษ สะสมคะแนนให้สูงที่สุด!", "k39": "เล่นได้เลย", "k40": "ทายความหมายคำศัพท์ 10 ข้อ ตอบถูกติดกันได้คะแนนโบนัส ฟังเสียงคำได้", "k41": "🏆 คะแนนสูงสุด: 0", "k42": "▶ เริ่มเกม", "k43": "เลือกคำตอบที่ถูกต้องตามหลักไวยากรณ์ จับเวลาท้าทายตัวเอง", "k44": "จับคู่คำศัพท์ภาษาอังกฤษกับความหมายภาษาไทยให้ถูกต้อง", "k45": "เรียงคำให้เป็นประโยคภาษาอังกฤษที่ถูกต้อง", "k46": "ฟังเสียงแล้วเลือกคำหรือประโยคที่ได้ยินให้ถูกต้อง", "k47": "← กลับหน้าหลัก", "k48": "นโยบาย", "k49": "อัปเดตล่าสุด: 28 พฤศจิกายน 2569 · แตะหัวข้อเพื่อเปิดอ่าน", "k50": "1. นโยบายการใช้งานเว็บไซต์", "k51": "Learnora เป็นเว็บไซต์ช่วยเรียนภาษาอังกฤษ ใช้งานได้ฟรีเพื่อการเรียนรู้ส่วนบุคคล", "k52": "ห้ามใช้เว็บไซต์ในทางที่ผิดกฎหมาย หรือในลักษณะที่รบกวนการทำงานของเว็บไซต์และผู้อื่น", "k53": "เนื้อหาบทเรียนมีไว้เพื่อการศึกษา ไม่อนุญาตให้นำไปขายต่อโดยไม่ได้รับอนุญาต", "k54": "ผู้ดูแลอาจปรับปรุงหรือเปลี่ยนแปลงเว็บไซต์ได้โดยไม่ต้องแจ้งล่วงหน้า", "k55": "2. นโยบายความเป็นส่วนตัว", "k56": "ข้อมูลบัญชี (ชื่อ อีเมล) ผลการเรียน และคะแนนเกม ถูกเก็บไว้ที่ Supabase ซึ่งเป็นผู้ให้บริการฐานข้อมูลของเว็บไซต์ และมีเพียงบัญชีของคุณเท่านั้นที่อ่านหรือแก้ไขข้อมูลของคุณได้", "k57": "รหัสผ่านถูกจัดเก็บแบบเข้ารหัสโดย Supabase และไม่ถูกเก็บไว้ในเบราว์เซอร์ อย่างไรก็ตามไม่ควรใช้รหัสผ่านเดียวกับบริการสำคัญ เช่น อีเมลหรือบัญชีธนาคาร", "k58": "ไม่ควรใช้เครื่องสาธารณะหรือเครื่องที่ใช้ร่วมกันโดยไม่ออกจากระบบ", "k59": "เว็บไซต์โหลดฟอนต์และไลบรารีตกแต่งจากผู้ให้บริการภายนอก (เช่น Google Fonts) ซึ่งตามปกติอาจเห็นที่อยู่ IP ของผู้เข้าชม", "k60": "3. ข้อกำหนดสมาชิก", "k61": "สมาชิกรับผิดชอบการเก็บรักษารหัสผ่านและการใช้งานบัญชีบนอุปกรณ์ของตนเอง", "k62": "1 อีเมลสมัครได้ 1 บัญชี", "k63": "ผู้ดูแลสามารถปรับปรุงข้อกำหนดได้ตามความเหมาะสม", "k64": "4. การจัดเก็บและซิงก์ข้อมูล", "k65": "บัญชี ความคืบหน้าการเรียน คะแนนเกม และการตั้งค่า ถูกเก็บไว้ในฐานข้อมูล Supabase", "k66": "ข้อมูลซิงก์อัตโนมัติทุกครั้งที่มีการเปลี่ยนแปลง เข้าสู่ระบบจากเครื่องไหนก็ได้ข้อมูลเดิมตามมา", "k67": "เบราว์เซอร์เก็บสำเนาไว้ชั่วคราวเพื่อให้ใช้งานได้ขณะออฟไลน์ และจะส่งขึ้น Supabase ให้เองเมื่อกลับมาออนไลน์", "k68": "5. ข้อจำกัดของการจัดเก็บข้อมูล", "k69": "ข้อมูลของแต่ละบัญชีแยกจากกัน ผู้ใช้คนอื่นไม่สามารถเห็นข้อมูลของคุณได้", "k70": "การเปลี่ยนแปลงที่ทำขณะออฟไลน์จะยังไม่ถูกส่งขึ้น Supabase จนกว่าจะออนไลน์ หากล้างข้อมูลเบราว์เซอร์ก่อนซิงก์ ส่วนที่ยังไม่ได้ส่งอาจสูญหาย", "k71": "ตัวเลข “ออนไลน์” นับเฉพาะแท็บของเว็บนี้ที่เปิดอยู่ในเบราว์เซอร์เครื่องเดียวกัน ไม่ใช่จำนวนผู้ใช้ทั้งเว็บไซต์", "k72": "6. ช่องทางติดต่อผู้ดูแลเว็บไซต์", "k73": "พบข้อผิดพลาด มีข้อเสนอแนะ หรือต้องการแจ้งปัญหา ติดต่อได้ที่"});
+    Object.assign(I18N.en, {"k1": "Hello, user", "k2": "Log out", "k3": "English Learning Hub", "k4": "Choose a category you want to learn", "k5": "💡 Learn a little at a time, practise often, and you will definitely improve", "k6": "💡 Listen and repeat every sentence", "k7": "📅 Learn 10 new words a day", "k8": "✅ Score over 70% on each lesson quiz", "k9": "Home", "k10": "Games", "k11": "Policy", "k12": "Online in this browser: 1 tab", "k13": "Learning categories", "k14": "Sentence lessons", "k15": "English Sentences", "k16": "English example sentences with Thai pronunciation, translations, audio buttons and search", "k17": "Start learning →", "k18": "12 lessons", "k19": "Grammar", "k20": "Learn grammar from the basics to Tenses, with formulas, examples, translations and audio buttons", "k21": "Start grammar lessons →", "k22": "Vocabulary by Topic", "k23": "A1–C2 vocabulary grouped by everyday situations (in development...)", "k24": "Listening", "k25": "Practise listening to English conversations and short stories (in development...)", "k26": "Idioms", "k27": "Common English idioms with their meanings (in development...)", "k28": "Conversation", "k29": "Everyday conversations: restaurants, travel, shopping (in development...)", "k30": "Reading", "k31": "Short reading passages with comprehension questions (in development...)", "k32": "Pronunciation", "k33": "Practise clear pronunciation and accent (in development...)", "k34": "Phrasal Verbs", "k35": "Common phrasal verbs with examples (in development...)", "k36": "← Back to home", "k37": "🎮 Games", "k38": "Have fun practising English and collect the highest score!", "k39": "Play now", "k40": "Guess the meaning of 10 words. Correct streaks earn bonus points. You can listen to each word.", "k41": "🏆 High score: 0", "k42": "▶ Start game", "k43": "Choose the correct answer by grammar rules and challenge yourself against the clock", "k44": "Match English words with their Thai meanings", "k45": "Arrange the words into a correct English sentence", "k46": "Listen and choose the word or sentence you hear", "k47": "← Back to home", "k48": "Policy", "k49": "Last updated: 28 November 2026 · Tap a heading to read", "k50": "1. Website usage policy", "k51": "Learnora is an English learning website, free to use for personal study.", "k52": "Do not use the website illegally or in ways that disturb the site or other people.", "k53": "Lesson content is for education only and may not be resold without permission.", "k54": "The administrator may update or change the website without prior notice.", "k55": "2. Privacy policy", "k56": "Account data (name, email), learning progress and game scores are stored in Supabase, the database provider used by this website. Only your own account can read or change your data.", "k57": "Passwords are stored encrypted by Supabase and are not kept in the browser. Still, do not reuse a password from important services such as email or banking.", "k58": "Do not use a public or shared device without logging out.", "k59": "The site loads fonts and decorative libraries from external providers (such as Google Fonts), which may normally see visitors' IP addresses.", "k60": "3. Member terms", "k61": "Members are responsible for keeping their password safe and for the use of their account on their own devices.", "k62": "One email can register one account.", "k63": "The administrator may update these terms as appropriate.", "k64": "4. Data storage and sync", "k65": "Accounts, learning progress, game scores and settings are kept in the Supabase database.", "k66": "Data syncs automatically whenever something changes, so it follows you to any device you log in from.", "k67": "The browser keeps a temporary copy so the site works offline, and uploads changes to Supabase when you are back online.", "k68": "5. Data storage limits", "k69": "Each account's data is kept separate. Other users cannot see your data.", "k70": "Changes made while offline are not uploaded until you are back online. If you clear browser data before syncing, unsent changes may be lost.", "k71": "The \"online\" number counts only tabs of this site open in the same browser, not all users of the website.", "k72": "6. Contact the administrator", "k73": "To report a bug, make a suggestion or report a problem, contact:"});
     I18N.th.hello = 'สวัสดี'; I18N.en.hello = 'Hello';
     Object.assign(I18N.th, { login_a: 'เข้าสู่ระบบ', signup_a: 'สมัครสมาชิก' }); Object.assign(I18N.en, { login_a: 'Log in to', signup_a: 'Sign up for' });
     let LANG = 'th';
@@ -1521,7 +1769,7 @@
     function updateLangLabel() { const l = document.getElementById('lang-current'); if (l) l.textContent = LANG === 'en' ? 'English' : 'ภาษาไทย'; }
     function placeLangSwitch(target) {
       const sw = document.getElementById('lang-switch'); if (!sw) return;
-      const card = document.getElementById(target === 'signup' ? 'signup-card' : 'login-card');
+      const card = document.getElementById(target === 'signup' ? 'signup-card' : target === 'forgot' ? 'forgot-card' : 'login-card');
       const slot = card && card.querySelector('.lang-slot');
       if (slot && sw.parentNode !== slot) slot.appendChild(sw);
       closeLangMenu();
@@ -1619,6 +1867,8 @@
         loginCard.classList.toggle('hidden', target !== 'login');
         signupCard.classList.toggle('hidden', target !== 'signup');
       }
+      const forgotCard = document.getElementById('forgot-card');
+      if (forgotCard) { forgotCard.classList.toggle('hidden', target !== 'forgot'); if (target === 'forgot' && window.vmForgotOpen) window.vmForgotOpen(); }
       placeLangSwitch(target);
     }
     placeLangSwitch('login'); updateLangLabel();
@@ -2058,8 +2308,8 @@
   'use strict';
 
   var $ = function (id) { return document.getElementById(id); };
-  var PAGES = ['games', 'policy'];
-  var ROUTES = ['home', 'games', 'policy', 'lesson', 'grammar'];
+  var PAGES = ['games', 'policy', 'lessons', 'progress', 'vocab', 'rank', 'settings', 'help'];
+  var ROUTES = ['home', 'games', 'policy', 'lessons', 'progress', 'vocab', 'rank', 'settings', 'help', 'lesson', 'grammar'];
   var currentPage = 'home';
   var popping = false;
   var INITIAL_HASH = (location.hash || '').replace('#', '');
@@ -2085,6 +2335,7 @@
       tabs[i].classList.toggle('active', on);
       if (on) tabs[i].setAttribute('aria-current', 'page'); else tabs[i].removeAttribute('aria-current');
     }
+    if (window.vmSideActive) window.vmSideActive(p);
   }
   function setNav(visible) { var n = $('site-nav'); if (n) n.classList.toggle('hidden', !visible); document.body.classList.toggle('vm-full', !visible); document.body.classList.remove('vm-menu'); }
   function setMenu(on) { setNav(on); if (on) document.body.classList.add('vm-menu'); }
@@ -2117,7 +2368,7 @@
     var hide = ['hub-view', 'lesson-view', 'grammar-view'];
     for (var i = 0; i < hide.length; i++) { var h = $(hide[i]); if (h) h.classList.add('hidden'); }
     document.body.classList.remove('in-category');
-    var hh = $('home-header'); if (hh) hh.classList.remove('hidden');
+    var hh = $('home-header'); if (hh) hh.classList.add('hidden');
     hidePages();
     var el = $('page-' + p);
     el.classList.remove('hidden');
@@ -2126,6 +2377,7 @@
     window.scrollTo({ top: 0 });
     if (p === 'games') renderGamesHome();
     else if (p === 'policy') showPolicyMenu();
+    else if (window.vmRenderPage && PAGES.indexOf(p) >= 0) { setNav(false); window.scrollTo({ top: 0 }); window.vmRenderPage(p); }
   }
   function renderPage(p) {
     if (p === 'home') window.showHub();
@@ -2253,7 +2505,7 @@
     for (var i = 0; i < d.length; i++) {
       var sp = d[i].querySelectorAll('summary span'), li = d[i].querySelector('.body li');
       out += '<button type="button" class="gm-card gm-pol" onclick="vmPolOpen(' + i + ')">' +
-        '<div class="gm-ic">' + esc(sp[0] ? sp[0].textContent : '📄') + '</div>' +
+        '<div class="gm-ic">' + (sp[0] ? sp[0].innerHTML : '') + '</div>' +
         '<div class="gm-t">' + esc(sp[1] ? sp[1].textContent : '') + '</div>' +
         '<div class="gm-d">' + esc(li ? li.textContent.trim() : '') + '</div>' +
         '<div class="gm-btn">' + (en ? 'Read →' : 'อ่านเลย →') + '</div></button>';
@@ -2267,7 +2519,7 @@
     var b = $('pol-back'); if (b) b.style.display = 'none';
     var m = pg.querySelector('.vm-back-main'); if (m) m.style.display = '';
     renderPolicyGrid();
-    if (currentPage === 'policy') setMenu(true);
+    if (currentPage === 'policy') setNav(false);
     window.scrollTo({ top: 0 });
   }
   window.vmPolOpen = function (i) {
@@ -2285,7 +2537,7 @@
     $('game-play').classList.add('hidden'); $('game-play').textContent = '';
     $('games-menu').classList.remove('hidden');
     renderGamesGrid();
-    if (currentPage === 'games') { var hh = $('home-header'); if (hh) hh.classList.remove('hidden'); setMenu(true); }
+    if (currentPage === 'games') setNav(false);
     var b = $('quiz-best'); if (b) b.textContent = ((window.vmIsEn && window.vmIsEn()) ? '🏆 High score: ' : '🏆 คะแนนสูงสุด: ') + bestScore();
   }
   window.vmStartQuiz = function () {
@@ -2336,6 +2588,7 @@
       if (q.opts[i] === q.t) btns[i].classList.add('right');
       else if (i === idx) btns[i].classList.add('wrong');
     }
+    if (window.vmTrack) window.vmTrack('quiz', q.w, ok);
     if (ok) {
       var gain = 10 + Math.min(quiz.streak, 5) * 2;
       quiz.score += gain; quiz.correct++; quiz.streak++;
@@ -2355,6 +2608,7 @@
     if (quiz.i >= ROUNDS) finishQuiz(); else renderQuestion();
   }
   function finishQuiz() {
+    if (window.vmTrack && quiz) window.vmTrack('quizdone', quiz.correct);
     var prev = bestScore(), isBest = quiz.score > prev;
     if (isBest) lsSet(BEST_KEY, String(quiz.score));
     var pct = Math.round(quiz.correct * 100 / ROUNDS);
@@ -2430,7 +2684,7 @@
     if (typeof origToggle === 'function') {
       window.toggleAuth = function (target) {
         origToggle.apply(this, arguments);
-        var card = document.getElementById(target === 'signup' ? 'signup-card' : 'login-card');
+        var card = document.getElementById(target === 'signup' ? 'signup-card' : target === 'forgot' ? 'forgot-card' : 'login-card');
         if (card && typeof popIn === 'function') popIn(card);
       };
     }
@@ -2664,7 +2918,10 @@
   function apply(){
     var v=st.auto?autoVal():st.v, t=v/100, r=document.documentElement.style;
     r.setProperty('--dark',Math.max(0,Math.min(1,(0.6-t)/0.3)).toFixed(3));
-    document.body.classList.toggle('bg-light',t>=0.5);
+    document.body.classList.toggle('bg-light',t>=0.5); document.body.classList.toggle('bg-dk',t<0.5); r.setProperty('--vm-b',(0.74+0.26*Math.min(1,v/50)).toFixed(3));
+    var dm=document.getElementById('vm-dim'); if(!dm){ dm=document.createElement('div'); dm.id='vm-dim'; dm.setAttribute('aria-hidden','true'); document.body.appendChild(dm); }
+    var w=v>=70?0:(70-v)/70, k=v>=70?1:0.62+0.38*(v/70);
+    dm.style.backgroundColor='rgb('+Math.round(255*k)+','+Math.round(255*k*(1-0.05*w))+','+Math.round(255*k*(1-0.2*w))+')';
     if(slider){ slider.value=v; chk.checked=st.auto; val.textContent=v+'%'; btn.textContent=t>=0.5?'☀️':'🌙'; }
   }
   function labels(){
@@ -2693,7 +2950,879 @@
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',build); else build();
   setInterval(function(){ if(st.auto) apply(); },300000);
+  window.vmTheme={ get:function(){ return {auto:st.auto,v:st.auto?autoVal():st.v}; }, set:function(a,v){ st.auto=!!a; if(v!=null) st.v=v; save(); apply(); } };
+})();
+</script>
+<script>
+/* Left sidebar + Lessons / Progress / Vocabulary / Leaderboard / Settings / Help pages (all stored in this browser) */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function en() { return !!(window.vmIsEn && window.vmIsEn()); }
+  function T(th, e) { return en() ? e : th; }
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+  function jget(k, d) { try { var v = JSON.parse(localStorage.getItem(k)); return v == null ? d : v; } catch (e) { return d; } }
+  function jset(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function p2(n) { return (n < 10 ? '0' : '') + n; }
+  function dkey(d) { return d.getFullYear() + '-' + p2(d.getMonth() + 1) + '-' + p2(d.getDate()); }
+  function today() { return dkey(new Date()); }
+  function daysAgo(n) { var d = new Date(); d.setDate(d.getDate() - n); return dkey(d); }
+
+  /* ---------- settings (per browser) ---------- */
+  var SK = 'vm_settings_v1', PFX = 'vm_stats_v1_';
+  var set = Object.assign({ sound: true, rate: 0.75, fs: 'm', goal: 10, read: true, tr: true, calm: false, prof: {} }, jget(SK, {}));
+  function saveSet() { jset(SK, set); }
+  function user() { var u = jget('active_user', null); return u && typeof u === 'object' ? u : null; }
+  function ukey() { var u = user(); return u && u.email ? String(u.email).toLowerCase() : null; }
+  function prof() { var k = ukey(); if (!k) return { name: '', av: '🧑‍🎓' }; var p = set.prof[k] || {}; var u = user(); return { name: p.name || (u && u.name) || '', av: p.av || '🧑‍🎓' }; }
+  function applySet() {
+    var b = document.body, h = document.documentElement;
+    if (set.fs && set.fs !== 'm') h.setAttribute('data-fs', set.fs); else h.removeAttribute('data-fs');
+    b.classList.toggle('hide-read', !set.read); b.classList.toggle('hide-th', !set.tr); b.classList.toggle('vm-calm', !!set.calm);
+  }
+
+  /* ---------- stats / XP / streak (per account) ---------- */
+  function load() {
+    var k = ukey(); if (!k) return null;
+    var o = jget(PFX + k, {}) || {};
+    o.xp = o.xp || 0; o.days = o.days || []; o.w = o.w || {}; o.allw = o.allw || 0; o.fav = o.fav || []; o.name = prof().name;
+    return o;
+  }
+  function save(o) {
+    var k = ukey(); if (!k) return;
+    var keep = {}; for (var i = 0; i < 30; i++) { var d = daysAgo(i); if (o.w[d]) keep[d] = o.w[d]; } o.w = keep;
+    o.name = prof().name; jset(PFX + k, o);
+  }
+  function thr(L) { return 50 * L * (L - 1); }
+  function levelOf(xp) { var L = 1; while (xp >= thr(L + 1)) L++; return L; }
+  function streakOf(days) {
+    var has = {}; days.forEach(function (d) { has[d] = 1; });
+    var cur = 0, i = has[today()] ? 0 : 1; while (has[daysAgo(i)]) { cur++; i++; }
+    var sorted = days.slice().sort(), best = 0, run = 0, prev = null;
+    sorted.forEach(function (d) { var dt = new Date(d + 'T00:00:00'); if (prev && Math.round((dt - prev) / 864e5) === 1) run++; else run = 1; prev = dt; if (run > best) best = run; });
+    return { cur: cur, best: Math.max(best, cur) };
+  }
+  function todayWords(o) { return (o.w[today()] || []).length; }
+  function goalWords(o) { return Math.min(todayWords(o), set.goal); }
+  function toast(msg) { var t = $('vm-toast'); if (!t) return; t.textContent = msg; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 2400); }
+  function showGoal(g) {
+    var m = $('vm-goal'); if (!m) return;
+    m.innerHTML = '<div class="gl-card"><div class="gl-em">🎉</div><h3>' + T('ทำเป้าหมายวันนี้สำเร็จ!', 'Daily goal complete!') + '</h3>' +
+      '<p>' + T('คุณฝึกครบ ' + g + ' คำแล้ว รับโบนัส +20 XP', 'You practised ' + g + ' words. Bonus +20 XP') + '</p>' +
+      '<p class="s">' + T('เป้าหมายใหม่จะเริ่มพรุ่งนี้ เรียนต่อวันนี้ได้ แต่คำที่ฝึกเพิ่มจะไม่นับในเป้าหมายแล้ว', 'A new goal starts tomorrow. You can keep learning today, but extra words no longer count toward the goal.') + '</p>' +
+      '<div class="gl-b"><button type="button" class="btn-o" data-gl="close">' + T('เรียนต่อ', 'Keep learning') + '</button><button type="button" class="btn-o soft" data-gl="home">' + T('ไปหน้าหลัก', 'Go home') + '</button></div></div>';
+    m.style.display = 'flex';
+  }
+  window.vmTrack = function (kind, key, ok) {
+    var o = load(); if (!o) return;
+    var t = today(), L0 = levelOf(o.xp), goal0 = todayWords(o) >= set.goal;
+    if (o.days.indexOf(t) < 0) { o.days.push(t); o.xp += 5; }
+    function addWord(k, bonus) { k = String(k || '').toLowerCase().trim().slice(0, 80); if (!k) return; var a = o.w[t] = o.w[t] || []; if (a.indexOf(k) < 0) { a.push(k); o.allw++; o.xp += bonus; } }
+    if (kind === 'quiz') { if (ok) { o.xp += 10; addWord(key, 1); } }
+    else if (kind === 'listen') addWord(key, 2);
+    else if (kind === 'quizdone') o.xp += 20 + (key || 0) * 2;
+    else if (kind === 'grammar') o.xp += 30;
+    o.gd = o.gd || {}; var justDone = false;
+    if (todayWords(o) >= set.goal && !o.gd[t]) { o.gd[t] = set.goal; o.xp += 20; justDone = true; }
+    save(o); renderSide(true);
+    var L1 = levelOf(o.xp);
+    if (justDone) showGoal(set.goal);
+    else if (L1 > L0) toast('🎉 ' + T('เลื่อนเป็น Level ', 'Level up! Level ') + L1);
+  };
+
+  /* ---------- hook speech (sound on/off + speed) and grammar completion ---------- */
+  var os = window.speakText;
+  if (typeof os === 'function') window.speakText = function (text, rate) {
+    if (!set.sound) return;
+    var s = String(text || '');
+    if (!/^(Welcome to Learnora|Goodbye)/.test(s)) { try { window.vmTrack('listen', s); } catch (e) {} }
+    return os.call(this, text, rate || set.rate);
+  };
+  var og = window.gSave;
+  if (typeof og === 'function') window.gSave = function (d) {
+    var b = 0, a = 0; try { b = Object.keys((jget('vm_grammar', {}) || {}).done || {}).length; a = Object.keys((d && d.done) || {}).length; } catch (e) {}
+    var r = og.apply(this, arguments); if (a > b) window.vmTrack('grammar'); return r;
+  };
+  ['showLesson', 'showGrammar'].forEach(function (n) { var f = window[n]; if (typeof f === 'function') window[n] = function () { try { window.vmTrack('open'); } catch (e) {} return f.apply(this, arguments); }; });
+
+  /* ---------- sidebar ---------- */
+  var ICO = {'home': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 11 12 4l8.5 7"/><path d="M5.5 9.8V20h13V9.8"/><path d="M10 20v-5.5h4V20"/></svg>', 'lessons': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5C6.5 4.5 9.5 4.5 12 6c2.5-1.5 5.5-1.5 8-.5V19c-2.5-1-5.5-1-8 .5-2.5-1.5-5.5-1.5-8-.5z"/><path d="M12 6v13.5"/></svg>', 'games': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="4.5" width="14" height="16" rx="2"/><path d="M9 4.5V3.5h6v1"/><path d="m9 13 2 2 4-4.5"/></svg>', 'progress': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5h16"/><path d="m6 16 4-5 3 3 5-7"/></svg>', 'vocab': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18 8.5 6 13 18"/><path d="M5.8 14h5.4"/><path d="M16.5 8v10"/><path d="M16.5 12c0-2 1-3 3-3"/></svg>', 'rank': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h16"/><rect x="4.5" y="12" width="4.5" height="8"/><rect x="9.75" y="5" width="4.5" height="15"/><rect x="15" y="9" width="4.5" height="11"/></svg>', 'settings': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>', 'policy': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h8L19 8v12.5H6.5z"/><path d="M14.5 3.5V8H19"/><path d="M9.5 12.5h6M9.5 16h6"/></svg>', 'help': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.6a2.4 2.4 0 1 1 3.4 2.2c-.7.4-1.1.9-1.1 1.7"/><path d="M12 16.6v.1"/></svg>', 'flame': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c.5 3-1.5 4.3-3 6.2C7.7 11.3 7 12.7 7 14.3a5 5 0 0 0 10 0c0-2-.9-3.2-2-4.5.1 1.2-.4 2-1.2 2.4.4-3-.4-6-1.8-8.7z"/></svg>', 'chev': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14.5 6-6 6 6 6"/></svg>', 'menu': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>', 'globe': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.6 2.4 3.8 5.2 3.8 8.5s-1.2 6.1-3.8 8.5c-2.6-2.4-3.8-5.2-3.8-8.5S9.4 5.9 12 3.5z"/></svg>', 'lock': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>', 'user': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.6-3.6 3.5-5.5 7-5.5s6.4 1.9 7 5.5"/></svg>', 'db': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="2.7"/><path d="M5 6v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7V6"/><path d="M5 12v6c0 1.5 3.1 2.7 7 2.7s7-1.2 7-2.7v-6"/></svg>', 'alert': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 21 19.5H3z"/><path d="M12 10v4.2"/><path d="M12 17v.1"/></svg>', 'mail': '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="m4 7 8 6 8-6"/></svg>'};
+  var ITEMS = [['home', 'home', 'หน้าแรก', 'Home'], ['lessons', 'lessons', 'คลังบทเรียน', 'Lessons'], ['games', 'games', 'แบบทดสอบ & เกม', 'Quiz & Games'], ['progress', 'progress', 'ความคืบหน้า', 'Progress'],
+    ['vocab', 'vocab', 'คลังคำศัพท์', 'Vocabulary'], ['rank', 'rank', 'จัดอันดับ', 'Leaderboard'], ['settings', 'settings', 'ตั้งค่า', 'Settings'], ['policy', 'policy', 'นโยบาย', 'Policy']];
+  var curPage = 'home', lastSide = '';
+  function renderSide(force) {
+    var side = $('vm-side'); if (!side) return;
+    var o = load(); if (!o) return;
+    var L = levelOf(o.xp), a = thr(L), b = thr(L + 1), pct = Math.round((o.xp - a) * 100 / (b - a)), st = streakOf(o.days), tw = goalWords(o), done = tw >= set.goal, gp = Math.min(100, Math.round(tw * 100 / set.goal)), p = prof();
+    var html = {
+      prof: '<div class="sd-prof"><div class="sd-av">' + esc(p.av) + '</div><div style="flex:1;min-width:0"><div class="sd-name">' + esc(p.name) + '</div><div class="sd-lv">Level ' + L + ' · ' + o.xp + ' XP</div><div class="sd-bar"><i style="width:' + pct + '%"></i></div></div></div>',
+      streak: '<div class="sd-streak">' + ICO.flame + '<span>' + (st.cur > 0 ? T('เรียนต่อเนื่อง ' + st.cur + ' วัน', st.cur + (st.cur === 1 ? '-day streak' : '-day streak')) : T('เริ่มเรียนวันนี้', 'Start today')) + '</span></div>',
+      nav: ITEMS.map(function (i) { return '<button type="button" class="sd-it' + (curPage === i[0] ? ' active' : '') + '" data-go="' + i[0] + '"><span class="ic">' + ICO[i[1]] + '</span><span>' + T(i[2], i[3]) + '</span></button>'; }).join(''),
+      goal: '<div class="sd-goalrow"><b>' + T('เป้าหมายวันนี้', 'Today\'s goal') + '</b><span>' + tw + '/' + set.goal + ' ' + T('คำ', 'words') + '</span></div><div class="sd-bar"><i style="width:' + gp + '%"></i></div>' + (done ? '<div class="sd-lv" style="margin-top:6px">' + T('ครบแล้ว เริ่มเป้าหมายใหม่พรุ่งนี้', 'Done. A new goal starts tomorrow.') + '</div>' : ''),
+      help: ICO.help + '<span>' + T('ช่วยเหลือ', 'Help') + '</span>'
+    };
+    var sig = JSON.stringify(html) + curPage; if (!force && sig === lastSide) return; lastSide = sig;
+    $('sd-prof').innerHTML = html.prof; $('sd-streak').innerHTML = html.streak; $('sd-nav').innerHTML = html.nav; $('sd-goal').innerHTML = html.goal;
+    var h = $('sd-help'); h.innerHTML = html.help; h.classList.toggle('active', curPage === 'help');
+    var u = user(); var hd = $('user-display'); if (hd && u && p.name !== u.name) { var txt = T('สวัสดี', 'Hello') + ', ' + p.name; if (hd.innerText !== txt) hd.innerText = txt; }
+  }
+  window.vmSideActive = function (p) { curPage = p; renderSide(true); };
+  function buildSide() {
+    var side = document.createElement('aside'); side.id = 'vm-side'; side.setAttribute('aria-label', 'Menu');
+    side.innerHTML = '<div class="sd-top"><span class="sd-brand"><svg class="sd-logo" viewBox="0 0 64 64" aria-hidden="true"><use href="#learnora-logo"/></svg>Learnora</span><button type="button" id="sd-collapse" class="sd-collapse" title="Collapse menu" aria-label="Collapse menu">'+ICO.chev+'</button></div><div id="sd-prof" class="sd-card"></div><div id="sd-streak" class="sd-card"></div><div id="sd-nav" class="sd-nav"></div><div id="sd-goal" class="sd-card sd-goal"></div><button type="button" id="sd-help" class="sd-help" data-go="help"></button><div id="sd-pres"></div>';
+    document.body.appendChild(side);
+    var tg = document.createElement('button'); tg.id = 'vm-side-toggle'; tg.type = 'button'; tg.innerHTML = ICO.menu; tg.setAttribute('aria-label', 'Menu'); document.body.appendChild(tg);
+    var ov = document.createElement('div'); ov.id = 'vm-side-ov'; document.body.appendChild(ov);
+    var gm = document.createElement('div'); gm.id = 'vm-goal'; document.body.appendChild(gm);
+    gm.addEventListener('click', function (e) { var b = e.target.closest('[data-gl]'); if (!b && e.target !== gm) return; gm.style.display = 'none'; if (b && b.getAttribute('data-gl') === 'home') window.vmGo('home'); });
+    var ts = document.createElement('div'); ts.id = 'vm-toast'; ts.setAttribute('aria-live', 'polite'); document.body.appendChild(ts);
+    var pr = $('vm-presence'); if (pr) $('sd-pres').appendChild(pr);
+    document.body.classList.add('vm-side-on');
+    side.addEventListener('click', function (e) { var b = e.target.closest('[data-go]'); if (!b) return; document.body.classList.remove('side-open'); window.vmGo(b.getAttribute('data-go')); });
+    var mq = window.matchMedia('(min-width:1024px)');
+    function coll(on) { document.body.classList.toggle('side-collapsed', on); try { localStorage.setItem('vm_side_collapsed', on ? '1' : '0'); } catch (e) {} }
+    try { if (localStorage.getItem('vm_side_collapsed') === '1') document.body.classList.add('side-collapsed'); } catch (e) {}
+    $('sd-collapse').addEventListener('click', function () { coll(true); });
+    tg.addEventListener('click', function () { if (mq.matches) coll(false); else document.body.classList.toggle('side-open'); });
+    ov.addEventListener('click', function () { document.body.classList.remove('side-open'); });
+  }
+
+  /* ---------- pages ---------- */
+  var EXTRA = ['lessons', 'progress', 'vocab', 'rank', 'settings', 'help'];
+  var TITLES = { lessons: ['📚', 'คลังบทเรียน', 'Lessons'], progress: ['📈', 'ความคืบหน้า', 'Progress'], vocab: ['🔤', 'คลังคำศัพท์', 'Vocabulary'], rank: ['🏆', 'จัดอันดับ', 'Leaderboard'], settings: ['⚙️', 'ตั้งค่า', 'Settings'], help: ['❓', 'ช่วยเหลือ', 'Help'] };
+  function buildPages() {
+    var anchor = $('page-games'); if (!anchor) return;
+    EXTRA.forEach(function (id) {
+      var s = document.createElement('section'); s.id = 'page-' + id; s.className = 'vm-page hidden w-full mx-auto';
+      s.innerHTML = '<div class="bg-white/90 backdrop-blur-md rounded-3xl p-4 sm:p-6 shadow-xl shadow-purple-950/5 border border-purple-100"><div class="flex items-center justify-between gap-2 mb-4"><button type="button" class="vm-back vm-back-main" onclick="vmGo(\'home\')"></button><h2 class="vm-title text-xl sm:text-2xl font-extrabold gradient-text"></h2></div><div class="pg-body"></div></div>';
+      anchor.parentNode.insertBefore(s, anchor);
+    });
+  }
+  function tile(k, v, n) { return '<div class="tile"><div class="k">' + k + '</div><div class="v">' + v + '</div>' + (n ? '<div class="n">' + n + '</div>' : '') + '</div>'; }
+  function totalSent() { var n = 0; try { for (var p in pagesData) n += pagesData[p].length; } catch (e) {} return n; }
+
+  function pgLessons() {
+    var g = typeof GRAMMAR !== 'undefined' ? GRAMMAR.length : 12, gd = 0; try { gd = Object.keys((jget('vm_grammar', {}) || {}).done || {}).length; } catch (e) {}
+    function card(ic, badge, t, d, go, label) { return '<button type="button" class="gm-card gm-play" data-lgo="' + go + '"><span class="gm-badge">' + badge + '</span><div class="gm-ic">' + ic + '</div><h3 class="gm-t">' + t + '</h3><p class="gm-d">' + d + '</p><div class="gm-btn">' + label + '</div></button>'; }
+    return '<p class="pg-sub">' + T('เลือกบทเรียนที่ต้องการ แล้วเรียนต่อได้ทุกเมื่อ', 'Pick a lesson and continue any time.') + '</p><div class="gm-grid">' +
+      card('💬', T('บทเรียนประโยค', 'Sentences'), 'English Sentences', T('ประโยคตัวอย่างพร้อมคำอ่านไทย คำแปล ปุ่มฟังเสียง และช่องค้นหา', 'Example sentences with Thai pronunciation, translations, audio and search.'), 'lesson', T('เข้าสู่บทเรียน →', 'Start learning →')) +
+      card('✏️', gd + '/' + g + ' ' + T('บท', 'lessons'), 'Grammar', T('ไวยากรณ์ตั้งแต่พื้นฐานถึง Tenses พร้อมสูตร ตัวอย่าง และแบบฝึกหัด', 'Grammar from basics to Tenses with formulas, examples and quizzes.'), 'grammar', T('เรียนไวยากรณ์ →', 'Grammar lessons →')) +
+      card('🔤', totalSent() + '+', T('คลังคำศัพท์', 'Vocabulary'), T('ค้นหาคำศัพท์ ฟังเสียง และบันทึกคำที่ชอบไว้ทบทวน', 'Search words, listen, and save favourites to review.'), 'vocab', T('เปิดคลังคำศัพท์ →', 'Open vocabulary →')) +
+      card('📝', T('เล่นได้เลย', 'Play now'), T('แบบทดสอบ & เกม', 'Quiz & Games'), T('ทดสอบคำศัพท์ 10 ข้อ ตอบถูกติดกันได้คะแนนโบนัส', 'Test yourself with 10 words. Streaks give bonus points.'), 'games', T('ไปเล่นเกม →', 'Play games →')) + '</div>';
+  }
+  function pgProgress() {
+    var o = load(); if (!o) return ''; var L = levelOf(o.xp), st = streakOf(o.days), tw = todayWords(o);
+    var g = typeof GRAMMAR !== 'undefined' ? GRAMMAR.length : 12, gd = 0; try { gd = Object.keys((jget('vm_grammar', {}) || {}).done || {}).length; } catch (e) {}
+    var best = 0; try { best = parseInt(localStorage.getItem('vm_game_quiz_best_v1') || '0', 10) || 0; } catch (e) {}
+    var bars = '', mx = 1, arr = []; for (var i = 6; i >= 0; i--) { var d = daysAgo(i), n = (o.w[d] || []).length; arr.push([d, n]); if (n > mx) mx = n; }
+    var names = en() ? ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'] : ['อา.', 'จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.'];
+    arr.forEach(function (x) { bars += '<div class="b"><span>' + x[1] + '</span><i style="height:' + Math.max(3, Math.round(x[1] * 84 / mx)) + 'px"></i><span>' + names[new Date(x[0] + 'T00:00:00').getDay()] + '</span></div>'; });
+    return '<div class="pg-grid c4">' +
+      tile('Level', L, o.xp + ' / ' + thr(L + 1) + ' XP') + tile('XP', o.xp, T('สะสมทั้งหมด', 'total')) +
+      tile('Streak', st.cur + ' ' + T('วัน', 'd'), T('ดีที่สุด ', 'Best ') + st.best + ' ' + T('วัน', 'd')) +
+      tile(T('วันนี้', 'Today'), goalWords(o) + '/' + set.goal, T('คำที่ฝึกแล้ว', 'words practised')) +
+      tile(T('คำที่ฝึกทั้งหมด', 'Words practised'), o.allw, '') + tile(T('คะแนนเกมสูงสุด', 'Best quiz score'), best, '') +
+      tile(T('ไวยากรณ์', 'Grammar'), gd + '/' + g, T('บทที่เรียนจบ', 'lessons done')) + tile(T('คำที่บันทึก', 'Saved words'), o.fav.length, '') + '</div>' +
+      '<div class="sec-t">' + T('คำที่ฝึกใน 7 วันล่าสุด', 'Words practised – last 7 days') + '</div><div class="tile"><div class="bars">' + bars + '</div></div>' +
+      '<div class="sec-t">' + T('วิธีได้ XP', 'How to earn XP') + '</div><div class="tile" style="font-size:13px;line-height:1.7">• ' + T('เข้าเรียนวันแรกของวัน +5', 'First activity of the day +5') + '<br>• ' + T('ตอบแบบทดสอบถูก +10 · จบเกม +20', 'Correct quiz answer +10 · finish a game +20') + '<br>• ' + T('ฟังประโยคใหม่ +2', 'Listen to a new sentence +2') + '<br>• ' + T('เรียนไวยากรณ์จบ 1 บท +30', 'Complete a grammar lesson +30') + '</div>';
+  }
+  var vq = { q: '', pg: 'all', fav: false, n: 40 };
+  function vocabList() {
+    var o = load(), out = [], q = vq.q.trim().toLowerCase();
+    try { for (var p in pagesData) pagesData[p].forEach(function (it) { out.push(it); }); } catch (e) {}
+    return out.filter(function (it) {
+      if (vq.pg !== 'all' && String(it.page) !== String(vq.pg)) return false;
+      if (vq.fav && o.fav.indexOf(String(it.vocab).toLowerCase()) < 0) return false;
+      return !q || (it.vocab + ' ' + it.en + ' ' + it.th).toLowerCase().indexOf(q) >= 0;
+    });
+  }
+  function vocabRows() {
+    var o = load(), all = vocabList(), list = all.slice(0, vq.n);
+    var h = list.map(function (it) {
+      var w = String(it.vocab), on = o.fav.indexOf(w.toLowerCase()) >= 0;
+      return '<div class="vrow"><div class="m"><div><span class="w">' + esc(w) + '</span><span class="t">' + T('หน้า ', 'Page ') + esc(it.page) + '</span></div><div class="e">' + esc(it.en) + '</div><div class="e">🇹🇭 ' + esc(it.th) + '</div></div>' +
+        '<button type="button" class="ibtn" data-say="' + esc(it.en) + '" title="Listen">🔊</button><button type="button" class="ibtn" data-fav="' + esc(w) + '" title="Save">' + (on ? '⭐' : '☆') + '</button></div>';
+    }).join('');
+    if (!list.length) h = '<div class="tile" style="text-align:center">' + T('ไม่พบคำที่ค้นหา', 'No words found') + '</div>';
+    if (all.length > list.length) h += '<div style="text-align:center;margin-top:8px"><button type="button" class="btn-o" data-more="1">' + T('แสดงเพิ่ม', 'Show more') + ' (' + (all.length - list.length) + ')</button></div>';
+    return '<div class="pg-sub">' + all.length + ' ' + T('คำ', 'words') + '</div>' + h;
+  }
+  function pgVocab() {
+    var pages = ''; try { Object.keys(pagesData).forEach(function (p) { pages += '<option value="' + p + '"' + (String(vq.pg) === String(p) ? ' selected' : '') + '>' + T('หน้า ', 'Page ') + p + '</option>'; }); } catch (e) {}
+    return '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px"><input id="vc-q" class="inp" style="flex:1;min-width:180px" placeholder="' + T('ค้นหาคำศัพท์ / คำแปล…', 'Search word / meaning…') + '" value="' + esc(vq.q) + '">' +
+      '<select id="vc-p" class="inp"><option value="all">' + T('ทุกหน้า', 'All pages') + '</option>' + pages + '</select><button type="button" id="vc-f" class="chip' + (vq.fav ? ' on' : '') + '">' + T('ที่บันทึก', 'Saved') + '</button></div><div id="vc-list">' + vocabRows() + '</div>';
+  }
+  function pgRank() {
+    var rows = [], k, me = ukey();
+    try { for (var i = 0; i < localStorage.length; i++) { k = localStorage.key(i); if (k && k.indexOf(PFX) === 0) { var o = jget(k, null); if (o) rows.push({ key: k.slice(PFX.length), name: o.name || k.slice(PFX.length).split('@')[0], xp: o.xp || 0, st: streakOf(o.days || []).cur }); } } } catch (e) {}
+    rows.sort(function (a, b) { return b.xp - a.xp; });
+    var med = [];
+    return '<p class="pg-sub">' + T('จัดอันดับตาม XP เฉพาะบัญชีที่ใช้บนเบราว์เซอร์นี้ (ข้อมูลไม่ได้ส่งออกไปที่อื่น)', 'Ranked by XP among accounts used in this browser (nothing is sent anywhere).') + '</p>' +
+      (rows.length ? rows.map(function (r, i) { return '<div class="rk' + (r.key === me ? ' me' : '') + '"><div class="pos">' + (med[i] || (i + 1)) + '</div><div class="nm">' + esc(r.name) + (r.key === me ? ' <small>(' + T('คุณ', 'you') + ')</small>' : '') + '</div><div style="font-size:12px;opacity:.8">' + r.st + ' ' + T('วัน', 'd') + '</div><div class="xp">' + r.xp + ' XP</div></div>'; }).join('') : '<div class="tile">' + T('ยังไม่มีข้อมูล', 'No data yet') + '</div>');
+  }
+  var AVS = ['🧑‍🎓', '👩‍🎓', '👨‍🎓', '🦊', '🐼', '🐱', '🐶', '🦉', '🐧', '🌟', '🚀', '🎧'];
+  function row(l, s, ctl) { return '<div class="row-set"><div class="l"><b>' + l + '</b>' + (s ? '<span>' + s + '</span>' : '') + '</div><div>' + ctl + '</div></div>'; }
+  function chips(name, cur, opts) { return '<div class="chips">' + opts.map(function (o) { return '<button type="button" class="chip' + (String(cur) === String(o[0]) ? ' on' : '') + '" data-set="' + name + '" data-val="' + o[0] + '">' + o[1] + '</button>'; }).join('') + '</div>'; }
+  function sw(name, on) { return '<input type="checkbox" class="sw" data-sw="' + name + '"' + (on ? ' checked' : '') + '>'; }
+  function pgSettings() {
+    var p = prof(), th = window.vmTheme ? window.vmTheme.get() : { auto: true, v: 70 }, lang = en() ? 'en' : 'th';
+    var mode = th.auto ? 'auto' : (th.v >= 50 ? 'light' : 'dark');
+    return '<div class="sec-t" style="margin-top:0">' + T('โปรไฟล์', 'Profile') + '</div><div class="tile">' +
+      row(T('ชื่อที่แสดง', 'Display name'), '', '<input id="st-name" class="inp" maxlength="24" value="' + esc(p.name) + '">') +
+      row(T('รูปประจำตัว', 'Avatar'), '', '<div class="chips">' + AVS.map(function (a) { return '<button type="button" class="chip av' + (p.av === a ? ' on' : '') + '" data-av="' + a + '">' + a + '</button>'; }).join('') + '</div>') + '</div>' +
+      '<div class="sec-t">' + T('การแสดงผล', 'Display') + '</div><div class="tile">' +
+      row(T('ภาษา', 'Language'), '', '<div class="chips"><button type="button" class="chip' + (lang === 'th' ? ' on' : '') + '" data-lang="th">ไทย</button><button type="button" class="chip' + (lang === 'en' ? ' on' : '') + '" data-lang="en">English</button></div>') +
+      row(T('ธีมหน้าจอ', 'Theme'), T('ตัวอักษรและแผงเปลี่ยนสีอัตโนมัติ', 'Text and panels adapt automatically'), '<div class="chips"><button type="button" class="chip' + (mode === 'auto' ? ' on' : '') + '" data-theme="auto">' + T('อัตโนมัติ', 'Auto') + '</button><button type="button" class="chip' + (mode === 'light' ? ' on' : '') + '" data-theme="light">' + T('สว่าง', 'Light') + '</button><button type="button" class="chip' + (mode === 'dark' ? ' on' : '') + '" data-theme="dark">' + T('มืด', 'Dark') + '</button></div>') +
+      row(T('ความสว่าง', 'Brightness'), '', '<input type="range" id="st-bright" min="0" max="100" value="' + th.v + '" style="width:160px;accent-color:#f0a04b">') +
+      row(T('ขนาดตัวอักษร', 'Text size'), '', chips('fs', set.fs, [['s', 'S'], ['m', 'M'], ['l', 'L'], ['xl', 'XL']])) +
+      row(T('ลดแอนิเมชัน', 'Reduce animations'), T('ปิดดาวระยิบและการเคลื่อนไหว', 'Turn off twinkling stars and motion'), sw('calm', set.calm)) + '</div>' +
+      '<div class="sec-t">' + T('เสียง', 'Sound') + '</div><div class="tile">' +
+      row(T('เปิดเสียงอ่าน', 'Read-aloud sound'), '', sw('sound', set.sound)) +
+      row(T('ความเร็วเสียง', 'Speech speed'), '<span id="st-rate-l">' + set.rate.toFixed(2) + '×</span>', '<input type="range" id="st-rate" min="0.5" max="1.1" step="0.05" value="' + set.rate + '" style="width:160px;accent-color:#f0a04b"> <button type="button" class="btn-o soft" id="st-test">▶ ' + T('ทดลองฟัง', 'Test') + '</button>') + '</div>' +
+      '<div class="sec-t">' + T('การเรียน', 'Learning') + '</div><div class="tile">' +
+      row(T('เป้าหมายต่อวัน', 'Daily goal'), T('จำนวนคำที่ฝึกต่อวัน', 'Words to practise per day'), chips('goal', set.goal, [[5, '5'], [10, '10'], [15, '15'], [20, '20'], [30, '30']])) +
+      row(T('แสดงคำอ่านภาษาไทย', 'Show Thai pronunciation'), T('ในบทเรียนประโยค', 'In sentence lessons'), sw('read', set.read)) +
+      row(T('แสดงคำแปลไทย', 'Show Thai translation'), T('ปิดไว้เพื่อฝึกทายความหมายเอง', 'Hide it to test yourself'), sw('tr', set.tr)) + '</div>' +
+      '<div class="sec-t">' + T('ข้อมูลและบัญชี', 'Data & account') + '</div><div class="tile">' +
+      row(T('ส่งออกความคืบหน้า', 'Export progress'), T('ดาวน์โหลดเป็นไฟล์ .json', 'Download as a .json file'), '<button type="button" class="btn-o soft" id="st-exp">' + T('ส่งออก', 'Export') + '</button>') +
+      row(T('รีเซ็ตความคืบหน้า', 'Reset progress'), T('ล้าง XP, Streak และคำที่ฝึก (บัญชีนี้)', 'Clear XP, streak and practised words (this account)'), '<button type="button" class="btn-o red" id="st-reset">' + T('รีเซ็ต', 'Reset') + '</button>') +
+      row(T('ออกจากระบบ', 'Log out'), '', '<button type="button" class="btn-o soft" id="st-out">' + T('ออกจากระบบ', 'Log out') + '</button>') + '</div>';
+  }
+  function pgHelp() {
+    var faq = [
+      ['', T('เริ่มใช้งานอย่างไร', 'How do I start?'), T('เลือก "คลังบทเรียน" แล้วเริ่มจากบทเรียนประโยคหรือไวยากรณ์ ฟังเสียงทุกประโยคแล้วพูดตามจะจำได้ดีขึ้น', 'Open "Lessons" and start with Sentences or Grammar. Listen to each sentence and repeat it aloud.')],
+      ['', T('XP และ Level ได้มาอย่างไร', 'How do XP and levels work?'), T('ได้ XP จากการเรียนทุกวัน ตอบแบบทดสอบถูก ฟังประโยคใหม่ และเรียนไวยากรณ์จบ ดูรายละเอียดที่หน้า "ความคืบหน้า"', 'You earn XP by studying daily, answering quizzes correctly, listening to new sentences and finishing grammar lessons. See "Progress" for details.')],
+      ['', T('Streak คืออะไร', 'What is a streak?'), T('จำนวนวันติดต่อกันที่คุณเรียน ถ้าวันนี้ยังไม่ได้เรียน streak จะยังอยู่จนสิ้นวัน แต่ถ้าขาดไปทั้งวัน streak จะเริ่มนับใหม่', 'The number of days in a row you studied. If you skip a whole day it starts again from 1.')],
+      ['', T('เป้าหมายวันนี้นับอย่างไร', 'How is the daily goal counted?'), T('นับคำหรือประโยคที่ไม่ซ้ำกันที่คุณฟังหรือตอบถูกในวันนั้น เปลี่ยนจำนวนเป้าหมายได้ในหน้า "ตั้งค่า"', 'Each different word or sentence you listen to or answer correctly counts once per day. Change the goal in Settings.')],
+      ['', T('ไม่มีเสียงอ่าน', 'I hear no sound'), T('ตรวจสอบว่าเปิดเสียงในหน้า "ตั้งค่า" และเปิดลำโพงแล้ว แนะนำให้ใช้ Chrome, Edge หรือ Safari', 'Check that sound is on in Settings and your volume is up. Chrome, Edge or Safari are recommended.')],
+      ['', T('ข้อมูลของฉันเก็บที่ไหน', 'Where is my data stored?'), T('บัญชี (อีเมลและรหัสผ่าน) และความคืบหน้าทั้งหมด เช่น XP, Streak, คำที่ฝึก และการตั้งค่า ถูกเก็บไว้ที่ Supabase และซิงก์อัตโนมัติทุกครั้งที่มีการเปลี่ยนแปลง เข้าสู่ระบบจากเครื่องไหนก็ได้ข้อมูลเดิมตามมาเอง (เบราว์เซอร์เก็บสำเนาไว้ใช้ตอนออฟไลน์) และยังส่งออกเป็นไฟล์ได้ที่หน้า "ตั้งค่า"', 'Your account (email and password) and all progress – XP, streak, practised words and settings – are stored in Supabase and synced automatically whenever something changes. Log in from any device and your data follows you (the browser keeps a copy for offline use). You can still export a file in Settings.')],
+      ['', T('พบข้อผิดพลาด', 'Found a bug?'), '<a href="https://chachaphon15y.github.io/3092011" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;font-weight:700">chachaphon15y.github.io/3092011</a>']
+    ];
+    return '<p class="pg-sub">' + T('คำถามที่พบบ่อย', 'Frequently asked questions') + '</p>' + faq.map(function (f, i) {
+      return '<details class="vm-pol"' + (i === 0 ? ' open' : '') + '><summary><span>' + f[0] + '</span><span>' + f[1] + '</span></summary><div class="body" style="padding:0 16px 14px">' + f[2] + '</div></details>';
+    }).join('');
+  }
+  var RENDER = { lessons: pgLessons, progress: pgProgress, vocab: pgVocab, rank: pgRank, settings: pgSettings, help: pgHelp };
+  function renderPage(p) {
+    var sec = $('page-' + p); if (!sec || !RENDER[p]) return;
+    var t = TITLES[p]; sec.querySelector('.vm-title').textContent = T(t[1], t[2]); sec.querySelector('.vm-back-main').textContent = T('← กลับหน้าหลัก', '← Back to home');
+    sec.querySelector('.pg-body').innerHTML = RENDER[p]();
+  }
+  window.vmRenderPage = function (p) { renderPage(p); };
+  window.vmExtraPages = EXTRA;
+
+  /* ---------- events ---------- */
+  function ev() {
+    var main = $('main-view'); if (!main) return;
+    main.addEventListener('click', function (e) {
+      var t = e.target, el;
+      if ((el = t.closest('[data-lgo]'))) { var g = el.getAttribute('data-lgo'); if (g === 'lesson') window.showLesson(); else if (g === 'grammar') window.showGrammar(); else window.vmGo(g); return; }
+      if ((el = t.closest('[data-say]'))) { window.speakText(el.getAttribute('data-say')); return; }
+      if ((el = t.closest('[data-fav]'))) { var o = load(), w = el.getAttribute('data-fav').toLowerCase(), i = o.fav.indexOf(w); if (i >= 0) o.fav.splice(i, 1); else o.fav.push(w); save(o); el.textContent = i >= 0 ? '☆' : '⭐'; if (vq.fav) $('vc-list').innerHTML = vocabRows(); return; }
+      if (t.closest('[data-more]')) { vq.n += 40; $('vc-list').innerHTML = vocabRows(); return; }
+      if (t.closest('#vc-f')) { vq.fav = !vq.fav; vq.n = 40; renderPage('vocab'); return; }
+      if ((el = t.closest('[data-av]'))) { var k = ukey(); set.prof[k] = Object.assign(set.prof[k] || {}, { av: el.getAttribute('data-av') }); saveSet(); renderPage('settings'); renderSide(true); var o2 = load(); if (o2) save(o2); return; }
+      if ((el = t.closest('[data-lang]'))) { if (typeof window.setLang === 'function') window.setLang(el.getAttribute('data-lang')); return; }
+      if ((el = t.closest('[data-theme]'))) { var m = el.getAttribute('data-theme'); if (window.vmTheme) window.vmTheme.set(m === 'auto', m === 'light' ? 85 : m === 'dark' ? 15 : null); renderPage('settings'); return; }
+      if ((el = t.closest('[data-set]'))) { var n = el.getAttribute('data-set'), v = el.getAttribute('data-val'); set[n] = (n === 'goal') ? parseInt(v, 10) : v; saveSet(); applySet(); renderPage('settings'); renderSide(true); return; }
+      if (t.closest('#st-test')) { window.speakText("Hello! Let's learn English together.", set.rate); return; }
+      if (t.closest('#st-out')) { window.openLogoutConfirmModal(); return; }
+      if (t.closest('#st-exp')) {
+        var d = { exported: new Date().toISOString(), user: ukey(), stats: load(), grammar: jget('vm_grammar', {}), settings: set };
+        var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' })); a.download = 'learnora-progress.json'; document.body.appendChild(a); a.click(); a.remove(); return;
+      }
+      if (t.closest('#st-reset')) { if (confirm(T('ล้าง XP, Streak และคำที่ฝึกทั้งหมดของบัญชีนี้?', 'Clear all XP, streak and practised words for this account?'))) { var k2 = ukey(); try { localStorage.removeItem(PFX + k2); } catch (x) {} renderSide(true); toast(T('รีเซ็ตแล้ว', 'Reset done')); } return; }
+    });
+    main.addEventListener('change', function (e) {
+      var t = e.target, n = t.getAttribute && t.getAttribute('data-sw');
+      if (n) { set[n] = t.checked; saveSet(); applySet(); return; }
+      if (t.id === 'vc-p') { vq.pg = t.value; vq.n = 40; $('vc-list').innerHTML = vocabRows(); }
+      if (t.id === 'st-name') { var k = ukey(); set.prof[k] = Object.assign(set.prof[k] || {}, { name: t.value.trim().slice(0, 24) }); saveSet(); var o = load(); if (o) save(o); renderSide(true); }
+    });
+    main.addEventListener('input', function (e) {
+      var t = e.target;
+      if (t.id === 'vc-q') { vq.q = t.value; vq.n = 40; $('vc-list').innerHTML = vocabRows(); }
+      else if (t.id === 'st-rate') { set.rate = parseFloat(t.value); $('st-rate-l').textContent = set.rate.toFixed(2) + '×'; saveSet(); }
+      else if (t.id === 'st-bright' && window.vmTheme) { window.vmTheme.set(false, parseInt(t.value, 10)); }
+    });
+  }
+
+  function init() {
+    buildSide(); buildPages(); ev(); applySet(); renderSide(true);
+    var old = window.vmLangRefresh; window.vmLangRefresh = function () { if (old) old.apply(this, arguments); renderSide(true); if (EXTRA.indexOf(curPage) >= 0) renderPage(curPage); };
+    setInterval(function () { renderSide(false); }, 2000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+</script>
+<script>
+/* ===== Email verification for "Forgot password" via Supabase Auth (email one-time code) =====
+   These are PUBLIC client keys (anon / publishable) - safe in a web page. Never put a service_role / secret key here.
+   In Supabase: Authentication > Email Templates, add {{ .Token }} to BOTH "Magic Link" and "Confirm signup" templates,
+   e.g.  "Your Learnora code is {{ .Token }}".  Set up Custom SMTP (Authentication > Emails) so mails reach any address. */
+window.LEARNORA_EMAIL = {
+  supabaseUrl: 'https://mcikxartusbhfgtrtwap.supabase.co',
+  anonKey: 'sb_publishable_vAz2nLuyMjAjHdR4oqykaw_m1spyu_J',
+  legacyAnonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1jaWt4YXJ0dXNiaGZndHJ0d2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTU3Nzc4ODEsImV4cCI6MjExMTM1Mzg4MX0.AUJ0IlkiC2bzq_83Ye8vBPf31Ec4DiE67Abn2zJtIKQ'
+};
+</script>
+<script>
+/* Forgot password: Supabase emails a one-time code -> verify it -> set a new password. */
+(function () {
+  function en() { return !!(window.vmIsEn && window.vmIsEn()); }
+  function T(th, e) { return en() ? e : th; }
+  var $ = function (id) { return document.getElementById(id); }, mail = '', mode = 'direct', cool = 0, coolT = null;
+  function cfg() { return window.LEARNORA_EMAIL || {}; }
+  function cfgOk() { var c = cfg(); return !!(c.supabaseUrl && (c.anonKey || c.legacyAnonKey)); }
+  function call(path, body, key) {
+    var c = cfg(), h = { 'Content-Type': 'application/json', apikey: key };
+    if (key.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + key;
+    return fetch(c.supabaseUrl.replace(/\/$/, '') + path, { method: 'POST', headers: h, body: JSON.stringify(body) }).then(function (r) {
+      return r.text().then(function (t) {
+        var j = null; try { j = JSON.parse(t); } catch (x) {}
+        if ((r.status === 401 || r.status === 403) && c.legacyAnonKey && key !== c.legacyAnonKey) return call(path, body, c.legacyAnonKey);
+        return { ok: r.ok, status: r.status, j: j || {} };
+      });
+    });
+  }
+  function lang() {
+    document.querySelectorAll('#forgot-card [data-fg]').forEach(function (el) { var a = el.getAttribute('data-fg').split('|'); el.textContent = en() ? a[1] : a[0]; });
+    var l = $('forgot-link'); if (l) l.textContent = T('ลืมรหัสผ่าน?', 'Forgot password?');
+    var w = $('fg-who'); if (w && mail) w.textContent = T('ตั้งรหัสผ่านใหม่ให้ ', 'New password for ') + mail;
+  }
+  function err(m) { var e = $('fg-error'); if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); }
+  function note(m) { var e = $('fg-note'); if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); }
+  function user(m) { try { return JSON.parse(localStorage.getItem('user_' + m) || 'null'); } catch (x) { return null; } }
+  function sendErr(r) {
+    var msg = String((r.j && (r.j.msg || r.j.message || r.j.error_description || r.j.error)) || '');
+    if (r.status === 429 || /rate limit/i.test(msg)) return T('ส่งอีเมลบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่', 'Too many emails requested. Please wait a moment and try again.');
+    return T('ส่งอีเมลไม่สำเร็จ', 'Could not send the email.') + (msg ? ' (' + msg + ')' : '');
+  }
+  function issue() {
+    var c = cfg(), key = c.anonKey || c.legacyAnonKey;
+    return call('/auth/v1/otp', { email: mail, create_user: true }, key).then(function (r) {
+      if (!r.ok) { var e = new Error('send'); e.r = r; throw e; }
+      cool = 30; clearInterval(coolT); $('fg-resend').disabled = true;
+      coolT = setInterval(function () { cool--; var b = $('fg-resend'); if (b) b.disabled = cool > 0; if (cool <= 0) clearInterval(coolT); }, 1000);
+    });
+  }
+  function step2() {
+    $('fg-form1').classList.add('hidden'); $('fg-form2').classList.remove('hidden');
+    $('fg-codebox').classList.toggle('hidden', mode !== 'email');
+    $('fg-code').required = (mode === 'email');
+    $('fg-sub').setAttribute('data-fg', 'ตั้งรหัสผ่านใหม่ที่คุณจำได้|Choose a new password you will remember'); lang();
+    if (mode === 'email') { note(T('ส่งรหัสยืนยันไปที่ ' + mail + ' แล้ว ตรวจดูในกล่องจดหมายและสแปมด้วย', 'A verification code was sent to ' + mail + '. Check your inbox and spam folder.')); $('fg-code').focus(); }
+    else { note(T('ยังไม่ได้ตั้งค่าการส่งอีเมล จึงตั้งรหัสผ่านใหม่บนเครื่องนี้ได้เลยโดยไม่ต้องใช้รหัสยืนยัน', 'Email sending is not set up yet, so you can set a new password on this device without a code.')); $('fg-pass').focus(); }
+  }
+  window.vmForgotOpen = function () {
+    mail = ''; err(''); note(''); $('fg-form1').classList.remove('hidden'); $('fg-form2').classList.add('hidden');
+    $('fg-sub').setAttribute('data-fg', 'กรอกอีเมลที่ใช้สมัคร เราจะส่งรหัสยืนยันไปให้|Enter the email you signed up with and we will send you a code');
+    $('fg-pass').value = ''; $('fg-pass2').value = ''; $('fg-code').value = ''; $('fg-code').maxLength = 10; var le = $('login-email'); $('fg-email').value = le ? le.value : ''; lang();
+  };
+  window.vmForgotCheck = function (e) {
+    e.preventDefault(); var m = $('fg-email').value.trim();
+    if (!user(m)) { err(T('ไม่พบบัญชีนี้ในเบราว์เซอร์นี้ (บัญชีถูกเก็บไว้ในเครื่องที่สมัครเท่านั้น) ลองตรวจสอบอีเมล หรือสมัครสมาชิกใหม่', 'No account with this email was found in this browser (accounts are stored on the device where you signed up). Check the email or sign up again.')); return; }
+    err(''); mail = m;
+    if (!cfgOk()) { mode = 'direct'; step2(); return; }
+    mode = 'email'; var btn = e.target.querySelector('button[type=submit]'); if (btn) btn.disabled = true; note(T('กำลังส่งอีเมล…', 'Sending email…'));
+    issue().then(function () { if (btn) btn.disabled = false; step2(); }).catch(function (x) { if (btn) btn.disabled = false; note(''); err(x && x.r ? sendErr(x.r) : T('เชื่อมต่อไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Connection failed. Check your internet and try again.')); });
+  };
+  window.vmForgotResend = function () {
+    if (cool > 0 || mode !== 'email') return; err(''); note(T('กำลังส่งอีเมล…', 'Sending email…'));
+    issue().then(function () { note(T('ส่งรหัสใหม่ไปที่ ' + mail + ' แล้ว', 'A new code was sent to ' + mail)); }).catch(function (x) { note(''); err(x && x.r ? sendErr(x.r) : T('เชื่อมต่อไม่สำเร็จ', 'Connection failed.')); });
+  };
+  function finish() {
+    var p = $('fg-pass').value;
+    try {
+      var u = user(mail) || {}; u.pass = p; localStorage.setItem('user_' + mail, JSON.stringify(u));
+      var a = JSON.parse(localStorage.getItem('active_user') || 'null'); if (a && a.email === mail) { a.pass = p; localStorage.setItem('active_user', JSON.stringify(a)); }
+    } catch (x) { err(T('บันทึกไม่สำเร็จ', 'Could not save.')); return; }
+    var le = $('login-email'), lp = $('login-pass'); if (le) le.value = mail; if (lp) lp.value = '';
+    alert(T('ตั้งรหัสผ่านใหม่เรียบร้อย! เข้าสู่ระบบด้วยรหัสผ่านใหม่ได้เลย', 'Password updated! You can now log in with the new password.'));
+    mail = ''; window.toggleAuth('login');
+  }
+  window.vmForgotSave = function (e) {
+    e.preventDefault(); var p = $('fg-pass').value, c = $('fg-pass2').value;
+    if (p.length < 8 || !/[a-zA-Z]/.test(p) || !/[0-9]/.test(p)) { err(T('รหัสผ่านต้องมีอย่างน้อย 8 ตัว และมีทั้งตัวอักษรและตัวเลข', 'Password must be at least 8 characters with letters and numbers.')); return; }
+    if (p !== c) { err(T('รหัสผ่านทั้งสองช่องไม่ตรงกัน', 'The two passwords do not match.')); $('fg-pass2').value = ''; return; }
+    if (mode !== 'email') { finish(); return; }
+    var code = $('fg-code').value.trim(), key = cfg().anonKey || cfg().legacyAnonKey, btn = e.target.querySelector('button[type=submit]');
+    if (!code) { err(T('กรอกรหัสยืนยันจากอีเมล', 'Enter the code from the email.')); return; }
+    if (btn) btn.disabled = true; err('');
+    call('/auth/v1/verify', { type: 'email', email: mail, token: code }, key).then(function (r) {
+      if (r.ok) return r;
+      return call('/auth/v1/verify', { type: 'signup', email: mail, token: code }, key);
+    }).then(function (r) {
+      if (btn) btn.disabled = false;
+      if (r.ok) finish(); else err(T('รหัสยืนยันไม่ถูกต้องหรือหมดอายุ ลองกด "ส่งรหัสอีกครั้ง"', 'The code is incorrect or has expired. Try "Resend code".'));
+    }).catch(function () { if (btn) btn.disabled = false; err(T('เชื่อมต่อไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Connection failed. Check your internet and try again.')); });
+  };
+  var old = window.vmLangRefresh; window.vmLangRefresh = function () { if (old) old.apply(this, arguments); lang(); };
+  lang();
+})();
+</script>
+<script>
+/* After logging out: the password boxes are emptied, the e-mail stays in the login form. */
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var ocl = window.confirmLogout;
+  if (typeof ocl === 'function') window.confirmLogout = function () {
+    try { var a = JSON.parse(localStorage.getItem('active_user') || 'null'); if (a && a.email) localStorage.setItem('vm_last_email', a.email); } catch (x) {}
+    return ocl.apply(this, arguments);
+  };
+  var ocs = window.checkSession;
+  if (typeof ocs === 'function') window.checkSession = function () {
+    var r = ocs.apply(this, arguments);
+    try {
+      var av = $('auth-view');
+      if (av && !av.classList.contains('hidden')) {
+        ['login-pass', 'signup-pass', 'signup-pass-confirm', 'fg-pass', 'fg-pass2'].forEach(function (id) { var el = $(id); if (el) { el.value = ''; el.type = 'password'; } });
+        var le = $('login-email'), last = localStorage.getItem('vm_last_email'); if (le && !le.value && last) le.value = last;
+      }
+    } catch (x) {}
+    return r;
+  };
+})();
+</script>
+<script>
+/* Sign up: check that the e-mail is real (format, not disposable, domain can receive mail) and that the person owns it (one-time code). */
+(function () {
+  function en() { return !!(window.vmIsEn && window.vmIsEn()); }
+  function T(th, e) { return en() ? e : th; }
+  var $ = function (id) { return document.getElementById(id); }, mail = '', cool = 0, coolT = null, tries = 0;
+  var DISP = ['mailinator.com', 'guerrillamail.com', 'guerrillamail.net', '10minutemail.com', 'tempmail.com', 'temp-mail.org', 'yopmail.com', 'trashmail.com', 'sharklasers.com', 'getnada.com', 'throwawaymail.com', 'maildrop.cc', 'dispostable.com', 'fakeinbox.com', 'mohmal.com', 'tempmailo.com', 'mailnesia.com', 'emailondeck.com'];
+  function cfg() { return window.LEARNORA_EMAIL || {}; }
+  function call(path, body, key) {
+    var c = cfg(), h = { 'Content-Type': 'application/json', apikey: key };
+    if (key.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + key;
+    return fetch(c.supabaseUrl.replace(/\/$/, '') + path, { method: 'POST', headers: h, body: JSON.stringify(body) }).then(function (r) {
+      return r.text().then(function (t) {
+        var j = null; try { j = JSON.parse(t); } catch (x) {}
+        if ((r.status === 401 || r.status === 403) && c.legacyAnonKey && key !== c.legacyAnonKey) return call(path, body, c.legacyAnonKey);
+        return { ok: r.ok, status: r.status, j: j || {} };
+      });
+    });
+  }
+  function key() { var c = cfg(); return c.anonKey || c.legacyAnonKey; }
+  function box(m) { var e = $('signup-error-msg'); if (!e) return; if (!m) { e.classList.add('hidden'); return; } e.innerText = m; e.classList.remove('hidden'); }
+  function lang() {
+    var l = $('su-lab'); if (l) l.textContent = T('รหัสยืนยันจากอีเมล', 'Code from the email');
+    $('su-resend').textContent = T('ส่งรหัสอีกครั้ง', 'Resend code'); $('su-ok').textContent = T('ยืนยันอีเมลและสมัคร', 'Verify email & sign up'); $('su-back').textContent = T('← แก้ไขข้อมูล', '← Edit details');
+  }
+  function dns(name, type) { return fetch('https://dns.google/resolve?name=' + encodeURIComponent(name) + '&type=' + type).then(function (r) { return r.json(); }); }
+  /* true = the domain can receive mail; network problems never block the person */
+  function domainOk(d) {
+    return dns(d, 'MX').then(function (j) {
+      if (j.Status === 3) return false;
+      if (j.Answer && j.Answer.length) return true;
+      return dns(d, 'A').then(function (k) { return !!(k.Answer && k.Answer.length); });
+    }).catch(function () { return true; });
+  }
+  function reason(r) {
+    var m = String((r.j && (r.j.msg || r.j.message || r.j.error_description || r.j.error)) || '');
+    if (r.status === 429 || /rate limit|seconds/i.test(m)) return T('ส่งอีเมลบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่', 'Too many emails sent. Please wait a moment and try again.');
+    return T('ส่งอีเมลยืนยันไม่สำเร็จ', 'Could not send the verification email.') + (m ? ' (' + m + ')' : '');
+  }
+  function sendCode() {
+    return call('/auth/v1/otp', { email: mail, create_user: true }, key()).then(function (r) {
+      if (!r.ok) { var e = new Error('send'); e.r = r; throw e; }
+      tries = 0; cool = 30; clearInterval(coolT); $('su-resend').disabled = true;
+      coolT = setInterval(function () { cool--; var b = $('su-resend'); if (b) b.disabled = cool > 0; if (cool <= 0) clearInterval(coolT); }, 1000);
+    });
+  }
+  function show(on) { $('signup-form').classList.toggle('hidden', on); $('su-verify').classList.toggle('hidden', !on); lang(); }
+  var orig = window.handleSignup;
+  window.handleSignup = function (e) {
+    e.preventDefault();
+    var email = $('signup-email').value.trim(), pass = $('signup-pass').value, conf = $('signup-pass-confirm').value;
+    /* password mistakes: let the original code show its own messages */
+    if (pass.length < 8 || !/[a-zA-Z]/.test(pass) || !/[0-9]/.test(pass) || pass !== conf) return orig.call(this, e);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { box(T('รูปแบบอีเมลไม่ถูกต้อง', 'That email address is not valid.')); return; }
+    var dom = email.split('@')[1].toLowerCase();
+    if (DISP.indexOf(dom) >= 0) { box(T('ไม่รองรับอีเมลชั่วคราว กรุณาใช้อีเมลจริงของคุณ', 'Disposable email addresses are not accepted. Please use your real email.')); return; }
+    if (localStorage.getItem('user_' + email)) { box(T('อีเมลนี้สมัครสมาชิกแล้ว ลองเข้าสู่ระบบ หรือกด "ลืมรหัสผ่าน?"', 'This email is already registered. Log in, or use "Forgot password?".')); return; }
+    var btn = e.target && e.target.querySelector ? e.target.querySelector('button[type=submit]') : null; if (btn) btn.disabled = true; box('');
+    mail = email;
+    domainOk(dom).then(function (ok) {
+      if (!ok) { var x = new Error('nomx'); x.nomx = true; throw x; }
+      return sendCode();
+    }).then(function () {
+      if (btn) btn.disabled = false; $('su-code').value = '';
+      $('su-note').textContent = T('ส่งรหัสยืนยันไปที่ ' + mail + ' แล้ว กรอกรหัสเพื่อยืนยันว่าเป็นอีเมลของคุณ (ตรวจดูสแปมด้วย)', 'A code was sent to ' + mail + '. Enter it to confirm this email is yours (check spam too).');
+      show(true); $('su-code').focus();
+    }).catch(function (x) {
+      if (btn) btn.disabled = false;
+      box(x && x.nomx ? T('ไม่พบอีเมลนี้ ตรวจสอบตัวสะกดหลัง @ อีกครั้ง (โดเมนนี้รับอีเมลไม่ได้)', 'This email domain cannot receive mail. Check the spelling after the @.') : x && x.r ? reason(x.r) : T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.'));
+    });
+  };
+  window.vmSignupResend = function () {
+    if (cool > 0) return; box('');
+    sendCode().then(function () { $('su-note').textContent = T('ส่งรหัสใหม่ไปที่ ' + mail + ' แล้ว', 'A new code was sent to ' + mail); })
+      .catch(function (x) { box(x && x.r ? reason(x.r) : T('เชื่อมต่อไม่ได้', 'Could not connect.')); });
+  };
+  window.vmSignupBack = function () { box(''); show(false); };
+  window.vmSignupVerify = function () {
+    var code = $('su-code').value.replace(/\s/g, ''), btn = $('su-ok');
+    if (!/^\d{6,10}$/.test(code)) { box(T('กรอกรหัสยืนยันจากอีเมล (ตัวเลข 6 หลักขึ้นไป)', 'Enter the code from the email (6 or more digits).')); return; }
+    if (tries >= 5) { box(T('กรอกรหัสผิดหลายครั้งเกินไป กด "ส่งรหัสอีกครั้ง"', 'Too many wrong attempts. Press "Resend code".')); return; }
+    btn.disabled = true; box('');
+    call('/auth/v1/verify', { type: 'email', email: mail, token: code }, key()).then(function (r) {
+      return r.ok ? r : call('/auth/v1/verify', { type: 'signup', email: mail, token: code }, key());
+    }).then(function (r) {
+      btn.disabled = false;
+      if (!r.ok) { tries++; box(T('รหัสไม่ถูกต้องหรือหมดอายุ ลองกด "ส่งรหัสอีกครั้ง"', 'The code is invalid or has expired. Try "Resend code".')); return; }
+      show(false); orig.call(window, { preventDefault: function () {} });   /* verified: create the account as before */
+    }).catch(function () { btn.disabled = false; box(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+  var ota = window.toggleAuth; window.toggleAuth = function () { try { show(false); box(''); } catch (x) {} return ota.apply(this, arguments); };
+  var old = window.vmLangRefresh; window.vmLangRefresh = function () { if (old) old.apply(this, arguments); lang(); };
+  lang();
+})();
+</script>
+<script>
+/* ===== Learnora cloud: everything lives in Supabase =====
+   1) Accounts: Supabase Auth (email + password). Sign-up / forgot-password verify the email with a one-time code.
+      Passwords are never stored in the browser any more.
+   2) Progress (XP, streak, practised words, grammar, quiz best, settings) syncs AUTOMATICALLY to table
+      public.learnora_progress (run supabase_setup.sql once). Pull on login, push a few seconds after every change,
+      re-check every minute, flush when the tab is hidden/closed. Works offline: changes are queued and sent later. */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  function en() { return !!(window.vmIsEn && window.vmIsEn()); }
+  function T(th, e) { return en() ? e : th; }
+  function cfg() { return window.LEARNORA_EMAIL || {}; }
+  function cfgOk() { var c = cfg(); return !!(c.supabaseUrl && (c.anonKey || c.legacyAnonKey)); }
+  function jparse(s) { try { return JSON.parse(s); } catch (x) { return null; } }
+  function g(k) { try { return jparse(localStorage.getItem(k) || 'null'); } catch (x) { return null; } }
+
+  var SKEY = 'vm_sb_sess', META = 'vm_sync_meta', DIRTY = 'vm_sync_dirty', QB = 'vm_game_quiz_best_v1';
+  var _set = Storage.prototype.setItem, _del = Storage.prototype.removeItem;
+  var SESS = g(SKEY), applying = false, dirty = false, force = false, chg = 0, timer = null, busy = null, again = false, lastSent = '', status = { s: 'idle' };
+  try { dirty = localStorage.getItem(DIRTY) === '1'; } catch (x) {}
+
+  function email() { var u = g('active_user'); return u && u.email ? String(u.email).toLowerCase() : null; }
+  function toast(m) { var t = $('vm-toast'); if (!t) return; t.textContent = m; t.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(function () { t.classList.remove('show'); }, 3000); }
+
+  /* ---------- Supabase REST / Auth ---------- */
+  function api(method, path, body, tok, extra, legacy, keepalive) {
+    var c = cfg(), key = legacy ? c.legacyAnonKey : (c.anonKey || c.legacyAnonKey), h = { 'Content-Type': 'application/json', apikey: key };
+    if (tok) h.Authorization = 'Bearer ' + tok; else if (key.indexOf('eyJ') === 0) h.Authorization = 'Bearer ' + key;
+    for (var k in (extra || {})) h[k] = extra[k];
+    return fetch(c.supabaseUrl.replace(/\/$/, '') + path, { method: method, headers: h, body: body ? JSON.stringify(body) : undefined, keepalive: !!keepalive }).then(function (r) {
+      return r.text().then(function (tx) {
+        var j = null; try { j = JSON.parse(tx); } catch (x) {}
+        if ((r.status === 401 || r.status === 403) && c.legacyAnonKey && !legacy && c.anonKey) return api(method, path, body, tok, extra, true, keepalive);
+        return { ok: r.ok, status: r.status, j: j };
+      });
+    });
+  }
+  function why(r) {
+    var j = r.j || {}, m = String(j.message || j.msg || j.error_description || j.error || '');
+    if (r.status === 404 || (/learnora_progress/.test(m) && /not find|does not exist|schema cache/i.test(m))) return T('ยังไม่ได้สร้างตาราง learnora_progress ใน Supabase (รัน supabase_setup.sql ก่อน)', 'Table learnora_progress does not exist yet (run supabase_setup.sql first).');
+    return m || ('HTTP ' + r.status);
+  }
+  function saveSess(j, mail) {
+    SESS = { at: j.access_token, rt: j.refresh_token, uid: (j.user && j.user.id) || (SESS && SESS.uid) || '', e: mail, exp: Date.now() + (j.expires_in || 3600) * 1000 };
+    try { _set.call(localStorage, SKEY, JSON.stringify(SESS)); } catch (x) {}
+  }
+  function clearSess() { SESS = null; try { _del.call(localStorage, SKEY); } catch (x) {} }
+  var rf = null;
+  function token(forceNew) {
+    if (!SESS) return Promise.reject(new Error('nosess'));
+    if (!forceNew && SESS.exp - Date.now() > 60000) return Promise.resolve(SESS.at);
+    if (!rf) rf = api('POST', '/auth/v1/token?grant_type=refresh_token', { refresh_token: SESS.rt }).then(function (r) {
+      rf = null;
+      if (r.ok && r.j && r.j.access_token) { saveSess(r.j, SESS.e); return SESS.at; }
+      if (r.status >= 400 && r.status < 500) clearSess();
+      throw new Error('refresh');
+    }, function (x) { rf = null; throw x; });
+    return rf;
+  }
+  function rest(method, path, body, extra, keepalive) {
+    return token().then(function (tok) {
+      return api(method, path, body, tok, extra, false, keepalive).then(function (r) {
+        if (r.status !== 401) return r;
+        return token(true).then(function (t2) { return api(method, path, body, t2, extra, false, keepalive); });
+      });
+    });
+  }
+
+  /* ---------- what is synced ---------- */
+  function collect(e) {
+    var s = g('vm_settings_v1') || {};
+    return { v: 2, stats: g('vm_stats_v1_' + e), grammar: g('vm_grammar'), quizBest: localStorage.getItem(QB),
+      settings: { goal: s.goal, fs: s.fs, rate: s.rate, sound: s.sound, read: s.read, tr: s.tr, calm: s.calm, prof: s.prof ? (s.prof[e] || null) : null } };
+  }
+  function isO(x) { return x && typeof x === 'object' && !Array.isArray(x); }
+  function uniq(a, b) { var o = {}, r = []; a.concat(b).forEach(function (x) { var k = JSON.stringify(x); if (!o[k]) { o[k] = 1; r.push(x); } }); return r; }
+  function mergeObj(a, b) {
+    if (a == null) return b; if (b == null) return a;
+    if (Array.isArray(a) && Array.isArray(b)) return uniq(a, b);
+    if (isO(a) && isO(b)) { var r = {}; Object.keys(b).forEach(function (k) { r[k] = b[k]; }); Object.keys(a).forEach(function (k) { r[k] = (k in b) ? mergeObj(a[k], b[k]) : a[k]; }); return r; }
+    if (typeof a === 'number' && typeof b === 'number') return Math.max(a, b);
+    if (typeof a === 'boolean' && typeof b === 'boolean') return a || b;
+    return a;
+  }
+  function putJ(k, v) { if (v == null) _del.call(localStorage, k); else _set.call(localStorage, k, JSON.stringify(v)); }
+  /* returns true when the settings changed (the page then reloads so the UI picks them up) */
+  function applyCloud(d, mode, withSettings, e) {
+    var changed = false; d = d || {}; applying = true;
+    try {
+      if (mode === 'replace') {
+        putJ('vm_stats_v1_' + e, d.stats); putJ('vm_grammar', d.grammar);
+        if (d.quizBest != null) _set.call(localStorage, QB, String(d.quizBest)); else _del.call(localStorage, QB);
+      } else {
+        var st = mergeObj(g('vm_stats_v1_' + e), d.stats); if (st && Array.isArray(st.days)) st.days.sort(); putJ('vm_stats_v1_' + e, st);
+        putJ('vm_grammar', mergeObj(g('vm_grammar'), d.grammar));
+        var lq = parseInt(localStorage.getItem(QB) || '0', 10) || 0, cq = parseInt(d.quizBest || '0', 10) || 0;
+        if (Math.max(lq, cq) > 0) _set.call(localStorage, QB, String(Math.max(lq, cq)));
+      }
+      if (withSettings && d.settings) {
+        var s = g('vm_settings_v1') || {}, before = JSON.stringify(s), cs = d.settings;
+        ['goal', 'fs', 'rate', 'sound', 'read', 'tr', 'calm'].forEach(function (k) { if (cs[k] != null) s[k] = cs[k]; });
+        if (cs.prof) { s.prof = s.prof || {}; s.prof[e] = cs.prof; }
+        if (JSON.stringify(s) !== before) { _set.call(localStorage, 'vm_settings_v1', JSON.stringify(s)); changed = true; }
+      }
+    } finally { applying = false; }
+    return changed;
+  }
+
+  /* ---------- sync engine ---------- */
+  function setStatus(s, msg) { status = { s: s, msg: msg, at: Date.now() }; paint(); }
+  function paint() {
+    var el = $('cl-state'); if (!el) return; var m;
+    if (!SESS) m = T('ยังไม่ได้เชื่อมต่อ — ออกจากระบบแล้วเข้าสู่ระบบใหม่เพื่อเปิดซิงก์อัตโนมัติ', 'Not connected — log out and log in again to turn on auto-sync');
+    else if (status.s === 'sync') m = T('กำลังซิงก์…', 'Syncing…');
+    else if (status.s === 'err') m = T('ซิงก์ไม่สำเร็จ: ', 'Sync failed: ') + (status.msg || '');
+    else if (dirty) m = T('มีการเปลี่ยนแปลงรอส่งขึ้น Supabase', 'Changes waiting to upload');
+    else if (status.s === 'ok') m = T('ซิงก์อัตโนมัติแล้ว · ล่าสุด ', 'Auto-synced · last ') + new Date(status.at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    else m = T('ซิงก์อัตโนมัติกับ Supabase', 'Auto-sync with Supabase');
+    el.textContent = m;
+  }
+  function markDirty(isForce) {
+    chg++; dirty = true; if (isForce) force = true;
+    try { _set.call(localStorage, DIRTY, '1'); } catch (x) {}
+    paint(); schedule(2500);
+  }
+  function schedule(ms) { clearTimeout(timer); timer = setTimeout(function () { syncNow(); }, ms); }
+  function readMeta() { return g(META); }
+  function writeMeta(o) { try { _set.call(localStorage, META, JSON.stringify(o)); } catch (x) {} }
+
+  function run(o) {
+    var e = email(), uid = SESS.uid, pushForce = force, startChg = chg, settingsChanged = false;
+    return rest('GET', '/rest/v1/learnora_progress?select=data,updated_at&user_id=eq.' + uid).then(function (r) {
+      if (!r.ok) throw new Error(why(r));
+      var row = r.j && r.j[0], meta = readMeta(), same = !!(meta && meta.owner === e), needPush = !row || dirty;
+      if (row && !pushForce && row.updated_at !== (same ? meta.cloudAt : null)) {
+        if (same && !dirty) settingsChanged = applyCloud(row.data, 'replace', !!o.initial, e);
+        else { settingsChanged = applyCloud(row.data, 'merge', !!o.initial, e); needPush = true; }
+      }
+      if (pushForce) needPush = true;
+      var cur = collect(e), s = JSON.stringify(cur);
+      if (!needPush && s === lastSent) { writeMeta({ owner: e, cloudAt: row ? row.updated_at : null }); return settingsChanged; }
+      return rest('POST', '/rest/v1/learnora_progress?on_conflict=user_id', [{ user_id: uid, email: e, data: cur, updated_at: new Date().toISOString() }], { Prefer: 'resolution=merge-duplicates,return=representation' }).then(function (pr) {
+        if (!pr.ok) throw new Error(why(pr));
+        var ua = pr.j && pr.j[0] && pr.j[0].updated_at;
+        writeMeta({ owner: e, cloudAt: ua || null }); lastSent = s;
+        if (chg === startChg) { dirty = false; force = false; try { _set.call(localStorage, DIRTY, '0'); } catch (x) {} }
+        return settingsChanged;
+      });
+    });
+  }
+  function syncNow(o) {
+    o = o || {};
+    if (!cfgOk() || !SESS || !email() || SESS.e !== email()) { paint(); return Promise.resolve(false); }
+    if (busy) { again = true; return busy; }
+    setStatus('sync');
+    busy = run(o).then(function (ch) { busy = null; setStatus('ok'); if (again) { again = false; schedule(800); } return !!ch; }, function (x) {
+      busy = null; again = false;
+      if (!SESS) setStatus('idle'); else setStatus('err', x && x.message === 'refresh' ? T('เซสชันหมดอายุ กรุณาเข้าสู่ระบบใหม่', 'Session expired, please log in again') : (navigator.onLine === false ? T('ออฟไลน์ — จะส่งให้เมื่อออนไลน์', 'Offline — will upload when back online') : (x && x.message) || ''));
+      return false;
+    });
+    return busy;
+  }
+  /* last-chance upload when the tab is hidden / closed (no merge, tiny payload, keepalive) */
+  function flush() {
+    if (!dirty || !SESS || !email() || SESS.e !== email() || SESS.exp < Date.now() + 5000) return;
+    try { api('POST', '/rest/v1/learnora_progress?on_conflict=user_id', [{ user_id: SESS.uid, email: email(), data: collect(email()) }], SESS.at, { Prefer: 'resolution=merge-duplicates,return=minimal' }, false, true); } catch (x) {}
+  }
+
+  /* watch the keys that hold progress */
+  function tracked(k) { var e = email(); return !!e && !!SESS && (k === 'vm_grammar' || k === QB || k === 'vm_settings_v1' || k === 'vm_stats_v1_' + e); }
+  Storage.prototype.setItem = function (k, v) {
+    var r = _set.apply(this, arguments);
+    try { if (this === window.localStorage && !applying && tracked(k)) markDirty(false); } catch (x) {}
+    return r;
+  };
+  Storage.prototype.removeItem = function (k) {
+    var r = _del.apply(this, arguments);
+    try { if (this === window.localStorage && !applying && tracked(k)) markDirty(true); } catch (x) {}
+    return r;
+  };
+  document.addEventListener('visibilitychange', function () { if (document.hidden) flush(); else syncNow(); });
+  window.addEventListener('pagehide', flush);
+  window.addEventListener('online', function () { syncNow(); });
+  setInterval(function () { if (!document.hidden) syncNow(); }, 60000);
+
+  /* ---------- entering the app after a successful Supabase login ---------- */
+  function enter(u, welcome) {
+    try { var old = g('user_' + u.email) || {}; delete old.pass; old.name = u.name; old.email = u.email; _set.call(localStorage, 'user_' + u.email, JSON.stringify(old)); } catch (x) {}
+    var m = readMeta();
+    if (m && m.owner && m.owner !== u.email) { _del.call(localStorage, 'vm_grammar'); _del.call(localStorage, QB); }   /* device-wide keys belong to the previous account */
+    _set.call(localStorage, 'active_user', JSON.stringify(u));
+    try { sessionStorage.setItem('vm_entered', '1'); } catch (x) {}
+    lastSent = '';
+    var fin = false, go = function (reload) {
+      if (fin) return; fin = true;
+      if (reload) { location.reload(); return; }
+      checkSession(); if (welcome) speakText("Welcome to Learnora! Let's start learning English together.", 0.9);
+    };
+    syncNow({ initial: true }).then(go);
+    setTimeout(function () { go(false); }, 7000);
+  }
+  function verifyCode(mail, code) {
+    return api('POST', '/auth/v1/verify', { type: 'email', email: mail, token: code }).then(function (r) {
+      return r.ok ? r : api('POST', '/auth/v1/verify', { type: 'signup', email: mail, token: code });
+    });
+  }
+  function pwOk(p) { return p.length >= 8 && /[a-zA-Z]/.test(p) && /[0-9]/.test(p); }
+  function nameOf(j, mail) { var md = j && j.user && j.user.user_metadata; var l = g('user_' + mail); return (md && md.name) || (l && l.name) || mail.split('@')[0]; }
+
+  /* ---------- login ---------- */
+  window.handleLogin = function (ev) {
+    ev.preventDefault();
+    var em = $('login-email').value.trim().toLowerCase(), pw = $('login-pass').value, box = $('login-error-msg'), btn = ev.target && ev.target.querySelector ? ev.target.querySelector('button[type=submit]') : null;
+    function bad(m) { box.innerText = m; box.classList.remove('hidden'); var p = $('login-pass'); p.value = ''; p.focus(); if (btn) btn.disabled = false; }
+    if (!cfgOk()) { bad(T('ยังไม่ได้ตั้งค่า Supabase', 'Supabase is not configured')); return; }
+    if (btn) btn.disabled = true;
+    api('POST', '/auth/v1/token?grant_type=password', { email: em, password: pw }).then(function (r) {
+      if (!r.ok || !r.j || !r.j.access_token) {
+        var j = r.j || {}, m = String(j.error_code || j.msg || j.message || j.error_description || '');
+        if (r.status === 429 || /rate.?limit/i.test(m)) { bad(T('ลองเข้าสู่ระบบบ่อยเกินไป กรุณารอสักครู่', 'Too many attempts. Please wait a moment.')); return; }
+        if (/email_not_confirmed/i.test(m)) { bad(T('อีเมลนี้ยังไม่ได้ยืนยัน กด "ลืมรหัสผ่าน?" เพื่อยืนยันและตั้งรหัสผ่าน', 'This email is not verified yet. Use "Forgot password?" to verify it and set a password.')); return; }
+        if (r.status >= 500 || r.status === 0) { bad(T('เซิร์ฟเวอร์ไม่ตอบสนอง ลองใหม่อีกครั้ง', 'Server is not responding. Try again.')); return; }
+        var legacy = g('user_' + em);
+        bad(legacy && legacy.pass ? T('บัญชีนี้สร้างไว้แบบเก่าในเครื่อง กด "ลืมรหัสผ่าน?" เพื่อย้ายขึ้น Supabase (ความคืบหน้าเดิมไม่หาย)', 'This account was created the old way on this device. Use "Forgot password?" to move it to Supabase (your progress is kept).') : t('err_bad_pw'));
+        return;
+      }
+      if (btn) btn.disabled = false; box.classList.add('hidden');
+      saveSess(r.j, em);
+      var u = { name: nameOf(r.j, em), email: em };
+      unlockSpeech();
+      triggerProcessingModal(t('in_title'), t('in_status'), '🚀', function () { enter(u, true); });
+    }).catch(function () { bad(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+
+  /* ---------- sign-up: after the e-mail code is verified, set the password + name in Supabase ---------- */
+  var suTries = 0;
+  function suBox(m) { var e = $('signup-error-msg'); if (!e) return; if (!m) { e.classList.add('hidden'); return; } e.innerText = m; e.classList.remove('hidden'); }
+  window.vmSignupVerify = function () {
+    var em = $('signup-email').value.trim().toLowerCase(), name = $('signup-name').value.trim(), pass = $('signup-pass').value, code = $('su-code').value.replace(/\s/g, ''), btn = $('su-ok');
+    if (!/^\d{6,10}$/.test(code)) { suBox(T('กรอกรหัสยืนยันจากอีเมล (ตัวเลข 6 หลักขึ้นไป)', 'Enter the code from the email (6 or more digits).')); return; }
+    if (suTries >= 5) { suBox(T('กรอกรหัสผิดหลายครั้งเกินไป กด "ส่งรหัสอีกครั้ง"', 'Too many wrong attempts. Press "Resend code".')); return; }
+    if (!pwOk(pass)) { window.vmSignupBack(); suBox(T('กรุณากรอกรหัสผ่านอีกครั้ง', 'Please enter your password again.')); return; }
+    btn.disabled = true; suBox('');
+    verifyCode(em, code).then(function (r) {
+      if (!r.ok || !r.j || !r.j.access_token) { btn.disabled = false; suTries++; suBox(T('รหัสไม่ถูกต้องหรือหมดอายุ ลองกด "ส่งรหัสอีกครั้ง"', 'The code is invalid or has expired. Try "Resend code".')); return; }
+      return api('PUT', '/auth/v1/user', { password: pass, data: { name: name } }, r.j.access_token).then(function (u) {
+        btn.disabled = false;
+        if (!u.ok) { suBox(T('ตั้งรหัสผ่านไม่สำเร็จ: ', 'Could not set the password: ') + why(u)); return; }
+        suTries = 0; saveSess(r.j, em); window.vmSignupBack();
+        var usr = { name: name || em.split('@')[0], email: em };
+        unlockSpeech();
+        triggerProcessingModal(t('reg_title'), t('reg_status'), '✨', function () { enter(usr, true); });
+      });
+    }).catch(function () { btn.disabled = false; suBox(T('เชื่อมต่อไม่ได้ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Could not connect. Check your internet and try again.')); });
+  };
+
+  /* ---------- forgot password: e-mail code -> new password stored in Supabase ---------- */
+  var fgMail = '', fgCool = 0, fgT = null;
+  function fgErr(m) { var e = $('fg-error'); if (!e) return; if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); }
+  function fgNote(m) { var e = $('fg-note'); if (!e) return; if (!m) { e.classList.add('hidden'); return; } e.textContent = m; e.classList.remove('hidden'); }
+  function fgSend() {
+    return api('POST', '/auth/v1/otp', { email: fgMail, create_user: true }).then(function (r) {
+      if (!r.ok) { var e = new Error('send'); e.r = r; throw e; }
+      fgCool = 30; clearInterval(fgT); $('fg-resend').disabled = true;
+      fgT = setInterval(function () { fgCool--; var b = $('fg-resend'); if (b) b.disabled = fgCool > 0; if (fgCool <= 0) clearInterval(fgT); }, 1000);
+    });
+  }
+  function fgSendErr(x) {
+    if (!x || !x.r) return T('เชื่อมต่อไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Connection failed. Check your internet and try again.');
+    var m = String((x.r.j && (x.r.j.msg || x.r.j.message || x.r.j.error_description || x.r.j.error)) || '');
+    if (x.r.status === 429 || /rate limit/i.test(m)) return T('ส่งอีเมลบ่อยเกินไป กรุณารอสักครู่แล้วลองใหม่', 'Too many emails requested. Please wait a moment and try again.');
+    return T('ส่งอีเมลไม่สำเร็จ', 'Could not send the email.') + (m ? ' (' + m + ')' : '');
+  }
+  window.vmForgotCheck = function (ev) {
+    ev.preventDefault(); var m = $('fg-email').value.trim().toLowerCase();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(m)) { fgErr(T('รูปแบบอีเมลไม่ถูกต้อง', 'That email address is not valid.')); return; }
+    if (!cfgOk()) { fgErr(T('ยังไม่ได้ตั้งค่า Supabase', 'Supabase is not configured')); return; }
+    fgErr(''); fgMail = m; var btn = ev.target.querySelector('button[type=submit]'); if (btn) btn.disabled = true; fgNote(T('กำลังส่งอีเมล…', 'Sending email…'));
+    fgSend().then(function () {
+      if (btn) btn.disabled = false;
+      $('fg-form1').classList.add('hidden'); $('fg-form2').classList.remove('hidden'); $('fg-codebox').classList.remove('hidden'); $('fg-code').required = true;
+      $('fg-sub').setAttribute('data-fg', 'ตั้งรหัสผ่านใหม่ที่คุณจำได้|Choose a new password you will remember'); $('fg-sub').textContent = T('ตั้งรหัสผ่านใหม่ที่คุณจำได้', 'Choose a new password you will remember');
+      $('fg-who').textContent = T('ตั้งรหัสผ่านใหม่ให้ ', 'New password for ') + fgMail;
+      fgNote(T('ส่งรหัสยืนยันไปที่ ' + fgMail + ' แล้ว ตรวจดูในกล่องจดหมายและสแปมด้วย', 'A verification code was sent to ' + fgMail + '. Check your inbox and spam folder.')); $('fg-code').focus();
+    }).catch(function (x) { if (btn) btn.disabled = false; fgNote(''); fgErr(fgSendErr(x)); });
+  };
+  window.vmForgotResend = function () {
+    if (fgCool > 0 || !fgMail) return; fgErr(''); fgNote(T('กำลังส่งอีเมล…', 'Sending email…'));
+    fgSend().then(function () { fgNote(T('ส่งรหัสใหม่ไปที่ ' + fgMail + ' แล้ว', 'A new code was sent to ' + fgMail)); }).catch(function (x) { fgNote(''); fgErr(fgSendErr(x)); });
+  };
+  window.vmForgotSave = function (ev) {
+    ev.preventDefault(); var p = $('fg-pass').value, c = $('fg-pass2').value, code = $('fg-code').value.replace(/\s/g, ''), btn = ev.target.querySelector('button[type=submit]');
+    if (!pwOk(p)) { fgErr(T('รหัสผ่านต้องมีอย่างน้อย 8 ตัว และมีทั้งตัวอักษรและตัวเลข', 'Password must be at least 8 characters with letters and numbers.')); return; }
+    if (p !== c) { fgErr(T('รหัสผ่านทั้งสองช่องไม่ตรงกัน', 'The two passwords do not match.')); $('fg-pass2').value = ''; return; }
+    if (!/^\d{6,10}$/.test(code)) { fgErr(T('กรอกรหัสยืนยันจากอีเมล', 'Enter the code from the email.')); return; }
+    if (btn) btn.disabled = true; fgErr('');
+    verifyCode(fgMail, code).then(function (r) {
+      if (!r.ok || !r.j || !r.j.access_token) { if (btn) btn.disabled = false; fgErr(T('รหัสยืนยันไม่ถูกต้องหรือหมดอายุ ลองกด "ส่งรหัสอีกครั้ง"', 'The code is incorrect or has expired. Try "Resend code".')); return; }
+      return api('PUT', '/auth/v1/user', { password: p }, r.j.access_token).then(function (u) {
+        if (btn) btn.disabled = false;
+        if (!u.ok) { fgErr(T('ตั้งรหัสผ่านไม่สำเร็จ: ', 'Could not set the password: ') + why(u)); return; }
+        try { var old = g('user_' + fgMail); if (old && old.pass) { delete old.pass; _set.call(localStorage, 'user_' + fgMail, JSON.stringify(old)); } } catch (x) {}
+        var le = $('login-email'), lp = $('login-pass'); if (le) le.value = fgMail; if (lp) lp.value = '';
+        alert(T('ตั้งรหัสผ่านใหม่เรียบร้อย! เข้าสู่ระบบด้วยรหัสผ่านใหม่ได้เลย', 'Password updated! You can now log in with the new password.'));
+        fgMail = ''; window.toggleAuth('login');
+      });
+    }).catch(function () { if (btn) btn.disabled = false; fgErr(T('เชื่อมต่อไม่สำเร็จ ตรวจสอบอินเทอร์เน็ตแล้วลองใหม่', 'Connection failed. Check your internet and try again.')); });
+  };
+
+  /* ---------- logout: push the last changes, then close the Supabase session ---------- */
+  var ocl = window.confirmLogout;
+  if (typeof ocl === 'function') window.confirmLogout = function () {
+    var p = SESS ? syncNow({}) : Promise.resolve(false), tok = SESS && SESS.at;
+    var out = ocl.apply(this, arguments);
+    Promise.race([p, new Promise(function (r) { setTimeout(r, 4000); })]).then(function () {
+      if (tok) { try { api('POST', '/auth/v1/logout?scope=local', null, tok); } catch (x) {} }
+      clearSess(); setStatus('idle');
+    });
+    return out;
+  };
+
+  /* ---------- settings row: shows the sync state, "sync now" button ---------- */
+  function inject() {
+    var ex = $('st-exp'); if (!ex || $('st-cloud')) return;
+    var r = ex.closest('.row-set'); if (!r) return;
+    var d = document.createElement('div'); d.className = 'row-set'; d.id = 'st-cloud';
+    d.innerHTML = '<div class="l"><b>' + T('ซิงก์อัตโนมัติกับ Supabase', 'Auto-sync with Supabase') + '</b><span id="cl-state"></span></div>' +
+      '<div><button type="button" class="btn-o" id="cl-now">' + T('ซิงก์ตอนนี้', 'Sync now') + '</button></div>';
+    r.parentNode.insertBefore(d, r.nextSibling); paint();
+  }
+  document.addEventListener('click', function (e) {
+    if (!(e.target.closest && e.target.closest('#cl-now'))) return;
+    if (!SESS) { toast(T('ยังไม่ได้เชื่อมต่อ ออกจากระบบแล้วเข้าสู่ระบบใหม่', 'Not connected — log out and log in again')); return; }
+    force = false; syncNow({}).then(function () { toast(status.s === 'ok' ? T('ซิงก์แล้ว', 'Synced') : T('ซิงก์ไม่สำเร็จ: ', 'Sync failed: ') + (status.msg || '')); });
+  });
+  new MutationObserver(inject).observe(document.body, { childList: true, subtree: true });
+  inject();
+
+  /* ---------- start: a returning tab with a live session resumes syncing ---------- */
+  if (SESS && email() && SESS.e === email()) schedule(1200);
+  else if (SESS && email() && SESS.e !== email()) clearSess();
 })();
 </script>
 </body>
+
 </html>
